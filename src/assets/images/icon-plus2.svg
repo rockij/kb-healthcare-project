@@ -1,0 +1,16 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon" clip-path="url(#clip0_3224_12725)">
+<g id="Union">
+<mask id="path-1-inside-1_3224_12725" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.7 5H7.2V7.2H5V8.7H7.2V11H8.7V8.7H11V7.2H8.7V5Z"/>
+</mask>
+<path d="M7.2 5V3.5H5.7V5H7.2ZM8.7 5H10.2V3.5H8.7V5ZM7.2 7.2V8.7H8.7V7.2H7.2ZM5 7.2V5.7H3.5V7.2H5ZM5 8.7H3.5V10.2H5V8.7ZM7.2 8.7H8.7V7.2H7.2V8.7ZM7.2 11H5.7V12.5H7.2V11ZM8.7 11V12.5H10.2V11H8.7ZM8.7 8.7V7.2H7.2V8.7H8.7ZM11 8.7V10.2H12.5V8.7H11ZM11 7.2H12.5V5.7H11V7.2ZM8.7 7.2H7.2V8.7H8.7V7.2ZM7.2 6.5H8.7V3.5H7.2V6.5ZM8.7 7.2V5H5.7V7.2H8.7ZM5 8.7H7.2V5.7H5V8.7ZM6.5 8.7V7.2H3.5V8.7H6.5ZM7.2 7.2H5V10.2H7.2V7.2ZM8.7 11V8.7H5.7V11H8.7ZM8.7 9.5H7.2V12.5H8.7V9.5ZM7.2 8.7V11H10.2V8.7H7.2ZM11 7.2H8.7V10.2H11V7.2ZM9.5 7.2V8.7H12.5V7.2H9.5ZM8.7 8.7H11V5.7H8.7V8.7ZM7.2 5V7.2H10.2V5H7.2Z" fill="#444444" mask="url(#path-1-inside-1_3224_12725)"/>
+</g>
+<rect id="bg" x="2.74902" y="2.75" width="10.5" height="10.5" rx="0.75" stroke="#444444" stroke-width="1.5"/>
+</g>
+<defs>
+<clipPath id="clip0_3224_12725">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,44 @@
+// @font-face {
+//   font-family: 'Pretendard';
+//   src: url('myfont.woff2') format('woff2');
+// }
+
+$weightPretendard: (
+  'Thin': 100,
+  'ExtraLight': 200,
+  'Light': 300,
+  'Regular': 400,
+  'Medium': 500,
+  'SemiBold': 600,
+  'Bold': 700,
+  'ExtraBold': 800,
+  'Black': 900
+);
+
+@each $fontName, $fontWeight in $weightPretendard {
+  @include font-face(
+    'Pretendard',
+    '../../assets/font/Pretendard-#{$fontName}.woff2',
+    $fontWeight,
+    null,
+    woff2
+  );
+}
+
+@font-face {
+  font-family: 'KBFG';
+  src: url('../../assets/font/KBFGTextL.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'KBFG';
+  src: url('../../assets/font/KBFGTextM.woff2') format('woff2');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'KBFG';
+  src: url('../../assets/font/KBFGTextM.woff2') format('woff2');
+  font-weight: 700;
+}

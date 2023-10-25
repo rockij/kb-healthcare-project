@@ -1,0 +1,257 @@
+.no-data {
+  padding-block: toRem(56);
+  font-size: toRem(16);
+  text-align: center;
+  .icon {
+    background-size: contain;
+    width: toRem(48); //default size
+    height: toRem(48);
+    margin: 0 auto;
+    &-info {
+      @include bgimg('img-nodata');
+    }
+    &-point {
+      @include bgimg('img-nodata2');
+    }
+    &.small {
+      width: toRem(40);
+      height: toRem(40);
+    }
+    &.big {
+      width: toRem(60);
+      height: toRem(60);
+    }
+  }
+  .text {
+    padding-top: toRem(16);
+  }
+  &.type {
+    padding-block: 0;
+  }
+}
+
+// tooltip
+.tooltip-area {
+  .btn-text {
+    line-height: 20px;
+    --v-btn-height: 32px;
+    color: $black;
+    .v-btn__append {
+      margin-inline-start: 2px;
+      .v-icon {
+        font-size: toRem(20);
+      }
+    }
+  }
+}
+.tooltip-box {
+  @include position(
+    $ps: absolute,
+    $t: null,
+    $b: null,
+    $l: 0,
+    $r: null,
+    $zi: 10
+  );
+  border-radius: toRem(8);
+  background-color: #444;
+  font-size: toRem(14);
+  color: #f8f8f8;
+  letter-spacing: toRem(0.14);
+  line-height: toRem(20);
+  padding: toRem(12) toRem(12) toRem(14) toRem(20);
+  display: grid;
+  grid-template-columns: auto 36px;
+  .v-btn.btn-close {
+    position: absolute;
+    right: toRem(5);
+    top: toRem(10);
+    z-index: 20;
+    margin-top: toRem(-5);
+    min-width: auto;
+    padding: 0;
+    &.v-btn--density-default {
+      width: toRem(35);
+      height: toRem(35);
+    }
+    .mdi-close {
+      @include bgmask('icon-x2', $color: #fff);
+      width: toRem(20);
+      height: toRem(20);
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+// card report
+.card-report {
+  margin-block-start: toRem(24);
+  .v-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 8px 0;
+    line-height: toRem(24) !important;
+  }
+  .text-date {
+    @include fontWeight(semibold);
+    font-size: toRem(16);
+  }
+  .v-card-item {
+    border: 1px solid #e9eff1;
+    border-radius: 16px;
+    // border-start-start-radius: 0;
+    // border-start-end-radius: 0;
+    padding: toRem(16);
+  }
+  .btn-area {
+    display: flex;
+    justify-content: space-between;
+    gap: 0 toRem(16);
+    .v-btn {
+      background-color: transparent;
+      width: toRem(20);
+      height: auto;
+      align-self: center;
+      border-radius: 0;
+    }
+  }
+  .icon-state {
+    margin-left: toRem(8);
+    @include icon-emoji-emotion;
+  }
+  .dl {
+    display: flex;
+    &:not(:first-child) {
+      padding-top: toRem(8);
+    }
+    align-items: center;
+    ~ .dl {
+      padding-top: toRem(4);
+    }
+    .error {
+      color: $red;
+    }
+    .success {
+      color: $red;
+    }
+    .primary {
+      color: $blue;
+    }
+    dt {
+      min-width: 70px;
+      font-size: 14px;
+    }
+    dd {
+      padding-left: 18px;
+    }
+  }
+  .point {
+    color: $blue;
+  }
+}
+
+//dialog
+.v-btn--icon {
+  &.v-btn--density-default {
+    &.btn-modal-close {
+      width: toRem(44);
+      height: toRem(44);
+      @include bgimg('icon-x2');
+      background-position: 50% 50%;
+      .mdi-close {
+        &::before {
+          content: '';
+        }
+      }
+    }
+  }
+}
+
+//baner
+.baner-report {
+  .statelst {
+    $box-pd: toRem(16);
+    $icon-size: toRem(32);
+    position: relative;
+    padding: $box-pd $box-pd $box-pd calc(toRem(16) + toRem(32) + toRem(8));
+    border-radius: toRem(12);
+    line-height: 1.4;
+    font-size: toRem(16);
+    color: #fff;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: $box-pd;
+      width: $icon-size;
+      height: $icon-size;
+      background-size: 100% auto;
+    }
+    .title {
+      display: block;
+      font-size: toRem(18);
+    }
+    background-color: #a3afbf;
+    &::before {
+      @include bgimg('icon-state-emoji00');
+    }
+    &[data-case='verybad'] {
+      background-color: $red;
+      &::before {
+        @include bgimg('icon-state-emoji01');
+      }
+    }
+    &[data-case='bad'] {
+      background-color: #ff862f;
+      &::before {
+        @include bgimg('icon-state-emoji02');
+      }
+    }
+    &[data-case='normal'] {
+      background-color: #ffd633;
+      color: #60584c;
+      &::before {
+        @include bgimg('icon-state-emoji03');
+      }
+    }
+    &[data-case='good'] {
+      background-color: #6dd434;
+      &::before {
+        @include bgimg('icon-state-emoji04');
+      }
+    }
+    &[data-case='verygood'] {
+      background-color: #00c378;
+      &::before {
+        @include bgimg('icon-state-emoji05');
+      }
+    }
+  }
+  .video {
+    overflow: hidden;
+    border-radius: toRem(16);
+    background-color: #fff;
+    box-shadow: 2px 4px 10px 0px rgba(209, 216, 222, 0.25);
+    video {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .caution {
+      position: relative;
+      padding: toRem(16) toRem(16) toRem(16) toRem(40);
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: toRem(16);
+        transform: translateY(-50%);
+        width: toRem(20);
+        height: toRem(20);
+        @include bgimg('icon-caption');
+      }
+    }
+  }
+}

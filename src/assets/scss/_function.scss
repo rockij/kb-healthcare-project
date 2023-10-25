@@ -1,0 +1,14 @@
+//pxTorem ex: width: toRem(275)
+@function toRem($value) {
+  $remValue: calc(($value / 16) * 1rem);
+  @return $remValue;
+}
+
+//size class 생성
+$remClass: (
+  fs: font-size,
+  ws: width,
+  miws: min-width,
+  bdr: border-radius,
+  gap: gap
+);

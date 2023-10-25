@@ -1,0 +1,202 @@
+// background-image
+// format이 다른 경우 사용 예시: .photo {@include bgimg('photo', $format:'jpg', $repeat: repeat);}
+@mixin bgimg(
+  $name,
+  $path: '../../assets/images/',
+  $format: 'svg',
+  $repeat: no-repeat
+) {
+  background-image: url('#{$path}#{$name}.#{$format}');
+  background-repeat: $repeat;
+}
+//font weight ex: @include fontWeight(semibold);
+@mixin fontWeight($weight: null) {
+  @if $weight == bold {
+    font-weight: 700;
+  } @else if $weight == semibold {
+    font-weight: 600;
+  } @else if $weight == light {
+    font-weight: 300;
+  } @else {
+    font-weight: normal;
+  }
+}
+//가로스크롤 @include mediaScroller(), gap:박스간 간격, col:박스 가로사이즈, row:박스 세로사이즈
+@mixin mediaScroller($gap, $col, $row, $pd: $gap) {
+  display: grid;
+  gap: $gap;
+  grid-auto-flow: column;
+  grid-auto-columns: $col;
+  grid-auto-rows: $row;
+  overflow-x: auto;
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: $pd;
+  align-items: center;
+  > * {
+    scroll-snap-align: start;
+  }
+}
+// 포지션 디폴트값 설정 @include position
+@mixin position($ps: absolute, $t: 0, $b: null, $l: 0, $r: null, $zi: 10) {
+  position: $ps;
+  top: $t;
+  bottom: $b;
+  left: $l;
+  right: $r;
+  z-index: $zi;
+}
+// 말줄임 표시 @include textOverflow(2), 1줄일때는 예외처리
+@mixin textOverflow($linetype: 1) {
+  overflow: hidden;
+  @if $linetype == 1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box !important;
+    -webkit-line-clamp: $linetype;
+    -webkit-box-orient: vertical;
+  }
+}
+
+//font
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: woff2) {
+  $src: null;
+  $formats: (
+    otf: 'opentype',
+    ttf: 'truetype',
+    woff: 'woff',
+    woff2: 'woff2'
+  );
+  @each $ext in $exts {
+    $format: map-get($formats, $ext);
+    $src: append($src, url(quote($path)) format(quote($format)), comma);
+  }
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+// arrow, @include arrow(toRem(9), toRem(1.5), #26282c);
+@mixin arrow($size, $thick, $color, $deg: 45deg) {
+  display: inline-block;
+  border-width: $thick $thick 0 0;
+  border-style: solid;
+  border-color: $color;
+  width: $size;
+  height: $size;
+  transform: rotate($deg);
+}
+
+// v-btn reset, @include v-btn-reset;
+@mixin v-btn-reset {
+  &.v-btn--density-default {
+    height: auto;
+    min-width: auto;
+  }
+  .v-btn__content {
+    display: block;
+    white-space: normal;
+  }
+}
+
+// @include caution;
+@mixin caution($fs, $color: #444) {
+  font-size: $fs;
+  color: $color;
+  display: flex;
+  &::before {
+    content: '';
+    display: inline-block;
+    width: toRem(20);
+    height: toRem(20);
+    @include bgimg('icon-desc');
+    margin-top: toRem(4);
+    margin-right: toRem(4);
+  }
+}
+
+// @include bgmask('icon-map2', $color: #444);
+@mixin bgmask(
+  $name,
+  $path: '../../assets/images/',
+  $format: 'svg',
+  $repeat: no-repeat,
+  $color
+) {
+  background-color: $color;
+  -webkit-mask-image: url('#{$path}#{$name}.#{$format}');
+  -webkit-mask-repeat: $repeat;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: contain;
+}
+
+// @include icon-emoji-state;
+@mixin icon-emoji-state($case: null) {
+  @if $case == 'off' {
+    &[data-emoji='매우좋음'] {
+      @include bgimg('icon-state-emoji05-off');
+    }
+    &[data-emoji='좋음'] {
+      @include bgimg('icon-state-emoji04-off');
+    }
+    &[data-emoji='보통'] {
+      @include bgimg('icon-state-emoji03-off');
+    }
+    &[data-emoji='나쁨'] {
+      @include bgimg('icon-state-emoji02-off');
+    }
+    &[data-emoji='매우나쁨'] {
+      @include bgimg('icon-state-emoji01-off');
+    }
+  } @else {
+    &[data-emoji='매우좋음'] {
+      @include bgimg('icon-state-emoji05');
+    }
+    &[data-emoji='좋음'] {
+      @include bgimg('icon-state-emoji04');
+    }
+    &[data-emoji='보통'] {
+      @include bgimg('icon-state-emoji03');
+    }
+    &[data-emoji='나쁨'] {
+      @include bgimg('icon-state-emoji02');
+    }
+    &[data-emoji='매우나쁨'] {
+      @include bgimg('icon-state-emoji01');
+    }
+  }
+}
+
+// @include icon-emoji-emotion;
+@mixin icon-emoji-emotion {
+  display: inline-block;
+  width: toRem(32);
+  height: toRem(32);
+  &[data-emoji='화남'] {
+    @include bgimg('icon-emo-emoji01');
+  }
+  &[data-emoji='신이남'] {
+    @include bgimg('icon-emo-emoji02');
+  }
+  &[data-emoji='슬픔'] {
+    @include bgimg('icon-emo-emoji03');
+  }
+  &[data-emoji='우울한'] {
+    @include bgimg('icon-emo-emoji04');
+  }
+  &[data-emoji='짜증난'] {
+    @include bgimg('icon-emo-emoji05');
+  }
+  &[data-emoji='행복한'] {
+    @include bgimg('icon-emo-emoji06');
+  }
+  &[data-emoji='감사한'] {
+    @include bgimg('icon-emo-emoji07');
+  }
+  &[data-emoji='만족한'] {
+    @include bgimg('icon-emo-emoji08');
+  }
+}

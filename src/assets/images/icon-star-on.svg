@@ -1,0 +1,11 @@
+<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon Button / 20px" clip-path="url(#clip0_3224_12478)">
+<rect id="bg" opacity="0.23" x="0.832031" y="20" width="20" height="20" transform="rotate(-90 0.832031 20)" fill="white"/>
+<path id="Star 1" d="M10.832 2L13.7398 6.49779L18.916 7.87336L15.5369 12.0287L15.8282 17.3766L10.832 15.447L5.83586 17.3766L6.12715 12.0287L2.74805 7.87336L7.92426 6.49779L10.832 2Z" fill="#FFCC00"/>
+</g>
+<defs>
+<clipPath id="clip0_3224_12478">
+<rect width="20" height="20" fill="white" transform="translate(0.832031)"/>
+</clipPath>
+</defs>
+</svg>
