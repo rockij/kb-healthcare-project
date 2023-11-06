@@ -23,7 +23,7 @@
       :style="{ height: navHeight }"
       class="defaultPadding-x"
     >
-      <div ref="sticky">
+      <div class="sticky">
         <!-- contents -->
         <v-btn variant="text" class="mt-6 pl-0" @click="modal = true">
           <span class="fs-24">{{ selBtn.text }}</span>
@@ -59,17 +59,16 @@
     components: { MAJ0104632, FAQList },
     setup() {
       //sticky
-      const sticky = ref(null)
       const stickyArea = ref(null)
       const navHeight = ref(null)
       onMounted(() => {
-        const stickyHeight = (navHeight.value =
-          sticky.value.offsetHeight + 'px')
+        const sticky = document.querySelector('.sticky')
+        navHeight.value = sticky.offsetHeight + 'px'
         const stickyObserver = new IntersectionObserver(
           ([e]) => {
-            if (!e.isIntersecting && sticky.value !== null)
-              sticky.value.classList.add('isFixed')
-            else sticky.value.classList.remove('isFixed')
+            if (!e.isIntersecting && sticky !== null)
+              sticky.classList.add('isFixed')
+            else sticky.classList.remove('isFixed')
           },
           {
             root: null,
@@ -242,7 +241,6 @@
         filteredList,
         hightlight,
         navHeight,
-        sticky,
         stickyArea
       }
     }

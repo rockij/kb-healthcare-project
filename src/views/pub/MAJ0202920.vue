@@ -1,70 +1,88 @@
 <template>
-  <div class="contents">
-    <div class="report-title mb-4">
-      <!-- picker -->
-      <v-btn
-        variant="text"
-        class="fs-24 pa-0"
-        @click="
-          ;(calendarMonth = !calendarMonth), (calendarWeek = !calendarWeek)
-        "
-      >
-        <span class="pr-2">2023.08.03</span>
-        <img src="@/assets/images/icon-arrow-down.svg" alt="" />
-      </v-btn>
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
     </div>
-    <div v-if="calendarMonth" class="calendar-body">
-      <div v-for="(week, i) in weekday" :key="i" class="weekday">
-        {{ week }}
-      </div>
-      <div v-for="n in 31" :key="n" class="days">
-        <div class="text">{{ n }}</div>
-      </div>
-    </div>
-    <v-btn
-      v-if="calendarMonth"
-      variant="text"
-      class="btn-native-bar"
-      title="달력"
-      @click=";(calendarMonth = !calendarMonth), (calendarWeek = !calendarWeek)"
-    ></v-btn>
-    <!-- //달력 -->
-
     <div class="section-page bg pa-4">
-      <v-card variant="flat" rounded="xl" class="pa-4">
+      <v-card variant="flat" rounded="xl" class="px-4 py-6">
         <v-card-title class="pa-0 fs-20 font-weight-bold"
           >오건강님<br />오늘 하루 어떠셨나요?
         </v-card-title>
         <p class="text-info-grey2 fs-16 mt-2">
           토닥토닥 마음관리가 필요한<br />오늘 기분 기록을 해보세요
         </p>
-        <div class="imoji-bigselct mt-7">
-          <v-radio-group v-model="emotionSelect" @change="emotionFunc">
-            <div class="d-flex justify-center">
-              <v-radio value="verygood" class="radio-imoji">
-                <template v-slot:label
-                  ><i data-emoji="매우좋음"></i>매우좋음</template
-                >
-              </v-radio>
-              <v-radio value="good" class="radio-imoji ml-7">
-                <template v-slot:label><i data-emoji="좋음"></i>좋음</template>
-              </v-radio>
-            </div>
-            <div class="d-flex justify-center mt-4">
-              <v-radio value="normal" class="radio-imoji">
-                <template v-slot:label><i data-emoji="보통"></i>보통</template>
-              </v-radio>
-              <v-radio value="bad" class="radio-imoji ml-7">
-                <template v-slot:label><i data-emoji="나쁨"></i>나쁨</template>
-              </v-radio>
-              <v-radio value="verybad" class="radio-imoji ml-7">
-                <template v-slot:label
-                  ><i data-emoji="매우나쁨"></i>매우나쁨</template
-                >
-              </v-radio>
-            </div>
-          </v-radio-group>
-        </div>
+
+        <v-btn-toggle
+          class="emoji-bigselct mt-8"
+          :class="emojiResultClass"
+          v-model="emotionSelect"
+          @click="emotionFunc"
+        >
+          <div class="d-flex justify-center gap-34 emoji-anim-frame">
+            <v-btn variant="text" value="verygood" class="radio-imoji">
+              <div class="emoji-anim verygood">
+                <figure class="face">
+                  <span class="eye"></span>
+                  <span class="eye last"></span>
+                  <span class="mouth"></span>
+                  <span class="heart1"></span>
+                  <span class="heart2"></span>
+                  <span class="heart3"></span>
+                </figure>
+              </div>
+              매우좋음
+            </v-btn>
+            <v-btn variant="text" value="good" class="radio-imoji">
+              <div class="emoji-anim good">
+                <figure class="face">
+                  <span class="eye"></span>
+                  <span class="eye last"></span>
+                  <span class="mouth"></span>
+                </figure>
+              </div>
+              좋음
+            </v-btn>
+          </div>
+          <div
+            class="d-flex justify-space-around emoji-anim-frame"
+            :class="emostateClass"
+          >
+            <v-btn
+              ref="emojiNormal"
+              variant="text"
+              value="normal"
+              class="radio-imoji"
+            >
+              <div class="emoji-anim normal">
+                <figure class="face">
+                  <span class="eye"></span>
+                  <span class="eye last"></span>
+                  <span class="mouth"></span>
+                </figure>
+              </div>
+              보통
+            </v-btn>
+            <v-btn variant="text" value="bad" class="radio-imoji">
+              <div class="emoji-anim bad">
+                <figure class="face">
+                  <span class="eye"></span>
+                  <span class="eye last"></span>
+                  <span class="mouth"></span>
+                </figure>
+              </div>
+              나쁨
+            </v-btn>
+            <v-btn variant="text" value="verybad" class="radio-imoji">
+              <div class="emoji-anim verybad">
+                <figure class="face">
+                  <span class="eye"></span>
+                  <span class="eye last"></span>
+                </figure>
+              </div>
+              매우나쁨
+            </v-btn>
+          </div>
+        </v-btn-toggle>
       </v-card>
     </div>
     <!-- //오늘상태선택 -->
@@ -79,7 +97,9 @@
         </div>
         <div class="progress-bar mt-12" :data-num="list.gagePercent">
           <div class="bar" :style="`width: ${list.gagePercent}%`">
-            <span class="num">{{ list.gageText }}번</span>
+            <span class="tooltip-balloon arrow-bottom icon-walk num"
+              >{{ list.gageText }}번</span
+            >
           </div>
         </div>
       </div>
@@ -88,9 +108,9 @@
 
     <div class="section-page">
       <h2 class="tit-03 tit-link">
-        <v-btn block variant="text">기분 다이어리</v-btn>
+        <v-btn block variant="text">기분 기록</v-btn>
       </h2>
-      <div class="text-info-grey fs-16">전체 일기를 한번에 확인해보세요</div>
+      <div class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</div>
       <CardReport
         :btn="true"
         v-for="report in reports"
@@ -107,9 +127,8 @@
           >
             {{ getText(report.state) }}
           </v-chip>
-          <v-chip label size="small" class="chip-default ml-2">직접입력</v-chip>
           <dl class="dl">
-            <dt class="fs-14">{{ report.title }}</dt>
+            <dt class="fs-14 align-self-start">{{ report.title }}</dt>
             <dd>
               {{ report.text }}
               <div class="font-weight-bold d-flex align-center mt-2">
@@ -135,17 +154,18 @@
       :classOption="emotionClass"
       :tabNum="emotionTabNum"
       v-model="modal2"
-      @close="modal2 = false"
+      @close="emostateFunc"
     />
   </div>
 </template>
 <script>
+  import VCalendar from '@/components/VCalendar.vue'
   import CardReport from '@/components/CardReport.vue'
   import DialogSetting from '@/components/DialogSetting.vue' // 설정
   import DialogEmotionInput from '@/views/pub/MAJ0202971.vue'
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, computed, onMounted } from 'vue'
   export default {
-    components: { CardReport, DialogSetting, DialogEmotionInput },
+    components: { VCalendar, CardReport, DialogSetting, DialogEmotionInput },
     setup() {
       const weekday = reactive(['일', '월', '화', '수', '목', '금', '토'])
       const calendarWeek = ref(true)
@@ -249,10 +269,14 @@
         alert('삭제')
       }
 
+      const modal2 = ref(false)
       const emotionSelect = ref()
+      const emotionMsg = ref()
+      const emotionClass = ref()
+      const emotionTabNum = ref()
       const emotionFunc = () => {
         modal2.value = true
-        console.log(emotionSelect.value)
+        //console.log(emotionSelect.value)
         if (emotionSelect.value === 'verygood') {
           emotionMsg.value = '매우 좋음'
           emotionTabNum.value = 0
@@ -271,10 +295,49 @@
         }
         emotionClass.value = emotionSelect.value
       }
-      const modal2 = ref(false)
-      const emotionMsg = ref()
-      const emotionClass = ref()
-      const emotionTabNum = ref()
+      const emojiResultClass = ref()
+      const emostateClass = ref('mt-5')
+      const emostateFunc = () => {
+        modal2.value = false
+        emojiResultClass.value = emotionSelect.value
+        emostateClass.value = ''
+      }
+
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          dot: { class: 'emoji-verygood' },
+          dates: [new Date(2023, 9, 29)]
+        },
+        {
+          dot: { class: 'emoji-good' },
+          dates: [new Date(2023, 9, 10)]
+        },
+        {
+          dot: { class: 'emoji-normal' },
+          dates: [new Date(2023, 9, 20)]
+        },
+        {
+          dot: { class: 'emoji-bad' },
+          dates: [new Date(2023, 9, 13)]
+        },
+        {
+          dot: { class: 'emoji-verybad' },
+          dates: [new Date(2023, 9, 7)]
+        }
+      ])
+
+      const emojiVerygood = ref()
+
+      onMounted(() => {
+        setTimeout(() => {
+          emojiVerygood.value = 'play'
+        }, 300)
+      })
 
       return {
         weekday,
@@ -289,10 +352,15 @@
         delFunc,
         emotionSelect,
         emotionFunc,
+        emostateFunc,
+        emojiResultClass,
+        emostateClass,
         modal2,
         emotionMsg,
         emotionClass,
-        emotionTabNum
+        emotionTabNum,
+        calendarAttr,
+        emojiVerygood
       }
     }
   }

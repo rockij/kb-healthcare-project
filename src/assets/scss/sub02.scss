@@ -112,6 +112,11 @@
     line-height: toRem(26);
   }
 }
+.qnaview .img-box {
+  img {
+    width: 100%;
+  }
+}
 .detail-area {
   gap: toRem(12);
   .text {
@@ -575,7 +580,7 @@
   font-family: var(font-secondary);
   font-size: toRem(26);
   font-style: normal;
-  font-weight: 700;
+  @include fontWeight(bold);
   line-height: toRem(34);
 }
 .cancel-title {
@@ -1072,7 +1077,25 @@
       max-height: 100% !important;
       border-radius: 0 !important;
     }
+    .v-toolbar__content {
+      height: 64px;
+      padding: 0 $contentsPadding;
+      .v-btn {
+        position: absolute;
+        right: toRem(24);
+        top: 50%;
+        width: auto;
+        height: auto;
+        transform: translateY(-50%);
+        &:last-child {
+          margin-inline-end: 0;
+        }
+      }
+    }
     .modal-title {
+      @include fontWeight(bold);
+      font-size: toRem(16);
+      line-height: toRem(24);
       text-align: center;
     }
   }
@@ -1420,6 +1443,611 @@ $waterBColor: #ade3ff;
         font-size: 20px;
         color: #888;
       }
+    }
+  }
+}
+
+// 라이프로그 > 복약
+.section-page {
+  &.bg-sky {
+    background-color: #e6ecf5;
+    &::before {
+      display: none;
+    }
+  }
+}
+.medicine-title {
+  font-size: toRem(18);
+  @include fontWeight(semibold);
+  line-height: toRem(26);
+}
+.medicine-sorting {
+  margin: 0 toRem(-24);
+  background-color: #f8f8f8;
+  align-items: center;
+  .medi-text {
+    color: #888;
+  }
+}
+.medicine-tabs {
+  &.v-tabs--density-default {
+    --v-tabs-height: auto;
+  }
+  .v-tab {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    background-color: #f7f7f7;
+    .v-btn__content {
+      text-align: center;
+      line-height: toRem(24);
+      color: #888;
+    }
+    &.timeline {
+      .v-btn__content {
+        &::before {
+          content: '';
+          width: 20px;
+          height: 20px;
+          @include bgimg('icon-medi-time');
+        }
+      }
+    }
+    &.list {
+      .v-btn__content {
+        &::before {
+          content: '';
+          width: 20px;
+          height: 20px;
+          @include bgimg('icon-medi-list');
+        }
+      }
+    }
+  }
+  .v-slide-group__content {
+    gap: 0 10px;
+  }
+  .v-slide-group-item--active {
+    border: 1px solid #303d54;
+    background-color: #3b4a65;
+    .v-btn__content {
+      color: #fff;
+    }
+    &.timeline {
+      .v-btn__content {
+        &::before {
+          content: '';
+          width: 20px;
+          height: 20px;
+          @include bgimg('icon-medi-time-active');
+        }
+      }
+    }
+    &.list {
+      .v-btn__content {
+        &::before {
+          content: '';
+          width: 20px;
+          height: 20px;
+          @include bgimg('icon-medi-list-active');
+        }
+      }
+    }
+  }
+}
+.v-timeline--vertical {
+  &.v-timeline--justify-auto {
+    grid-template-columns: 0 min-content auto !important;
+  }
+  &.v-timeline--align-center {
+    .v-timeline-divider {
+      justify-content: flex-start !important;
+    }
+  }
+  .v-timeline-item:first-child {
+    .v-timeline-divider__after {
+      height: 100% !important;
+    }
+  }
+}
+.timeline-panel {
+  .v-expansion-panel-title__overlay {
+    opacity: 0 !important;
+  }
+  .v-expansion-panel__shadow {
+    box-shadow: none;
+  }
+  .v-expansion-panel-title {
+    padding: 0;
+    min-height: fit-content;
+    line-height: unset;
+  }
+  &.v-expansion-panel--active {
+    .v-expansion-panel-title {
+      min-height: fit-content;
+    }
+  }
+}
+
+.v-timeline-divider__dot--size-x-small {
+  width: 9px !important;
+  height: 9px !important;
+  margin-top: toRem(8);
+}
+.timeline-panel {
+  .v-expansion-panel-text {
+    display: block;
+  }
+  .v-expansion-panel-text__wrapper {
+    display: block;
+    padding: 0 !important;
+  }
+  .medi-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .no-medi-badge {
+    color: #fff;
+    font-size: toRem(13);
+    line-height: toRem(20);
+    padding: 5px 6px;
+    background-color: #eb5147;
+    border-radius: 4px;
+    @include fontWeight(normal);
+    vertical-align: middle;
+  }
+
+  .medi-card-left {
+    display: flex;
+    flex-direction: column;
+  }
+  .v-btn {
+    &.medi-check-btn {
+      padding: 15px 20px;
+      background-color: #ffd633;
+      &.v-btn--density-compact {
+        height: auto;
+      }
+      .v-btn__content {
+        font-size: toRem(14);
+        @include fontWeight(bold);
+        line-height: normal;
+        letter-spacing: -0.028px;
+        text-align: center;
+      }
+    }
+  }
+  .v-card__underlay {
+    display: none;
+  }
+  .category-medi-badge {
+    font-size: toRem(13);
+    line-height: toRem(20);
+    color: #3f86f1;
+    border: 1px solid #3f86f1;
+    border-radius: 4px;
+    padding: 0 6px;
+  }
+  .medi-name {
+    @include fontWeight(semibold);
+  }
+}
+.first-tab {
+  padding-left: 8px;
+}
+.medi-timeline {
+  &.v-timeline--vertical {
+    &.v-timeline {
+      .v-timeline-item:last-child {
+        .v-timeline-divider,
+        .v-timeline-item__body,
+        .v-timeline-item__opposite {
+          padding-block-end: 0 !important;
+        }
+        .v-timeline-divider__after {
+          display: none !important;
+        }
+      }
+      .v-timeline-item:first-child {
+        .v-timeline-divider,
+        .v-timeline-item__body,
+        .v-timeline-item__opposite {
+          padding-block-start: 0 !important;
+        }
+        .v-timeline-divider__before {
+          display: none;
+        }
+      }
+    }
+  }
+  .timeline-active {
+    .v-timeline-divider__inner-dot {
+      position: relative;
+      .v-icon {
+        background-color: #ffd633;
+        position: absolute;
+        border-radius: 50%;
+        width: toRem(9);
+        height: toRem(9);
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-color: #ffd633;
+          border-radius: 50%;
+          z-index: 1;
+          opacity: 0.8;
+        }
+        &::before {
+          animation: pulse 2s ease-out infinite;
+        }
+        &::after {
+          animation: pulse 2s 1s ease-out infinite;
+        }
+      }
+    }
+  }
+}
+
+.medi-title {
+  font-size: toRem(18);
+  line-height: toRem(26);
+  @include fontWeight(semibold);
+  img {
+    vertical-align: middle;
+  }
+}
+.ending-desc {
+  font-size: toRem(14);
+  color: #666;
+}
+
+.btn-summit {
+  &.attach-btn {
+    &.type-2 {
+      background-color: #fceba6;
+    }
+  }
+}
+
+.timeline-panel {
+  &.medi-list {
+    .medi-card {
+      border: 1px solid #eeeeee;
+    }
+  }
+}
+.medi-btn-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+.list-title {
+  &.v-btn {
+    padding-inline-end: 0;
+    padding-inline-start: 0;
+  }
+  .v-btn__content {
+    color: #222;
+    font-size: toRem(16);
+  }
+  .title-text {
+    display: block;
+    max-width: 123px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .title-icon {
+    color: #444;
+    width: 16px;
+    height: 16px;
+  }
+}
+.medicine-card {
+  &.v-card {
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #eee;
+  }
+
+  .card-top {
+    display: grid;
+    grid-template-columns: toRem(60) 1fr;
+    grid-gap: 0 toRem(16);
+  }
+  .medicard-img {
+    width: toRem(60);
+    height: toRem(60);
+  }
+  .medicard-title {
+    font-size: toRem(18);
+    @include fontWeight(semibold);
+    @include textOverflow(1);
+    line-height: toRem(26);
+    max-width: toRem(223);
+  }
+  .medicard-company {
+    font-size: toRem(14);
+    line-height: toRem(20);
+    color: #666;
+  }
+  .medicard-badge {
+    display: inline;
+    font-size: toRem(13);
+    line-height: toRem(20);
+    color: #3f86f1;
+    border: 1px solid #3f86f1;
+    height: toRem(24);
+    padding: 4px 6px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .card-mid {
+    @include fontWeight(semibold);
+  }
+  .card-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .medicard-date {
+      font-size: toRem(14);
+      line-height: toRem(20);
+    }
+    .medicard-num {
+      font-size: toRem(14);
+      line-height: toRem(20);
+      color: #3f86f1;
+    }
+  }
+}
+.v-btn {
+  &.medicard-btn {
+    border-radius: 8px;
+    &.pause {
+      background-color: #fceba6;
+    }
+  }
+}
+// 복약 > 삭제 확인 바텀시트
+.medi-del {
+  text-align: center;
+}
+
+// 복약 > 약 알림 확인
+.mymedi-title {
+  font-size: toRem(18);
+  @include fontWeight(semibold);
+  line-height: toRem(26);
+  color: #000;
+}
+.mymedi-btn {
+  &.v-btn {
+    width: 100%;
+    padding: toRem(16);
+    border-radius: 16px;
+    background-color: #fff !important;
+  }
+  &.v-btn--density-default {
+    height: auto;
+  }
+  .v-btn__content {
+    @include fontWeight(semibold);
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+  }
+  .mymedi-category {
+    display: block;
+    color: #666;
+    font-size: toRem(14);
+    line-height: toRem(20);
+    white-space: nowrap;
+  }
+}
+
+// 복약> 약 알림 추가하기
+.medialarm-double {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 toRem(8);
+  border-bottom: 1px solid #eee;
+  padding-bottom: toRem(32);
+  .medialarm-1 {
+    flex: 1;
+  }
+}
+.tabs-simple2 {
+  &.medialarm-tabs {
+    .v-btn {
+      border: 1px solid #eee;
+      &.v-btn--size-default {
+        min-width: auto;
+        padding: 6px 12px;
+      }
+      &.v-btn--density-default {
+        height: auto;
+      }
+      .v-btn__content {
+        border-radius: 16px;
+        font-size: toRem(16);
+        @include fontWeight(semibold);
+        line-height: toRem(24);
+        letter-spacing: -0.2px;
+      }
+    }
+    .v-btn[aria-selected='true'] {
+      border: 1px solid #303d54;
+    }
+  }
+  &.type-2 {
+    gap: 6px;
+  }
+}
+
+.medialarm-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  .v-tabs--density-default {
+    --v-tabs-height: atto;
+  }
+}
+
+.medialarm-subtit {
+  @include fontWeight(semibold);
+}
+.medialarm-count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: toRem(32);
+  .numcount-area {
+    .number {
+      min-width: 26px;
+    }
+    gap: 0 16px;
+    justify-content: space-between;
+    .v-btn {
+      &.handle {
+        width: 24px;
+        height: 24px;
+        background-color: #ffd633;
+        &.increase {
+          .v-btn__content {
+            background-position: center !important;
+            width: toRem(12);
+            height: toRem(12);
+          }
+        }
+        &.decrease {
+          .v-btn__content {
+            width: toRem(12);
+          }
+        }
+      }
+    }
+  }
+}
+.tabs-container {
+  .v-window__container {
+    height: 80px !important;
+  }
+}
+.medialarm-amount {
+  border-bottom: 1px solid #eee;
+  padding-bottom: toRem(32);
+  .time-btn {
+    padding: 12px 16px;
+    &.v-btn {
+      &.v-btn--density-compact {
+        height: auto;
+      }
+    }
+    .v-btn__content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .time-text {
+        display: inline-block;
+        min-width: 108px;
+        text-align: start;
+        color: #26282c;
+        font-size: toRem(16);
+        line-height: toRem(24);
+        @include fontWeight(semibold);
+      }
+    }
+    &.type-2 {
+      .v-btn__content {
+        display: grid;
+        grid-template-columns: 1fr 24px 16px;
+        .time-text {
+          min-width: toRem(52);
+        }
+      }
+    }
+  }
+  .time-slash {
+    color: #888888;
+    padding: 0 toRem(15);
+  }
+}
+.time-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+.medialarm-push {
+  display: flex;
+  gap: 0 25px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// 복약 > 먹는 주기 바텀
+.unit-wrap {
+  border-bottom: 1px solid #eee;
+  padding-bottom: toRem(16);
+}
+.medi-check {
+  .v-label {
+    font-size: toRem(18);
+    line-height: toRem(26);
+    a {
+      display: none !important;
+    }
+  }
+  .checked-agree {
+    &.checked-sub {
+      .v-selection-control__input {
+        .v-icon::before {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}
+
+// 복약 > 약 검색
+.medi-subtit {
+  color: #222;
+  font-size: toRem(20);
+  @include fontWeight(bold);
+  line-height: toRem(28);
+}
+.medi-img-bg {
+  background-color: #f8f8f8;
+  width: 279px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.medi-co {
+  color: #26282c;
+  font-size: toRem(14);
+}
+.medi-name {
+  font-size: toRem(20);
+  @include fontWeight(semibold);
+  line-height: toRem(28);
+}
+.medi-checkbox {
+  &.checked-agree {
+    .mdi-chevron-right {
+      display: none;
     }
   }
 }

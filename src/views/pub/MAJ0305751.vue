@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
   >
     <v-card>

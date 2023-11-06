@@ -15,33 +15,43 @@
         <p class="desc pt-4 mb-6 small">2023.09.18 오전 6:00</p>
       </div>
       <div class="border-top">
-        <template v-for="item in item" :key="item">
-          <dl class="info-item">
-            <dt class="info-title">종류</dt>
-            <dd class="info-desc">
-              <v-chip
-                label
-                size="small"
-                color="#3F86F1"
-                class="chip-default chip-color"
-              >
-                {{ item.items }}
-              </v-chip>
-            </dd>
-          </dl>
-          <dl class="info-item">
-            <dt class="info-title">총 운동시간</dt>
-            <dd class="info-desc">{{ item.time }}</dd>
-          </dl>
-          <dl class="info-item">
-            <dt class="info-title">총 이동거리</dt>
-            <dd class="info-desc">{{ item.distance }}</dd>
-          </dl>
-          <dl class="info-item">
-            <dt class="info-title">총 소모 칼로리</dt>
-            <dd class="info-desc">{{ item.calorie }}</dd>
-          </dl>
-        </template>
+        <dl class="info-item">
+          <dt class="info-title fs-14">종류</dt>
+          <dd class="info-desc">
+            <i class="icon-sports small" :class="sportsClass"></i
+            ><span class="text">{{ sportsName }}</span>
+          </dd>
+        </dl>
+        <dl
+          class="info-item"
+          v-if="
+            paused &&
+            (sportsTimeHours != '00' ||
+              sportsTimeMinutes != '00' ||
+              sportsTimeSeconds != '00')
+          "
+        >
+          <dt class="info-title fs-14">총 운동시간</dt>
+          <dd class="info-desc">
+            <span class="hours" v-if="sportsTimeHours != '00'"
+              >{{ sportsTimeHours }}시간</span
+            >
+            <span class="minutes" v-if="sportsTimeMinutes != '00'"
+              >{{ sportsTimeMinutes }}분</span
+            >
+            <span class="seconds" v-if="sportsTimeSeconds != '00'"
+              >{{ sportsTimeSeconds }}초</span
+            >
+          </dd>
+        </dl>
+        <dl class="info-item" v-if="sportsDistance">
+          <dt class="info-title fs-14">총 이동거리</dt>
+          <dd class="info-desc">{{ sportsDistance }}</dd>
+        </dl>
+        <dl class="info-item">
+          <dt class="info-title fs-14">총 소모 칼로리</dt>
+          <dd class="info-desc">{{ recordCalorie }}</dd>
+        </dl>
       </div>
       <div class="textfield-area body-calendar d-flex">
         <v-list-item class="textfield-area textfield-memo">
@@ -53,7 +63,7 @@
               class="textarea-basic textfield-default pt-4"
               placeholder="내용"
               persistent-counter
-              v-model="name2"
+              v-model="memo"
               :maxlength="1000"
               :counter="20"
               variant="outlined"
@@ -61,9 +71,12 @@
             ></v-textarea>
           </v-sheet>
           <div class="attach-area">
-            <v-btn variant="text" height="40" class="attach-btn ws-94" block
-              >사진첨부<v-icon class="pl-1">mdi-plus</v-icon>
-            </v-btn>
+            <div class="wrap-file-input">
+              <input type="file" class="file-input" id="inputFile" />
+              <label for="inputFile" class="btn-file-input"
+                >사진첨부<v-icon size="16">mdi-plus</v-icon></label
+              >
+            </div>
             <div class="list-inputFile-picture">
               <template v-for="(items, i) in addFileListImg" :key="i">
                 <v-chip class="file-chip file-image mt-4" v-if="items" closable>
@@ -94,20 +107,23 @@
 </template>
 <script>
   import DocumentModal from '@/components/DocumentModal.vue'
-  import { onMounted, ref } from 'vue'
+  import { reactive, ref } from 'vue'
   export default {
     components: { DocumentModal },
+    props: [
+      'sportsName',
+      'sportsClass',
+      'sportsTimeHours',
+      'sportsTimeMinutes',
+      'sportsTimeSeconds',
+      'recordCalorie',
+      'sportsDistance',
+      'paused',
+      'modeMap'
+    ],
     emits: ['close'],
     setup() {
-      const name2 = ref()
-      const item = ref([
-        {
-          items: '달리기',
-          time: '84분',
-          distance: '1.8 km',
-          calorie: '140 kcal'
-        }
-      ])
+      const memo = ref()
       const clickfunction = () => {
         console.log('click')
       }
@@ -118,7 +134,11 @@
         { src: 'addfile-dummy.png' },
         { src: 'addfile-dummy.png' }
       ])
-      return { name2, item, addFileListImg, clickfunction }
+      return {
+        memo,
+        addFileListImg,
+        clickfunction
+      }
     }
   }
 </script>

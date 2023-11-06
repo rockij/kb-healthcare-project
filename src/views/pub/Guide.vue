@@ -44,7 +44,7 @@ width: toRem(275);
     <div class="pub-guide">
       <prism language="markup">
         {{ `
-        <div class="title-area pt-7">
+        <div class="title-area">
           <p class="subTit-01">오건강님의 <br />문의 내역이에요</p>
           <p class="desc pt-4">
             문의가 많을 경우 시간이 걸릴 수 있으니 양해 부탁 드려요
@@ -83,12 +83,26 @@ width: toRem(275);
 
     <h3 class="tit-pub-guide">공통버튼</h3>
     <div class="pub-guide-sample elevation-2">
-      <v-btn variant="text" class="btn-grayline">주소복사</v-btn>
+      <v-btn
+        variant="flat"
+        rounded="lg"
+        height="32"
+        color="#F2F4F6"
+        class="text-primary px-3 ml-2"
+        >주소복사</v-btn
+      >
     </div>
     <div class="pub-guide">
       <prism language="markup">
         {{ `
-        <v-btn variant="text" class="btn-grayline">주소복사</v-btn>
+        <v-btn
+          variant="flat"
+          rounded="lg"
+          height="32"
+          color="#F2F4F6"
+          class="text-primary px-3 ml-2"
+          >주소복사</v-btn
+        >
         ` }}
       </prism>
     </div>
@@ -511,6 +525,61 @@ width: toRem(275);
           </div>
         </div>
         ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">radio</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-radio-group>
+        <v-radio
+          v-for="list in radioList"
+          :key="list.id"
+          :label="`Radio-${list.id}`"
+          :value="list.id"
+          class="radio-basic"
+        >
+          <template v-slot:label>{{ list.text }}</template>
+        </v-radio>
+      </v-radio-group>
+      <v-radio-group>
+        <v-radio
+          v-for="list in radioList"
+          :key="list.id"
+          :label="`Radio-${list.id}`"
+          :value="list.id"
+          class="radio-basic type"
+        >
+          <template v-slot:label>{{ list.text }}</template>
+        </v-radio>
+      </v-radio-group>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup">
+        {{ `
+        <v-radio-group>
+          <v-radio
+            v-for="list in radioList"
+            :key="list.id"
+            :label="\`\Radio-\$\{\list.id\}\`\"
+            :value="list.id"
+            class="radio-basic"
+          >
+            <template v-slot:label>\{\{\ list.text \}\}\</template>
+          </v-radio>
+        </v-radio-group>
+
+        <v-radio-group>
+          <v-radio
+            v-for="list in radioList"
+            :key="list.id"
+            :label="\`\Radio-\$\{\list.id\}\`\"
+            :value="list.id"
+            class="radio-basic type"
+          >
+            <template v-slot:label>\{\{\ list.text \}\}\</template>
+          </v-radio>
+        </v-radio-group>
+        `}}
       </prism>
     </div>
 
@@ -1014,78 +1083,6 @@ width: toRem(275);
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">.list-thumb3</h3>
-    <div class="pub-guide-sample elevation-2">
-      <div class="list-thumb3">
-        <ul>
-          <li>
-            <v-btn variant="text" :href="'javsscript:;'">
-              <span class="img">
-                <img src="/src/assets/images/dummy-thumb3.jpg" alt="" />
-              </span>
-              <span class="name">종근당건강종근당건강종근당건강종근당건강</span>
-              <span class="title"
-                >실명까지 올수 있다?! 여름철 눈관리 중요한 이유!</span
-              >
-              <strong class="price">5,660원</strong>
-            </v-btn>
-            <span class="event-set">
-              <v-btn
-                variant="text"
-                :href="'javsscript:;'"
-                class="gift"
-                title="선물하기"
-                role="img"
-              ></v-btn>
-              <v-btn
-                variant="text"
-                :href="'javsscript:;'"
-                class="hit"
-                title="좋아요"
-                >11.145</v-btn
-              >
-            </span>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="pub-guide">
-      <prism language="markup"
-        >{{ `
-        <div class="list-thumb3">
-          <ul>
-            <li>
-              <v-btn variant="text" :href="">
-                <span class="img">
-                  <img src="/src/assets/images/dummy-thumb3.jpg" alt="" />
-                </span>
-                <span class="name"
-                  >종근당건강종근당건강종근당건강종근당건강</span
-                >
-                <span class="title"
-                  >실명까지 올수 있다?! 여름철 눈관리 중요한 이유!</span
-                >
-                <strong class="price">5,660원</strong>
-              </v-btn>
-              <span class="event-set">
-                <v-btn
-                  variant="text"
-                  :href=""
-                  class="gift"
-                  title="선물하기"
-                  role="img"
-                ></v-btn>
-                <v-btn variant="text" :href="" class="hit" title="좋아요"
-                  >11.145</v-btn
-                >
-              </span>
-            </li>
-          </ul>
-        </div>
-        ` }}
-      </prism>
-    </div>
-
     <h3 class="tit-pub-guide">.list-iconbtn</h3>
     <div class="pub-guide-sample elevation-2">
       <div class="list-iconbtn">
@@ -1127,6 +1124,52 @@ width: toRem(275);
             </li>
           </ul>
         </div>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">.list-iconlst2</h3>
+    <div class="pub-guide-sample elevation-2">
+      <div
+        v-for="list in nalcoholList"
+        :key="list.id"
+        class="list-iconlst2 mt-2"
+      >
+        <i :class="`icon${list.id}`"></i>
+        <p>{{ list.text }}</p>
+      </div>
+      <br />
+      <v-btn
+        variant="text"
+        v-for="list in nalcoholList"
+        :key="list.id"
+        class="list-iconlst2 mt-2"
+      >
+        <i :class="`icon${list.id}`"></i>
+        <p>{{ list.text }}</p>
+      </v-btn>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <div
+          v-for="list in nalcoholList"
+          :key="list.id"
+          class="list-iconlst2 mt-2"
+        >
+          <i :class="\`icon\$\{list.id\}\`\"></i>
+          <p>\{\{\ list.text \}\}\</p>
+        </div>
+
+        <v-btn
+          variant="text"
+          v-for="list in nalcoholList"
+          :key="list.id"
+          class="list-iconlst2 mt-2"
+        >
+          <i :class="\`icon\$\{list.id\}\`\"></i>
+          <p>\{\{\ list.text \}\}\</p>
+        </v-btn>
         ` }}
       </prism>
     </div>
@@ -1191,33 +1234,57 @@ width: toRem(275);
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">.tabs-simple3</h3>
+    <h3 class="tit-pub-guide">tab-line</h3>
     <div class="pub-guide-sample elevation-2">
-      <div role="tablit" class="tabs-simple3">
-        <v-btn variant="text" role="tab" aria-selected="true">tab1</v-btn>
-        <v-btn variant="text" role="tab" aria-selected="false">tab2</v-btn>
+      <div class="tab-line">
+        <v-tabs v-model="tabInit" align-tabs="start">
+          <v-tab
+            v-for="(item, i) in tabItems"
+            :key="item.id"
+            :value="i"
+            :ripple="false"
+            :data-count="item.tabCount"
+          >
+            {{ item.titleTab }}
+          </v-tab>
+        </v-tabs>
+        <v-window v-model="tabInit" class="mt-7">
+          <v-window-item> 컨텐츠1 </v-window-item>
+          <v-window-item> 컨텐츠2 </v-window-item>
+        </v-window>
       </div>
     </div>
     <div class="pub-guide">
       <prism language="markup"
         >{{ `
-        <div role="tablit" class="tabs-simple3">
-          <v-btn variant="text" role="tab" aria-selected="true">tab1</v-btn>
-          <v-btn variant="text" role="tab" aria-selected="false">tab2</v-btn>
-        </div>
+        <v-tabs v-model="tabInit" align-tabs="start">
+          <v-tab
+            v-for="(item, i) in tabItems"
+            :key="item.id"
+            :value="i"
+            :ripple="false"
+            :data-count="item.tabCount"
+          >
+            \{\{\ item.titleTab \}\}\
+          </v-tab>
+        </v-tabs>
+        <v-window v-model="tabInit" class="mt-7">
+          <v-window-item> 컨텐츠1 </v-window-item>
+          <v-window-item> 컨텐츠2 </v-window-item>
+        </v-window>
         ` }}
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">tab-line</h3>
+    <h3 class="tit-pub-guide">tabs-roundbox</h3>
     <div class="pub-guide-sample elevation-2">
-      <div class="tab-line">
-        <v-tabs v-model="tabInit" align-tabs="start">
+      <div class="tabs-roundbox">
+        <v-tabs v-model="tab2Init" align-tabs="start" slider-color="#fff">
           <v-tab v-for="n in 2" :key="n" :value="n" :ripple="false">
             타이틀 {{ n }}
           </v-tab>
         </v-tabs>
-        <v-window v-model="tabInit" class="mt-7">
+        <v-window v-model="tab2Init" class="mt-7">
           <v-window-item v-for="n in 2" :key="n" :value="n">
             컨텐츠 {{ n }}
           </v-window-item>
@@ -1227,16 +1294,18 @@ width: toRem(275);
     <div class="pub-guide">
       <prism language="markup"
         >{{ `
-        <v-tabs v-model="tabInit" align-tabs="start">
-          <v-tab v-for="n in 2" :key="n" :value="n" :ripple="false">
-            타이틀 \{\{\ n \}\}\
-          </v-tab>
-        </v-tabs>
-        <v-window v-model="tabInit" class="mt-7">
-          <v-window-item v-for="n in 2" :key="n" :value="n">
-            컨텐츠 \{\{\ n \}\}\
-          </v-window-item>
-        </v-window>
+        <div class="tabs-roundbox">
+          <v-tabs v-model="tabInit" align-tabs="start" slider-color="#fff">
+            <v-tab v-for="n in 2" :key="n" :value="n" :ripple="false">
+              타이틀 \{\{\ n \}\}\
+            </v-tab>
+          </v-tabs>
+          <v-window v-model="tabInit" class="mt-7">
+            <v-window-item v-for="n in 2" :key="n" :value="n">
+              컨텐츠 \{\{\ n \}\}\
+            </v-window-item>
+          </v-window>
+        </div>
         ` }}
       </prism>
     </div>
@@ -1279,6 +1348,10 @@ width: toRem(275);
       <div class="box-rounded">라운드 박스</div>
       <br />
       <div class="box-rounded-fill">라운드 박스 배경</div>
+      <br />
+      <v-card variant="flat" rounded="xl" class="box-rounded-fill pa-6"
+        >라운드 박스 배경</v-card
+      >
     </div>
     <div class="pub-guide">
       <prism language="markup"
@@ -1286,6 +1359,10 @@ width: toRem(275);
         <div class="box-rounded">라운드 박스</div>
 
         <div class="box-rounded-fill">라운드 박스 배경</div>
+
+        <v-card variant="flat" rounded="xl" class="box-rounded-fill pa-6"
+          >라운드 박스 배경</v-card
+        >
         ` }}
       </prism>
     </div>
@@ -1433,70 +1510,6 @@ width: toRem(275);
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">라이프로그 카드 - 최고/최저</h3>
-    <div class="pub-guide-sample elevation-2">
-      <v-card variant="flat" class="card-report2 mt-4">
-        <v-card-title class="mb-4"> 최고/최저 수면 </v-card-title>
-        <v-card-item v-for="list in analysisList" :key="list.id">
-          <div class="d-flex align-center">
-            <div class="d-flex mr-2">
-              <span v-html="list.title"></span>
-              <span
-                v-if="list.dot"
-                class="text-dot ml-2 size-default"
-                :class="list.dot"
-              ></span>
-            </div>
-            <div class="flex-1 text-right">
-              <v-chip
-                label
-                size="small"
-                :color="list.chipColor"
-                class="chip-default chip-color mb-1"
-                v-if="list.chip"
-              >
-                {{ list.chip }} </v-chip
-              ><br />
-              {{ list.count }}
-            </div>
-          </div>
-        </v-card-item>
-      </v-card>
-    </div>
-    <div class="pub-guide">
-      <prism language="markup"
-        >{{ `
-        <v-card variant="flat" class="card-report2 mt-4">
-          <v-card-title class="mb-4"> 최고/최저 수면 </v-card-title>
-          <v-card-item v-for="list in analysisList" :key="list.id">
-            <div class="d-flex align-center">
-              <div class="d-flex mr-2">
-                <span v-html="list.title"></span>
-                <span
-                  v-if="list.dot"
-                  class="text-dot ml-2 size-default"
-                  :class="list.dot"
-                ></span>
-              </div>
-              <div class="flex-1 text-right">
-                <v-chip
-                  label
-                  size="small"
-                  :color="list.chipColor"
-                  class="chip-default chip-color mb-1"
-                  v-if="list.chip"
-                >
-                  \{\{\ list.chip \}\}\ </v-chip
-                ><br />
-                \{\{\ list.count \}\}\
-              </div>
-            </div>
-          </v-card-item>
-        </v-card>
-        ` }}
-      </prism>
-    </div>
-
     <h3 class="tit-pub-guide">테이블</h3>
     <div class="pub-guide-sample elevation-2">
       <div class="table-flex">
@@ -1609,6 +1622,128 @@ width: toRem(275);
         ` }}
       </prism>
     </div>
+
+    <h3 class="tit-pub-guide">관심뉴스 버튼</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-btn variant="outlined" rounded="lg" class="btn-share">
+        <template v-slot:prepend>
+          <img src="@/assets/images/icon-share.svg" alt="" />
+        </template>
+        공유하기
+      </v-btn>
+      <v-btn
+        variant="outlined"
+        rounded="lg"
+        class="btn-share"
+        @click="news = !news"
+      >
+        <template v-slot:prepend>
+          <svg
+            width="16"
+            height="14"
+            viewBox="0 0 16 14"
+            fill="none"
+            :class="['news', { active: news }]"
+          >
+            <path
+              d="M11.1443 1C9.99672 1 8.74973 1.50151 8.00765 2.51181C7.26557 1.50151 6.01858 1 4.87104 1C2.80546 1 1.03825 2.57723 1 4.81587C1.00765 5.03392 1.0306 5.33919 1.0459 5.49909C1.39781 8.21744 4.31257 10.7832 7.18142 12.7456C7.42623 12.9128 7.71694 13 8 13C8.29071 13 8.57377 12.9128 8.81858 12.7456C11.6951 10.7832 14.6098 8.22471 14.9541 5.49909C14.977 5.33919 14.9923 5.03392 15 4.81587C14.977 2.57723 13.2098 1 11.1443 1Z"
+            />
+          </svg>
+        </template>
+        관심뉴스
+      </v-btn>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <v-btn variant="outlined" rounded="lg" class="btn-share">
+          <template v-slot:prepend>
+            <img src="@/assets/images/icon-share.svg" alt="" />
+          </template>
+          공유하기
+        </v-btn>
+        <v-btn
+          variant="outlined"
+          rounded="lg"
+          class="btn-share"
+          @click="news = !news"
+        >
+          <template v-slot:prepend>
+            <svg
+              width="16"
+              height="14"
+              viewBox="0 0 16 14"
+              fill="none"
+              :class="['news', { active: news }]"
+            >
+              <path
+                d="M11.3689 0.5C10.1393 0.5 8.80328 1.04331 8.0082 2.1378C7.21311 1.04331 5.87705 0.5 4.64754 0.5C2.43443 0.5 0.540984 2.20866 0.5 4.63386C0.508197 4.87008 0.532787 5.20079 0.54918 5.37402C0.926229 8.3189 4.04918 11.0984 7.12295 13.2244C7.38525 13.4055 7.69672 13.5 8 13.5C8.31147 13.5 8.61475 13.4055 8.87705 13.2244C11.959 11.0984 15.082 8.32677 15.4508 5.37402C15.4754 5.20079 15.4918 4.87008 15.5 4.63386C15.4754 2.20866 13.582 0.5 11.3689 0.5Z"
+              />
+            </svg>
+          </template>
+          관심뉴스
+        </v-btn>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">공유하기 버튼</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-btn variant="outlined" rounded="lg" class="btn-share">
+        <template v-slot:prepend>
+          <img src="@/assets/images/icon-share.svg" alt="" />
+        </template>
+        공유하기
+      </v-btn>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <v-btn variant="outlined" rounded="lg" class="btn-share">
+          <template v-slot:prepend>
+            <img src="@/assets/images/icon-share.svg" alt="" />
+          </template>
+          공유하기
+        </v-btn>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">Tooltip (풍선모양)</h3>
+    <div class="pub-guide-sample elevation-2">
+      <div class="tooltip-balloon arrow-left icon-emoji">
+        <span class="text-yellow">오건강님,</span> 이것부터 확인하세요!
+      </div>
+      <br /><br />
+      <div class="tooltip-balloon arrow-bottom icon-walk">
+        툴팁 메시지 문구 입니다.
+      </div>
+      <br /><br />
+      <div class="tooltip-balloon arrow-bottom-front">
+        툴팁 메시지 문구 입니다.
+      </div>
+      <br /><br />
+      <div class="tooltip-balloon arrow-right">툴팁 메시지 문구 입니다.</div>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <div class="tooltip-balloon arrow-left icon-emoji">
+          <span class="text-yellow">오건강님,</span> 이것부터 확인하세요!
+        </div>
+
+        <div class="tooltip-balloon arrow-bottom icon-walk">
+          툴팁 메시지 문구 입니다.
+        </div>
+
+        <div class="tooltip-balloon arrow-bottom-front">
+          툴팁 메시지 문구 입니다.
+        </div>
+
+        <div class="tooltip-balloon arrow-right">툴팁 메시지 문구 입니다.</div>
+        ` }}
+      </prism>
+    </div>
   </div>
 </template>
 
@@ -1616,7 +1751,6 @@ width: toRem(275);
   import { ref, reactive, computed } from 'vue'
   import Prism from 'vue-prism-component'
   import 'prismjs'
-
   import 'prismjs/themes/prism-tomorrow.css'
   export default {
     data() {
@@ -1630,6 +1764,7 @@ width: toRem(275);
       }
     },
     setup() {
+      const news = ref(false)
       const name2 = ref('오전 9시 30분')
       const isActive = ref(false)
       const switchOff = ref('off')
@@ -1665,7 +1800,12 @@ width: toRem(275);
       ])
 
       const tabInit = ref(null)
-      const items = ref([
+      const tabItems = ref([
+        { titleTab: '메뉴명1', tabContents: `메뉴명1 contents` },
+        { titleTab: '메뉴명2', tabContents: `메뉴명2 contents`, tabCount: '2' }
+      ])
+      const tab2Init = ref(null)
+      const tab2items = ref([
         { titleTab: '메뉴명1', tabContents: `메뉴명1 contents` },
         { titleTab: '메뉴명2', tabContents: `메뉴명2 contents` }
       ])
@@ -1797,7 +1937,56 @@ width: toRem(275);
         console.log('click')
       }
 
+      const tabTargetBtn = ref()
+      const tabTargetBtns = ref([
+        {
+          value: 1,
+          text: '소아',
+          text2: '(2세~13세)'
+        },
+        {
+          value: 2,
+          text: '여자'
+        },
+        {
+          value: 3,
+          text: '남자'
+        }
+      ])
+      function tabTargetSelected(val) {
+        tabTargetBtn.value = val
+      }
+      const radioList = ref([
+        {
+          id: 1,
+          text: '서울특별시 동작구 대방동'
+        },
+        {
+          id: 2,
+          text: '서울특별시 동작구 대방동'
+        },
+        {
+          id: 3,
+          text: '서울특별시 동작구동작구 대방동대방동'
+        }
+      ])
+      const nalcoholList = ref([
+        {
+          id: 1,
+          text: '지방간 수치가 떨어저요'
+        },
+        {
+          id: 2,
+          text: '피부 혈색이 좋아져요'
+        },
+        {
+          id: 3,
+          text: '몸무게가 줄어요'
+        }
+      ])
+
       return {
+        news,
         event,
         name2,
         isActive,
@@ -1812,7 +2001,9 @@ width: toRem(275);
         selected,
         textItems,
         tabInit,
-        items,
+        tabItems,
+        tab2Init,
+        tab2items,
         list,
         switchOff,
         isActiveEmail,
@@ -1822,7 +2013,12 @@ width: toRem(275);
         onClear,
         analysisList,
         tableList,
-        tableList2
+        tableList2,
+        tabTargetBtn,
+        tabTargetBtns,
+        tabTargetSelected,
+        radioList,
+        nalcoholList
       }
     },
 

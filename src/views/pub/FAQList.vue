@@ -16,12 +16,13 @@
   <Nodata v-if="filteredList().length === 0" :icon="false">
     <div class="text-info-black">원하는 검색 결과가 없나요?</div>
     <div class="text-info-grey fs-16 mt-2">1:1 문의 주시면 답변 드릴게요</div>
+    <!-- 2023-10-23 버튼 height/클래스 수정  -->
     <v-btn
       variant="flat"
       rounded="lg"
-      height="40"
+      height="32"
       color="#F2F4F6"
-      class="text-primary mt-7"
+      class="text-primary mt-7 fs-13"
       @click="onClicked('MAJ0104670')"
     >
       1:1 문의하기

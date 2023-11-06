@@ -65,40 +65,70 @@
           name: '공통 가이드'
         },
         {
-          path: '/BottomSheet',
-          name: 'BottomSheet'
-        },
-        {
-          path: '/SelectList',
-          name: 'SelectList'
-        },
-        {
-          path: '/Dialogs',
-          name: 'Dialogs'
-        },
-        {
-          path: '/Sticky',
-          name: 'Sticky'
-        },
-        {
-          path: '/BanerState',
-          name: '상태 배너 유형'
-        },
-        {
-          path: '/MAJ0100130',
-          name: '약관상세팝업'
-        },
-        {
-          path: '/DocumentModal',
-          name: '풀페이지팝업'
-        },
-        {
-          path: '/Toast',
-          name: 'Toast'
-        },
-        {
           path: '/LayoutGuide',
           name: '컨텐츠 여백 가이드'
+        },
+        {
+          name: '공통 화면',
+          active: false,
+          children: [
+            {
+              path: '/CmmPopup1',
+              name: '공통 팝업 - 버튼1개'
+            },
+            {
+              path: '/CmmPopup2',
+              name: '공통 팝업 - 버튼2개'
+            },
+            {
+              path: '/BottomSheet',
+              name: 'BottomSheet'
+            },
+            {
+              path: '/SelectList',
+              name: 'SelectList'
+            },
+            {
+              path: '/Dialogs',
+              name: 'Dialogs'
+            },
+            {
+              path: '/Sticky',
+              name: 'Sticky'
+            },
+            {
+              path: '/BanerState',
+              name: '상태 배너 유형'
+            },
+            {
+              path: '/MAJ0100130',
+              name: '약관상세팝업'
+            },
+            {
+              path: '/DocumentModal',
+              name: '풀페이지팝업'
+            },
+            {
+              path: '/Toast',
+              name: 'Toast'
+            },
+            {
+              path: '/MAJ0100060',
+              name: '서비스오류 안내'
+            },
+            {
+              path: '/CmmPopupSns',
+              name: '공유하기 팝업'
+            },
+            {
+              path: '/Tooltip',
+              name: 'Tooltip'
+            },
+            {
+              path: '/LoadCounter',
+              name: '데이터 숫자 카운터'
+            }
+          ]
         },
         {
           name: '고객센터',
@@ -121,12 +151,20 @@
               name: 'FAQ 검색결과'
             },
             {
+              path: '/MAJ0104640/no-data',
+              name: 'FAQ 검색결과X'
+            },
+            {
               path: '/MAJ0104650',
               name: '1:1 문의 목록'
             },
             {
               path: '/MAJ0104660',
-              name: '1:1 문의 상세'
+              name: '1:1 문의 상세-답변완료'
+            },
+            {
+              path: '/MAJ0104660/waiting',
+              name: '1:1 문의 상세-접수대기중'
             },
             {
               path: '/MAJ0104670',
@@ -311,12 +349,20 @@
               name: '수분'
             },
             {
+              path: '/MAJ0203420',
+              name: '복약'
+            },
+            {
               path: '/MAJ0202970',
               name: '혈압'
             },
             {
               path: '/MAJ0203020',
               name: '혈당'
+            },
+            {
+              path: '/MAJ0203001',
+              name: '혈압 측정 방법'
             },
             {
               path: '/MAJ0202856',
@@ -423,6 +469,32 @@
           ]
         },
         {
+          name: '건강검진결과',
+          active: false,
+          children: [
+            {
+              path: '/MAJ0305800',
+              name: '인덱스'
+            },
+            {
+              path: '/MAJ0305800-1',
+              name: '인덱스 (case)'
+            },
+            {
+              path: '/MAJ0305820',
+              name: '검사항목 상세'
+            },
+            {
+              path: '/MAJ0305820-1',
+              name: '검사항목 상세 (최대)'
+            },
+            {
+              path: '/MAJ0305820-2',
+              name: '검사항목 상세 (정상)'
+            }
+          ]
+        },
+        {
           name: '병원찾기',
           active: false,
           children: [
@@ -433,14 +505,6 @@
             {
               path: '/MAJ0305730',
               name: '병원 목록 보기'
-            },
-            {
-              path: '/MAJ0305731',
-              name: '병원 목록 보기(결과없음)'
-            },
-            {
-              path: '/MAJ0305735',
-              name: '병원검색 팝업'
             },
             {
               path: '/MAJ0305740',
@@ -499,6 +563,240 @@
             {
               path: '/MAJ0100380',
               name: '메시지함 목록'
+            }
+          ]
+        },
+        {
+          name: '전문가챌린지',
+          active: false,
+          children: [
+            {
+              path: '/MAJ0407001-1',
+              name: 'AI 추천 챌린지'
+            },
+            {
+              path: '/MAJ0407001-2',
+              name: '혈당 개선 전문 챌린지'
+            },
+            {
+              path: '/MAJ0407001-3',
+              name: '혈압 개선 전문 챌린지'
+            },
+            {
+              path: '/MAJ0407001-4',
+              name: '혈관건강 개선 전문 챌린지'
+            },
+            {
+              path: '/MAJ0407001-5',
+              name: '체중감량 전문 챌린지'
+            },
+            {
+              path: '/MAJ0407001-6',
+              name: '근력향상 전문 챌린지'
+            },
+            {
+              path: '/MAJ0407001-7',
+              name: '요요방지 전문 챌린지'
+            },
+            {
+              path: '/MAJ0204051',
+              name: '걷기 전문 챌린지'
+            },
+            {
+              path: '/MAJ0204060-1',
+              name: '기간선택'
+            },
+            {
+              path: '/MAJ0204060-2',
+              name: '플랫폼 연결 안내'
+            },
+            {
+              path: '/MAJ0407002-1',
+              name: '1주 체험 안내'
+            },
+            {
+              path: '/MAJ0407002-2',
+              name: '1주 체험 안내(바텀시트)'
+            },
+            {
+              path: '/MAJ0407003-1',
+              name: '챌린지 인증 답변형'
+            },
+            {
+              path: '/MAJ0407003-2',
+              name: '챌린지 인증 답변형 : 인증완료(토스트)'
+            },
+            {
+              path: '/MAJ0407003-3',
+              name: '챌린지 인증 답변형 : 중단(팝업)'
+            },
+            {
+              path: '/MAJ0407004-1',
+              name: '챌린지 인증 퀴즈형 : Disabled'
+            },
+            {
+              path: '/MAJ0407004-2',
+              name: '챌린지 인증 퀴즈형 : 오답'
+            },
+            {
+              path: '/MAJ0407004-3',
+              name: '챌린지 인증 퀴즈형 : 정답'
+            },
+            {
+              path: '/MAJ0407004-4',
+              name: '챌린지 인증 퀴즈형 : 인증완료'
+            },
+            {
+              path: '/MAJ0407005-1',
+              name: 'TODO Tip1'
+            },
+            {
+              path: '/MAJ0407005-2',
+              name: 'TODO Tip2'
+            },
+            {
+              path: '/MAJ0407005-3',
+              name: 'TODO Tip3'
+            },
+            {
+              path: '/MAJ0407005-4',
+              name: 'TODO Tip4'
+            },
+            {
+              path: '/MAJ0407007-1',
+              name: '챌린지 인증 사진형'
+            },
+            {
+              path: '/MAJ0407007-2',
+              name: '챌린지 인증 사진형 : 인증완료'
+            },
+            {
+              path: '/MAJ0407008-1',
+              name: '수행 캘린더 - 인증 전'
+            },
+            {
+              path: '/MAJ0407008-2',
+              name: '수행 캘린더 - 인증 후'
+            },
+            {
+              path: '/MAJ0407009-1',
+              name: '챌린지 포기'
+            },
+            {
+              path: '/MAJ0407009-2',
+              name: '챌린지 포기 : 포기완료(토스트)'
+            },
+            {
+              path: '/MAJ0407018',
+              name: '건강 행동별 챌린지 수행률'
+            },
+            {
+              path: '/MAJ0407023-1',
+              name: '챌린지 인증 건강정보 열람 인증형'
+            },
+            {
+              path: '/MAJ0407023-2',
+              name: '챌린지 인증 건강정보 열람 인증형 : 인증완료'
+            },
+            {
+              path: '/MAJ0407024-1',
+              name: '챌린지 완료 : 리뷰작성'
+            },
+            {
+              path: '/MAJ0407024-2',
+              name: '챌린지 완료 : 등록완료(토스트)'
+            },
+            {
+              path: '/MAJ0407024-3',
+              name: '챌린지 완료 : 2,000자(토스트)'
+            },
+            {
+              path: '/MAJ0407025',
+              name: '챌린지 리뷰 목록'
+            },
+            {
+              path: '/MAJ0407026-1',
+              name: '챌린지 리뷰 상세'
+            },
+            {
+              path: '/MAJ0407026-2',
+              name: '챌린지 리뷰 상세 : 수정(바텀시트)'
+            },
+            {
+              path: '/MAJ0407026-3',
+              name: '챌린지 리뷰 상세 : 등록완료(토스트)/수정, 삭제(팝업)'
+            },
+            {
+              path: '/MAJ0407026-4',
+              name: '챌린지 리뷰 상세 : 삭제완료(토스트)'
+            }
+          ]
+        },
+        {
+          name: '건강',
+          active: false,
+          children: [
+            {
+              path: '/MAJ0202770',
+              name: '건강뉴스 목록'
+            },
+            {
+              path: '/MAJ0202780',
+              name: '건강뉴스 상세'
+            },
+            {
+              path: '/MAJ0202781-1',
+              name: '건강뉴스 검색'
+            }
+          ]
+        },
+        {
+          name: '이벤트',
+          active: false,
+          children: [
+            {
+              path: '/MAJ0104230',
+              name: '진행중인 이벤트 목록'
+            },
+            {
+              path: '/MAJ0104240',
+              name: '진행중인 이벤트 상세 및 참여'
+            },
+            {
+              path: '/MAJ0104241',
+              name: '이벤트 상세(퀴즈)'
+            },
+            {
+              path: '/MAJ0104242',
+              name: '이벤트 상세(퀴즈흰트)'
+            },
+            {
+              path: '/MAJ0104243',
+              name: '이벤트 상세(퀴즈-답변제출)'
+            },
+            {
+              path: '/MAJ0104244',
+              name: '	이벤트 상세(룰렛)'
+            },
+            {
+              path: '/MAJ0104245',
+              name: '이벤트 상세(출석)'
+            },
+            {
+              path: '/MAJ0104250',
+              name: '지난 이벤트 목록'
+            },
+            {
+              path: '/MAJ0104260',
+              name: '지난 이벤트 상세'
+            },
+            {
+              path: '/MAJ0104261',
+              name: '친구초대 코드 공유 이벤트 - Tab.1 내 초대코드'
+            },
+            {
+              path: '/MAJ0104262',
+              name: '친구초대 코드 공유 이벤트 - Tab.2 초대코드 입력'
             }
           ]
         }

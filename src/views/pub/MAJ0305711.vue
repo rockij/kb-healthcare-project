@@ -3,7 +3,7 @@
     <div class="title-area">
       <h1 class="subTit-01">오건강님의 눈에 대한 증상분석 결과</h1>
     </div>
-    <ReportResult :bnShow="'now'" class="pb-8 mt-7">
+    <ReportResult :bnShow="'good'" class="pb-8 mt-7">
       <strong class="title">지금 바로 진료</strong>
       특히, 항혈전제를 복용 중이시라면 응급실 또는 가까운 병원에서 빠른 진료를
       보세요

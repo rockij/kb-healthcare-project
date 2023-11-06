@@ -59,6 +59,12 @@ const router = createRouter({
       component: () => import('@/views/pub/MAJ0104640.vue')
     },
     {
+      path: '/MAJ0104640/no-data',
+      name: 'MAJ0104640Nodata',
+      meta: { title: '검색결과X' },
+      component: () => import('@/views/pub/MAJ0104640.vue')
+    },
+    {
       path: '/MAJ0104650',
       name: 'MAJ0104650',
       meta: { title: '1:1 문의 목록' },
@@ -67,7 +73,13 @@ const router = createRouter({
     {
       path: '/MAJ0104660',
       name: 'MAJ0104660',
-      meta: { title: '1:1 문의 상세' },
+      meta: { title: '1:1 문의 상세 - 답변완료' },
+      component: () => import('@/views/pub/MAJ0104660.vue')
+    },
+    {
+      path: '/MAJ0104660/waiting',
+      name: 'MAJ0104660Waiting',
+      meta: { title: '1:1 문의 상세 - 접수대기중' },
       component: () => import('@/views/pub/MAJ0104660.vue')
     },
     {
@@ -101,6 +113,12 @@ const router = createRouter({
       component: () => import('@/views/pub/MAJ0203390.vue')
     },
     {
+      path: '/MAJ0203392',
+      name: 'MAJ0203392',
+      meta: { title: '심박기록' },
+      component: () => import('@/views/pub/MAJ0203392.vue')
+    },
+    {
       path: '/MAJ0203410',
       name: 'MAJ0203410',
       meta: { title: '식사' },
@@ -129,6 +147,36 @@ const router = createRouter({
       name: 'MAJ0202940',
       meta: { title: '수분' },
       component: () => import('@/views/pub/MAJ0202940.vue')
+    },
+    {
+      path: '/MAJ0203420',
+      name: 'MAJ0203420',
+      meta: { title: '복약' },
+      component: () => import('@/views/pub/MAJ0203420.vue')
+    },
+    {
+      path: '/MAJ0203424',
+      name: 'MAJ0203424',
+      meta: { title: '약,영양제 목록' },
+      component: () => import('@/views/pub/MAJ0203424.vue')
+    },
+    {
+      path: '/MAJ0203520',
+      name: 'MAJ0203520',
+      meta: { title: '약 알림 확인' },
+      component: () => import('@/views/pub/MAJ0203520.vue')
+    },
+    {
+      path: '/MAJ0203570',
+      name: 'MAJ0203570',
+      meta: { title: '약 알림 추가하기' },
+      component: () => import('@/views/pub/MAJ0203570.vue')
+    },
+    {
+      path: '/MAJ0203521',
+      name: 'MAJ0203521',
+      meta: { title: '약 검색' },
+      component: () => import('@/views/pub/MAJ0203521.vue')
     },
     {
       path: '/LifelogTable1',
@@ -510,18 +558,6 @@ const router = createRouter({
       component: () => import('@/views/pub/MAJ0305730.vue')
     },
     {
-      path: '/MAJ0305731',
-      name: 'MAJ0305731',
-      meta: { title: '병원 목록 보기(결과없음)' },
-      component: () => import('@/views/pub/MAJ0305731.vue')
-    },
-    {
-      path: '/MAJ0305735',
-      name: 'MAJ0305735',
-      meta: { title: '병원검색' },
-      component: () => import('@/views/pub/MAJ0305735.vue')
-    },
-    {
       path: '/MAJ0305740',
       name: 'MAJ0305740',
       meta: { title: '병원 상세' },
@@ -654,6 +690,84 @@ const router = createRouter({
       component: () => import('@/views/pub/MAJ0100130.vue')
     },
     {
+      path: '/MAJ0104230',
+      name: 'MAJ0104230',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104230.vue')
+    },
+    {
+      path: '/MAJ0104240',
+      name: 'MAJ0104240',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104240.vue')
+    },
+    {
+      path: '/MAJ0104241',
+      name: 'MAJ0104241',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104241.vue')
+    },
+    {
+      path: '/MAJ0104242',
+      name: 'MAJ0104242',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104242.vue')
+    },
+    {
+      path: '/MAJ0104243',
+      name: 'MAJ0104243',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104243.vue')
+    },
+    {
+      path: '/MAJ0104244',
+      name: 'MAJ0104244',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104244.vue')
+    },
+    {
+      path: '/MAJ0104246',
+      name: 'MAJ0104246',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104246.vue')
+    },
+    {
+      path: '/MAJ0104247',
+      name: 'MAJ0104247',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104247.vue')
+    },
+    {
+      path: '/MAJ0104250',
+      name: 'MAJ0104250',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104250.vue')
+    },
+    {
+      path: '/MAJ0104260',
+      name: 'MAJ0104260',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104260.vue')
+    },
+    {
+      path: '/MAJ0104261',
+      name: 'MAJ0104261',
+      meta: { title: '친구초대 이벤트' },
+      component: () => import('@/views/pub/MAJ0104261.vue')
+    },
+    {
+      path: '/MAJ0104262',
+      name: 'MAJ0104262',
+      meta: { title: '친구초대 이벤트' },
+      component: () => import('@/views/pub/MAJ0104262.vue')
+    },
+    {
+      path: '/MAJ0104245',
+      name: 'MAJ0104245',
+      meta: { title: '이벤트' },
+      component: () => import('@/views/pub/MAJ0104245.vue')
+    },
+    {
       path: '/DocumentModal',
       name: 'DocumentModal',
       meta: { title: '풀페이지팝업' },
@@ -682,6 +796,420 @@ const router = createRouter({
       name: 'LifelogAnalysis',
       meta: { title: '상세 분석 케이스' },
       component: () => import('@/views/pub/LifelogAnalysis.vue')
+    },
+    {
+      path: '/MAJ0407001-1',
+      name: 'MAJ0407001-1',
+      meta: { title: '챌린지 안내 - AI 추천 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-1.vue')
+    },
+    {
+      path: '/MAJ0407001-2',
+      name: 'MAJ0407001-2',
+      meta: { title: '챌린지 안내 - 혈당 개선 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-2.vue')
+    },
+    {
+      path: '/MAJ0407001-3',
+      name: 'MAJ0407001-3',
+      meta: { title: '챌린지 안내 - 혈압 개선 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-3.vue')
+    },
+    {
+      path: '/MAJ0407001-4',
+      name: 'MAJ0407001-4',
+      meta: { title: '챌린지 안내 - 혈관건강 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-4.vue')
+    },
+    {
+      path: '/MAJ0407001-5',
+      name: 'MAJ0407001-5',
+      meta: { title: '챌린지 안내 - 체중감량 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-5.vue')
+    },
+    {
+      path: '/MAJ0407001-6',
+      name: 'MAJ0407001-6',
+      meta: { title: '챌린지 안내 - 근력향상 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-6.vue')
+    },
+    {
+      path: '/MAJ0407001-7',
+      name: 'MAJ0407001-7',
+      meta: { title: '챌린지 안내 - 요요방지 전문 챌린지' },
+      component: () => import('@/views/pub/MAJ0407001-7.vue')
+    },
+    {
+      path: '/MAJ0204051',
+      name: 'MAJ0204051',
+      meta: { title: '챌린지 안내 - 걷기 챌린지' },
+      component: () => import('@/views/pub/MAJ0204051.vue')
+    },
+    {
+      path: '/MAJ0204060-1',
+      name: 'MAJ0204060-1',
+      meta: { title: '기간선택' },
+      component: () => import('@/views/pub/MAJ0204060-1.vue')
+    },
+    {
+      path: '/MAJ0204060-2',
+      name: 'MAJ0204060-2',
+      meta: { title: '플랫폼 연결 안내' },
+      component: () => import('@/views/pub/MAJ0204060-2.vue')
+    },
+    {
+      path: '/MAJ0407002-1',
+      name: 'MAJ0407002-1',
+      meta: { title: '챌린지 안내 - 1주 체험 안내' },
+      component: () => import('@/views/pub/MAJ0407002-1.vue')
+    },
+    {
+      path: '/MAJ0407002-2',
+      name: 'MAJ0407002-2',
+      meta: { title: '챌린지 안내 - 1주 체험 안내(바텀시트)' },
+      component: () => import('@/views/pub/MAJ0407002-2.vue')
+    },
+    {
+      path: '/MAJ0407003-1',
+      name: 'MAJ0407003-1',
+      meta: { title: '챌린지 인증 답변형' },
+      component: () => import('@/views/pub/MAJ0407003-1.vue')
+    },
+    {
+      path: '/MAJ0407003-2',
+      name: 'MAJ0407003-2',
+      meta: { title: '챌린지 인증 답변형 : 인증완료(토스트)' },
+      component: () => import('@/views/pub/MAJ0407003-2.vue')
+    },
+    {
+      path: '/MAJ0407003-3',
+      name: 'MAJ0407003-3',
+      meta: { title: '챌린지 인증 답변형 : 중단(팝업)' },
+      component: () => import('@/views/pub/MAJ0407003-3.vue')
+    },
+    {
+      path: '/MAJ0407004-1',
+      name: 'MAJ0407004-1',
+      meta: { title: '챌린지 인증 퀴즈형 - Disabled' },
+      component: () => import('@/views/pub/MAJ0407004-1.vue')
+    },
+    {
+      path: '/MAJ0407004-2',
+      name: 'MAJ0407004-2',
+      meta: { title: '챌린지 인증 퀴즈형 - 오답' },
+      component: () => import('@/views/pub/MAJ0407004-2.vue')
+    },
+    {
+      path: '/MAJ0407004-3',
+      name: 'MAJ0407004-3',
+      meta: { title: '챌린지 인증 퀴즈형 - 정답' },
+      component: () => import('@/views/pub/MAJ0407004-3.vue')
+    },
+    {
+      path: '/MAJ0407004-4',
+      name: 'MAJ0407004-4',
+      meta: { title: '챌린지 인증 퀴즈형 - 인증완료' },
+      component: () => import('@/views/pub/MAJ0407004-4.vue')
+    },
+    {
+      path: '/MAJ0407005-1',
+      name: 'MAJ0407005-1',
+      meta: { title: 'TODO Tip1' },
+      component: () => import('@/views/pub/MAJ0407005-1.vue')
+    },
+    {
+      path: '/MAJ0407005-2',
+      name: 'MAJ0407005-2',
+      meta: { title: 'TODO Tip2' },
+      component: () => import('@/views/pub/MAJ0407005-2.vue')
+    },
+    {
+      path: '/MAJ0407005-3',
+      name: 'MAJ0407005-3',
+      meta: { title: 'TODO Tip3' },
+      component: () => import('@/views/pub/MAJ0407005-3.vue')
+    },
+    {
+      path: '/MAJ0407005-4',
+      name: 'MAJ0407005-4',
+      meta: { title: 'TODO Tip4' },
+      component: () => import('@/views/pub/MAJ0407005-4.vue')
+    },
+    {
+      path: '/MAJ0407007-1',
+      name: 'MAJ0407007-1',
+      meta: { title: '챌린지 인증 사진형' },
+      component: () => import('@/views/pub/MAJ0407007-1.vue')
+    },
+    {
+      path: '/MAJ0407007-2',
+      name: 'MAJ0407007-2',
+      meta: { title: '챌린지 인증 사진형 - 인증완료' },
+      component: () => import('@/views/pub/MAJ0407007-2.vue')
+    },
+    {
+      path: '/MAJ0407008-1',
+      name: 'MAJ0407008-1',
+      meta: { title: '수행 캘린더 - 인증 전' },
+      component: () => import('@/views/pub/MAJ0407008-1.vue')
+    },
+    {
+      path: '/MAJ0407008-2',
+      name: 'MAJ0407008-2',
+      meta: { title: '수행 캘린더 - 인증 후' },
+      component: () => import('@/views/pub/MAJ0407008-2.vue')
+    },
+    {
+      path: '/MAJ0407009-1',
+      name: 'MAJ0407009-1',
+      meta: { title: '챌린지 포기' },
+      component: () => import('@/views/pub/MAJ0407009-1.vue')
+    },
+    {
+      path: '/MAJ0407009-2',
+      name: 'MAJ0407009-2',
+      meta: { title: '챌린지 포기 : 포기완료(토스트)' },
+      component: () => import('@/views/pub/MAJ0407009-2.vue')
+    },
+    {
+      path: '/MAJ0407018',
+      name: 'MAJ0407018',
+      meta: { title: '건강 행동별 챌린지 수행률' },
+      component: () => import('@/views/pub/MAJ0407018.vue')
+    },
+    {
+      path: '/MAJ0407023-1',
+      name: 'MAJ0407023-1',
+      meta: { title: '챌린지 인증 건강정보 열람 인증형' },
+      component: () => import('@/views/pub/MAJ0407023-1.vue')
+    },
+    {
+      path: '/MAJ0407023-2',
+      name: 'MAJ0407023-2',
+      meta: { title: '챌린지 인증 건강정보 열람 인증형 - 인증완료' },
+      component: () => import('@/views/pub/MAJ0407023-2.vue')
+    },
+    {
+      path: '/MAJ0407024-1',
+      name: 'MAJ0407024-1',
+      meta: { title: '챌린지 완료 : 리뷰작성' },
+      component: () => import('@/views/pub/MAJ0407024-1.vue')
+    },
+    {
+      path: '/MAJ0407024-2',
+      name: 'MAJ0407024-2',
+      meta: { title: '챌린지 완료 : 등록완료(토스트)' },
+      component: () => import('@/views/pub/MAJ0407024-2.vue')
+    },
+    {
+      path: '/MAJ0407024-3',
+      name: 'MAJ0407024-3',
+      meta: { title: '챌린지 완료 : 2,000자(토스트)' },
+      component: () => import('@/views/pub/MAJ0407024-3.vue')
+    },
+    {
+      path: '/MAJ0407025',
+      name: 'MAJ0407025',
+      meta: { title: '챌린지 리뷰 목록' },
+      component: () => import('@/views/pub/MAJ0407025.vue')
+    },
+    {
+      path: '/MAJ0407026-1',
+      name: 'MAJ0407026-1',
+      meta: { title: '챌린지 리뷰 상세' },
+      component: () => import('@/views/pub/MAJ0407026-1.vue')
+    },
+    {
+      path: '/MAJ0407026-2',
+      name: 'MAJ0407026-2',
+      meta: { title: '챌린지 리뷰 상세 : 수정(바텀시트)' },
+      component: () => import('@/views/pub/MAJ0407026-2.vue')
+    },
+    {
+      path: '/MAJ0407026-3',
+      name: '/MAJ0407026-3',
+      meta: { title: '챌린지 리뷰 상세 : 등록완료(토스트)/수정, 삭제(팝업)' },
+      component: () => import('@/views/pub/MAJ0407026-3.vue')
+    },
+    {
+      path: '/MAJ0407026-4',
+      name: 'MAJ0407026-4',
+      meta: { title: '챌린지 리뷰 상세 : 삭제완료(토스트), 삭제(팝업)' },
+      component: () => import('@/views/pub/MAJ0407026-4.vue')
+    },
+    {
+      path: '/CmmPopup1',
+      name: 'CmmPopup1',
+      meta: { title: '공통 팝업1' },
+      component: () => import('@/views/pub/CmmPopup1.vue')
+    },
+    {
+      path: '/CmmPopup2',
+      name: 'CmmPopup2',
+      meta: { title: '공통 팝업2' },
+      component: () => import('@/views/pub/CmmPopup2.vue')
+    },
+    {
+      path: '/MAJ0100060',
+      name: 'MAJ0100060',
+      meta: { title: '서비스오류 안내' },
+      component: () => import('@/views/pub/MAJ0100060.vue')
+    },
+    {
+      path: '/CmmPopupSns',
+      name: 'CmmPopupSns',
+      meta: { title: '공유하기 팝업' },
+      component: () => import('@/views/pub/CmmPopupSns.vue')
+    },
+    {
+      path: '/MAJ0202770',
+      name: 'MAJ0202770',
+      meta: { title: '건강뉴스 목록' },
+      component: () => import('@/views/pub/MAJ0202770.vue')
+    },
+    {
+      path: '/MAJ0202771',
+      name: 'MAJ0202771',
+      meta: { title: '관심뉴스 설정' },
+      component: () => import('@/views/pub/MAJ0202771.vue')
+    },
+    {
+      path: '/MAJ0202781',
+      name: 'MAJ0202781',
+      meta: { title: '건강뉴스 검색' },
+      component: () => import('@/views/pub/MAJ0202781.vue')
+    },
+    {
+      path: '/MAJ0202782',
+      name: 'MAJ0202782',
+      meta: { title: '건강뉴스 - 카테고리 설정' },
+      component: () => import('@/views/pub/MAJ0202782.vue')
+    },
+    {
+      path: '/MAJ0202785',
+      name: 'MAJ0202785',
+      meta: { title: '건강뉴스 - 퀴즈팝업' },
+      component: () => import('@/views/pub/MAJ0202785.vue')
+    },
+    {
+      path: '/MAJ0202780',
+      name: 'MAJ0202780',
+      meta: { title: '건강뉴스 상세' },
+      component: () => import('@/views/pub/MAJ0202780.vue')
+    },
+    {
+      path: '/MAJ0202780/Quiz2',
+      name: 'MAJ0202780Quiz2',
+      meta: { title: '건강뉴스 상세' },
+      component: () => import('@/views/pub/MAJ0202780.vue')
+    },
+    {
+      path: '/MAJ0305800',
+      name: 'MAJ0305800',
+      meta: { title: '건강검진결과 인덱스' },
+      component: () => import('@/views/pub/MAJ0305800.vue')
+    },
+    {
+      path: '/MAJ0305800-1',
+      name: 'MAJ0305800-1',
+      meta: { title: '건강검진결과 인덱스 케이스' },
+      component: () => import('@/views/pub/MAJ0305800-1.vue')
+    },
+    {
+      path: '/MAJ0305820',
+      name: 'MAJ0305820',
+      meta: { title: '건강검진결과 검사항목 상세' },
+      component: () => import('@/views/pub/MAJ0305820.vue')
+    },
+    {
+      path: '/MAJ0305820-1',
+      name: 'MAJ0305820-1',
+      meta: { title: '건강검진결과 검사항목 상세 (최대)' },
+      component: () => import('@/views/pub/MAJ0305820-1.vue')
+    },
+    {
+      path: '/MAJ0305820-2',
+      name: 'MAJ0305820-2',
+      meta: { title: '건강검진결과 검사항목 상세 (정상)' },
+      component: () => import('@/views/pub/MAJ0305820-2.vue')
+    },
+    {
+      path: '/Tooltip',
+      name: 'Tooltip',
+      meta: { title: 'Tooltip' },
+      component: () => import('@/views/pub/Tooltip.vue')
+    },
+    {
+      path: '/MAJ0203001',
+      name: 'MAJ0203001',
+      meta: { title: '혈압 측정 방법' },
+      component: () => import('@/views/pub/MAJ0203001.vue')
+    },
+    {
+      path: '/MAJ0106801',
+      name: 'MAJ0106801',
+      meta: { title: '성격특질검사 결과' },
+      component: () => import('@/views/pub/MAJ0106801.vue')
+    },
+    {
+      path: '/MAJ0106802',
+      name: 'MAJ0106802',
+      meta: { title: '모든 성격유형' },
+      component: () => import('@/views/pub/MAJ0106802.vue')
+    },
+    {
+      path: '/MAJ0106804',
+      name: 'MAJ0106804',
+      meta: { title: '성격유형검사 결과' },
+      component: () => import('@/views/pub/MAJ0106804.vue')
+    },
+    {
+      path: '/MAJ0106813',
+      name: 'MAJ0106813',
+      meta: { title: '성격특질검사 안내' },
+      component: () => import('@/views/pub/MAJ0106813.vue')
+    },
+    {
+      path: '/MAJ0106814',
+      name: 'MAJ0106814',
+      meta: { title: '성격특질검사 시작' },
+      component: () => import('@/views/pub/MAJ0106814.vue')
+    },
+    {
+      path: '/MAJ0106815',
+      name: 'MAJ0106815',
+      meta: { title: '성격유형검사 안내' },
+      component: () => import('@/views/pub/MAJ0106815.vue')
+    },
+    {
+      path: '/MAJ0106816',
+      name: 'MAJ0106816',
+      meta: { title: '성격유형검사 시작' },
+      component: () => import('@/views/pub/MAJ0106816.vue')
+    },
+    {
+      path: '/MAJ0106817',
+      name: 'MAJ0106817',
+      meta: { title: '초대코드 입력' },
+      component: () => import('@/views/pub/MAJ0106817.vue')
+    },
+    {
+      path: '/MAJ0106818',
+      name: 'MAJ0106818',
+      meta: { title: '마음건강검사 안내' },
+      component: () => import('@/views/pub/MAJ0106818.vue')
+    },
+    {
+      path: '/MAJ0106819',
+      name: 'MAJ0106819',
+      meta: { title: '마음건강검사 시작' },
+      component: () => import('@/views/pub/MAJ0106819.vue')
+    },
+    {
+      path: '/LoadCounter',
+      name: 'LoadCounter',
+      meta: { title: 'text counter' },
+      component: () => import('@/views/pub/LoadCounter.vue')
     }
   ]
 })

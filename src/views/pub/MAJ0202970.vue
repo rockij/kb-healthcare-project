@@ -128,7 +128,7 @@
     </div>
 
     <!-- 혈압 분석 -->
-    <div class="section-page pt-8 pb-0">
+    <div class="section-page pt-8">
       <h2 class="tit-03 tit-link pb-2">
         <v-btn block variant="text">혈압 분석</v-btn>
       </h2>
@@ -163,21 +163,81 @@
         </v-sheet>
       </v-sheet>
       <div class="banner-area">
-        <v-card variant="flat" rounded="xl" class="box-info">
-          <template v-slot:title
-            ><span class="fs-16 lh-0 text-grey-darken-3 font-weight-bold"
-              >올바른 가정혈압 측정의 중요성</span
-            ></template
-          >
-          <template v-slot:append>
-            <v-avatar
-              size="48"
-              rounded="lg"
-              image="/src/assets/images/ico-blood-pressure.svg"
-            />
+        <v-btn
+          variant="flat"
+          color="transparent"
+          class="btn-banner"
+          append-icon="mdi-chevron-right"
+          href="#none"
+          height="auto"
+          block
+          :ripple="false"
+        >
+          <template #prepend>
+            <v-icon icon="icon-prev-blood" size="32"></v-icon>
           </template>
-        </v-card>
+          <div class="text">
+            <p class="title">올바른 가정혈압 측정 방법 안내</p>
+            <p class="small">올바른 측정 준비단계와 방법을 알려드려요</p>
+          </div>
+        </v-btn>
       </div>
+
+      <div class="box-banner">
+        <v-btn
+          variant="flat"
+          href="#none"
+          data-case="medical"
+          class="link-banner"
+          color="#F8F8F8"
+        >
+          <span class="txbox">
+            <strong class="title">식사관리해보러 가기</strong>
+            <span class="text">혈압과 함께 관리해보세요</span>
+          </span>
+          <template #append>
+            <img src="/src/assets/images/icon-meal.svg" alt="" />
+          </template>
+        </v-btn>
+      </div>
+    </div>
+    <!-- 챌린지 영역 -->
+    <div class="section-page pt-8">
+      <h2 class="tit-03 tit-link pb-2">
+        <v-btn block variant="text">챌린지 영역</v-btn>
+      </h2>
+      <div class="text-info-grey">서브텍스트가 노출됩니다</div>
+      <swiper :slides-per-view="1.7" :space-between="16" class="swiper-card">
+        <swiper-slide v-for="swiperCard in swiperCard" :key="swiperCard">
+          <v-card :line="2" class="swiperCard" elevation="0" color="#F8F8F8">
+            <v-img
+              :src="`/src/assets/images/` + swiperCard.src"
+              cover
+              min-height="1"
+            >
+            </v-img>
+
+            <v-card-text>{{ swiperCard.title }}</v-card-text>
+          </v-card>
+        </swiper-slide>
+      </swiper>
+    </div>
+
+    <!-- 함께 볼만한 뉴스 -->
+    <div class="section-page pt-8 pb-0">
+      <div class="tit-03">함께 볼만한 뉴스</div>
+      <ul class="news-list type-2">
+        <li class="news-item pt-4" v-for="item in news" :key="item.id">
+          <div class="news-left">
+            <p class="news-title text-overflow line3">{{ item.text }}</p>
+          </div>
+          <img
+            :src="`/src/assets/images/${item.img}`"
+            alt=""
+            class="news-img type-2"
+          />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -185,10 +245,13 @@
 <script>
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
+  import { Swiper, SwiperSlide } from 'swiper/vue'
   import { ref } from 'vue'
+  import 'swiper/css'
 
   export default {
-    components: { CardReport, ReportResult },
+    components: { CardReport, ReportResult, Swiper, SwiperSlide },
+
     setup() {
       const tab = ref(null)
       const Analysis = ref(null)
@@ -219,6 +282,12 @@
           recordPulse: '132/32'
         }
       ])
+
+      const swiperCard = ref([
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' },
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'exercise.png' },
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' }
+      ])
       function getText(props) {
         switch (props) {
           case 'primary':
@@ -230,6 +299,29 @@
         }
       }
 
+      const news = ref([
+        {
+          text: '면연력이 떨어지면 찾아오는 불청객 독감면연력이 떨어지면 찾아오는 불청객 독감면연력이 떨어지면 찾아오는',
+          img: 'img-news-thumb.png'
+        },
+        {
+          text: '면연력이 떨어지면 찾아오는 불청객 독감',
+          img: 'exercise.png'
+        },
+        {
+          text: '"나 안 건강해요” 한국인 비율이 가장 높다',
+          img: 'exercise.png'
+        },
+        {
+          text: '운동이 정신건강에 미치는 5가지 장점은?',
+          img: 'exercise.png'
+        },
+        {
+          text: '당뇨있는데 근육 없으면 안되',
+          img: 'exercise.png'
+        }
+      ])
+
       function handleClick() {
         console.log('emit')
       }
@@ -238,6 +330,8 @@
         getText,
         Analysis,
         handleClick,
+        news,
+        swiperCard,
         tab
       }
     }

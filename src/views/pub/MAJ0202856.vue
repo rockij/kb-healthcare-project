@@ -56,21 +56,17 @@
       <!-- 기록 component -->
       <CardReport
         :btn="true"
-        v-for="report in reports"
-        :key="report.id"
+        v-for="(report, index) in reports"
+        :key="index"
         @handleClick="handleClick"
       >
         <template #date>{{ report.date }}</template>
         <!-- card 내용 -->
         <template #content>
-          <v-chip
-            label
-            size="small"
-            color="#3F86F1"
-            class="chip-default chip-color"
-          >
-            {{ report.state }}
-          </v-chip>
+          <span class="record-card-name">
+            <i class="icon-sports small" :class="exerciseName[index]"></i
+            ><span class="text">{{ report.state }}</span>
+          </span>
           <v-chip
             label
             size="small"
@@ -82,8 +78,8 @@
             class="card-swiper"
             :pagination="true"
             :modules="modules"
-            :class="`swiper-` + report.id"
             v-if="report.picture"
+            virtual
           >
             <span class="swiper-counter" v-if="report.picture.length - 1 != 0"
               >+{{ report.picture.length - 1 }}</span
@@ -92,7 +88,9 @@
               <v-img
                 aspect-ratio="16/9"
                 cover
+                min-height="1"
                 :src="`/src/assets/images/` + slides"
+                :virtualIndex="index"
               ></v-img>
             </swiper-slide>
           </swiper>
@@ -139,10 +137,9 @@
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
   import { Swiper, SwiperSlide } from 'swiper/vue'
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
   import 'swiper/css'
   import 'swiper/css/pagination'
-  import { Pagination } from 'swiper/modules'
 
   export default {
     components: {
@@ -154,28 +151,40 @@
     setup() {
       const tab = ref(null)
       const Analysis = ref(null)
+      const exerciseName = ref([])
       const reports = ref([
         {
           id: 0,
-          date: '오전 6시 35분',
+          date: '03.23 오전 6:35',
           device: '',
-          state: '걷기',
+          state: '야구',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal'
         },
         {
           id: 1,
-          date: '오전 6시 35분',
+          date: '03.23 오전 6:35',
           device: '',
-          state: '달리기',
+          state: '자전거',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal'
         },
         {
           id: 2,
-          date: '오전 10시 35분',
+          date: '03.23 오전 6:35',
           device: '',
-          state: '근력운동',
+          state: '탁구',
+          recordTime: '1시간 13분',
+          recordCalorie: '208kcal',
+          moving: '1.81km',
+          hasMemo: '사용자가 입력한 메모가 노출됩니다',
+          picture: ['exercise.png', 'exercise.png', 'exercise.png']
+        },
+        {
+          id: 3,
+          date: '03.23 오전 6:35',
+          device: '',
+          state: '골프',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal',
           moving: '1.81km',
@@ -183,6 +192,29 @@
           picture: ['exercise.png', 'exercise.png', 'exercise.png']
         }
       ])
+
+      const exerciseNameIcon = () => {
+        reports.value.forEach((number, index) => {
+          switch (reports.value[index].state) {
+            case '야구':
+              exerciseName.value.push('baseball')
+              break
+            case '자전거':
+              exerciseName.value.push('bicycle')
+              break
+            case '탁구':
+              exerciseName.value.push('ping-pong')
+              break
+            case '골프':
+              exerciseName.value.push('golf')
+              break
+          }
+        })
+      }
+
+      onMounted(() => {
+        exerciseNameIcon()
+      })
 
       function handleClick() {
         console.log('emit')
@@ -193,7 +225,9 @@
         Analysis,
         handleClick,
         tab,
-        modules: [Pagination]
+        exerciseName,
+        exerciseNameIcon,
+        modules: [Pagination, Virtual]
       }
     }
   }

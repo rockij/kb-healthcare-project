@@ -7,13 +7,14 @@
       </v-icon>
     </v-btn>
 
+    <!-- 2023-10-23 버튼 클래스 수정 -->
     <v-btn
       block
       variant="outlined"
       rounded="xl"
       height="48"
       :ripple="false"
-      class="btn-search mt-5"
+      class="btn-search shadow-none mt-5"
       color="#ccc"
       @click="modal = true"
     >

@@ -75,17 +75,53 @@
               </v-window>
             </v-sheet>
           </v-sheet>
-          <div class="btn-area2">
+          <div class="btn-area2 mt-6">
+            <v-btn
+              variant="flat"
+              height="46px"
+              class="bdr-8 fs-16 font-weight-bold"
+              color="#FCEBA6"
+              @click="modal2 = true"
+              block
+              >직접 입력하기</v-btn
+            >
             <v-btn
               variant="text"
               height="46px"
               class="bdr-8 fs-16 font-weight-bold skip"
               block
-              >혈당 기록하기</v-btn
             >
+              <div class="tooltip-balloon arrow-bottom right green">
+                측정 가능
+              </div>
+              기기 측정하기
+            </v-btn>
           </div>
+          <p class="log-date">마지막 기록 23.08.11 오후 11:20</p>
         </div>
       </v-card>
+      <h3 class="tit-03 pt-4 pb-1 d-flex align-center">
+        예상 당화혈색소
+        <v-btn
+          variant="flat"
+          color="transparent"
+          class="btn-question"
+          @click="modal1 = true"
+          ><v-icon icon="mdi-help-circle-outline ml-2" color="#888"></v-icon
+        ></v-btn>
+      </h3>
+      <v-sheet class="bdr-16 pa-4 d-flex align-center" color="#fff">
+        <v-chip
+          label
+          size="small"
+          color="#00C378"
+          class="chip-default chip-color"
+          >안정</v-chip
+        >
+        <span class="fs-20 font-weight-bold ml-2"
+          ><span class="cnt">5.9</span>%</span
+        >
+      </v-sheet>
     </div>
 
     <!-- 혈당 기록 -->
@@ -94,6 +130,22 @@
         <v-btn block variant="text">혈당 기록</v-btn>
       </h2>
       <div class="text-info-grey">최근 3개 기록만 표시됩니다</div>
+      <div class="pt-6">
+        <v-btn variant="flat" color="#F8F8F8" class="link-icon">
+          <template #prepend>
+            <v-img
+              :width="20"
+              :height="20"
+              src="/src/assets/images/icon-megaphone.svg"
+              cover
+            ></v-img>
+          </template>
+          <span class="text"
+            >측정 시점이 <strong>미입력</strong> 된 기록이 있어요</span
+          >
+          <v-icon icon="ico-link-arrow" size="15" class="ml-1"></v-icon>
+        </v-btn>
+      </div>
 
       <!-- 기록 component -->
       <CardReport
@@ -117,7 +169,12 @@
           >
             {{ getText(report.state) }}
           </v-chip>
-          <v-chip label size="small" class="chip-default ml-2">
+          <v-chip
+            label
+            size="small"
+            class="chip-default ml-2"
+            v-if="report.device"
+          >
             {{ report.device }}
           </v-chip>
           <dl class="dl dl-table">
@@ -151,22 +208,13 @@
         <CardReport
           :btn="true"
           v-for="reportsMeal in reportsMeal"
-          :key="reportsMeal.id"
+          :key="reportsMeal"
           class="report-food"
         >
           <template #date>{{ reportsMeal.date }}</template>
           <!-- card 내용 -->
           <template #content>
             <div class="content-grid">
-              <v-chip
-                label
-                size="small"
-                variant="flat"
-                color="#F8F8F8"
-                class="chip-default"
-              >
-                {{ reportsMeal.device }}
-              </v-chip>
               <img
                 :src="`/src/assets/images/${reportsMeal.img}`"
                 alt=""
@@ -209,15 +257,17 @@
               ></v-avatar>
             </v-list-subheader>
             <template v-for="(item, i) in reportsMeal" :key="i">
-              <v-list-item v-if="item.state == 'errorHigh'" lines="3">
-                <template v-slot:prepend>
-                  <v-avatar
-                    size="28"
-                    image="/src/assets/images/icon-dislike-red.svg"
-                  ></v-avatar>
-                </template>
-
-                <v-list-item-title>{{ item.food }}</v-list-item-title>
+              <v-list-item v-if="item.state == 'errorHigh'">
+                <div class="items">
+                  <span class="bullet-count">{{ i + 1 }}</span>
+                  <div class="info">
+                    <p class="title">
+                      <span class="name">{{ item.id }}</span
+                      ><span class="weigth">{{ item.weigh }}</span>
+                    </p>
+                    <p class="text">{{ item.food }}</p>
+                  </div>
+                </div>
               </v-list-item>
             </template>
             <p class="result-bloodSugar-msg bullet-circle-items">
@@ -284,23 +334,29 @@
       </v-sheet>
     </div>
   </div>
+  <MAJ0203112 v-model="modal1" @close="modal1 = false"></MAJ0203112>
+  <MAJ0203106 v-model="modal2" @close="modal2 = false"></MAJ0203106>
 </template>
 
 <script>
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
+  import MAJ0203112 from './MAJ0203112.vue'
+  import MAJ0203106 from './MAJ0203106.vue'
   import { ref } from 'vue'
 
   export default {
-    components: { CardReport, ReportResult },
+    components: { CardReport, ReportResult, MAJ0203112, MAJ0203106 },
     setup() {
+      const modal1 = ref(false)
+      const modal2 = ref(false)
       const tab = ref(null)
       const Analysis = ref(null)
       const reports = ref([
         {
           id: 0,
           date: '오전 10시 35분',
-          device: '직접입력',
+          device: '기기',
           state: 'success',
           recordPeriod: '공복',
           bloodSugar: '64',
@@ -309,7 +365,7 @@
         {
           id: 1,
           date: '오전 6시 35분',
-          device: '직접입력',
+          device: '플랫폼',
           state: 'errorLow',
           recordPeriod: '식전',
           bloodSugar: '90'
@@ -317,7 +373,6 @@
         {
           id: 2,
           date: '오전 6시 35분',
-          device: '직접입력',
           state: 'errorHigh',
           recordPeriod: '식후',
           bloodSugar: '64'
@@ -326,9 +381,10 @@
 
       const reportsMeal = ref([
         {
-          id: 0,
-          date: '오전 6시 45분',
-          food: '계란, 사과, 바나나, 귤',
+          id: '당류',
+          weigh: '200g',
+          date: '오전 6:35',
+          food: '양념치킨',
           device: '직접입력',
           recordPeriod: '아침',
           state: 'errorHigh',
@@ -336,9 +392,10 @@
           calories: '200kcal'
         },
         {
-          id: 2,
-          date: '오전 10시 45분',
-          food: '마카롱, 반숙란',
+          id: '당류',
+          weigh: '100g',
+          date: '오전 6:35',
+          food: '양념치킨',
           device: '직접입력',
           recordPeriod: '아침간식',
           state: 'errorHigh',
@@ -346,12 +403,35 @@
           calories: '300kcal'
         },
         {
-          id: 3,
-          date: '오후 11시 45분',
+          id: '당류',
+          weigh: '60g',
+          date: '오전 6:35',
           food: '양념치킨',
           device: '직접입력',
           recordPeriod: '저녁',
-          state: 'success',
+          state: 'errorHigh',
+          img: 'img-food.png',
+          calories: '100kcal'
+        },
+        {
+          id: '당류',
+          weigh: '50g',
+          date: '오전 6:35',
+          food: '계란, 사과, 바나나, 귤, 프렌치 토스트, 오렌지 주스',
+          device: '직접입력',
+          recordPeriod: '저녁',
+          state: 'errorHigh',
+          img: 'img-food.png',
+          calories: '100kcal'
+        },
+        {
+          id: '당류',
+          weigh: '1g',
+          date: '오전 6:35',
+          food: '계란',
+          device: '직접입력',
+          recordPeriod: '저녁',
+          state: 'errorHigh',
           img: 'img-food.png',
           calories: '100kcal'
         }
@@ -377,6 +457,8 @@
         Analysis,
         handleClick,
         reportsMeal,
+        modal1,
+        modal2,
         tab
       }
     }

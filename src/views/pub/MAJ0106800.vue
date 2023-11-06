@@ -1,25 +1,23 @@
 <template>
-  <div class="contents">
-    <div class="servey-wrap type-2">
-      <!-- paging -->
-      <SurveyPaging
-        type="range"
-        :page="page + 1"
-        :pageLengh="pageLengh()"
-        :pageList="pageList"
-        :progress="progress"
-        @update:prev="page--"
-        @update:next="page++"
-      />
-      <v-card variant="flat" rounded="xl" class="survey-content">
-        <!-- 설문 페이지 -->
-        <v-window v-model="page">
-          <v-window-item v-for="item in pageList" :key="item.id">
-            <component :is="item.path" />
-          </v-window-item>
-        </v-window>
-      </v-card>
-    </div>
+  <div class="servey-wrap type-2">
+    <!-- paging -->
+    <SurveyPaging
+      type="range"
+      :page="page + 1"
+      :pageLengh="pageLengh()"
+      :pageList="pageList"
+      :progress="progress"
+      @update:prev="page--"
+      @update:next="page++"
+    />
+    <v-card variant="flat" rounded="xl" class="survey-content">
+      <!-- 설문 페이지 -->
+      <v-window v-model="page">
+        <v-window-item v-for="item in pageList" :key="item.id">
+          <component :is="item.path" />
+        </v-window-item>
+      </v-window>
+    </v-card>
   </div>
 </template>
 

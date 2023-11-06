@@ -1,6 +1,8 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar />
+    </div>
     <div class="section-page bg pa-4">
       <v-card variant="flat" rounded="xl" class="pt-4 pr-6 pb-4 pl-6">
         <Nodata
@@ -67,13 +69,13 @@
 </template>
 <script>
   import Nodata from '@/components/nodata/Nodata.vue'
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import CardReport from '@/components/CardReport.vue'
   import { ref } from 'vue'
   export default {
     components: {
       Nodata,
-      LifeCalendar,
+      VCalendar,
       CardReport
     },
     setup() {

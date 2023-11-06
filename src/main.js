@@ -17,6 +17,8 @@ import '@mdi/font/css/materialdesignicons.css'
 import VCalendar from 'v-calendar'
 import 'v-calendar/style.css'
 
+import VueNumber from 'vue-number-animation'
+
 const vuetify = createVuetify({
   components,
   directives
@@ -41,4 +43,5 @@ app.use(store)
 app.use(vuetify)
 app.use(VCalendar, {})
 app.provide('dayJS', dayjs)
+app.use(VueNumber)
 app.mount('#app')

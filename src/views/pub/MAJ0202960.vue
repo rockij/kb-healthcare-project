@@ -1,6 +1,8 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
+    </div>
     <div class="section-page bg px-4 pt-4 pb-2">
       <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
         휴레이 메시지는 아직 확정되지 않았다
@@ -22,33 +24,21 @@
           ></v-switch>
         </div>
         <template v-if="smokeMode === false">
-          <div class="d-flex tabs-target cigarette mt-6">
-            <v-btn
-              variant="text"
-              v-for="btn in cigaBtns"
-              :key="btn.value"
-              :class="`target${btn.value} ${
-                cigaBtn === btn.value ? 'selected' : ''
-              }`"
-              @click="cigaSelected(btn.value)"
-              ><span v-html="btn.text"></span
-            ></v-btn>
-          </div>
-          <div class="numcount-area mt-4 px-3">
-            <v-btn
-              variant="text"
-              class="handle decrease"
-              title="감소"
-              @click="numcount > 0 ? numcount-- : ''"
-            ></v-btn>
-            <strong class="number">{{ numcount }}</strong>
-            <v-btn
-              variant="text"
-              class="handle increase"
-              title="증가"
-              @click="numcount++"
-            ></v-btn>
-          </div>
+          <Carousel
+            :items-to-show="2.1"
+            :wrap-around="true"
+            class="life-count-swiper mt-7"
+          >
+            <Slide v-for="item in smokeTypeList" :key="item.value">
+              <SmokeAmount
+                :iconNum="item.value"
+                :text="item.text"
+                :numcount="item.count"
+                @update:minus="item.count > 0 ? item.count-- : 0"
+                @update:plus="item.count++"
+              />
+            </Slide>
+          </Carousel>
         </template>
         <div v-if="smokeMode === true" class="countdown-flip mt-6">
           <div class="clock">
@@ -123,21 +113,15 @@
         </div>
       </v-card>
       <template v-if="smokeMode === false">
-        <v-divider
-          class="border-opacity-100 divider-dotted mx-4"
-          :thickness="1"
-        />
+        <div class="divider-dotted-bg mx-3 px-3">
+          <v-divider class="border-opacity-100 divider-dotted" :thickness="1" />
+        </div>
         <v-card
           variant="flat"
           rounded="xl"
           class="px-4 pt-3 pb-4 d-flex align-center"
         >
-          <div class="fs-13 text-grey miws-132">
-            오늘 총 흡연량<span class="d-block font-weight-bold text-blue fs-18"
-              >250개비, 500ml</span
-            >
-          </div>
-          <ul class="ml-4">
+          <ul>
             <li class="d-flex mt-1" v-for="list in smokelist" :key="list.id">
               <span class="badge waiting">{{ list.text }}</span>
               <span class="font-weight-bold ml-2">{{ list.count }}</span>
@@ -148,9 +132,53 @@
     </div>
     <!-- //금연모드선택 -->
 
-    <!-- 흡연결과 -->
-    <template v-if="smokeMode === false">
-      <div class="section-page">
+    <div v-if="smokeMode === true" class="section-page">
+      <h2 class="tit-03">금연하면 생기는 긍정적인 변화</h2>
+      <div v-for="list in nsmokeList" :key="list.id" class="list-iconlst2 mt-2">
+        <i :class="`icon${list.id}`"></i>
+        <p>{{ list.text }}</p>
+      </div>
+    </div>
+    <!-- //금연긍정변화 -->
+
+    <div v-if="smokeMode === false" class="section-page">
+      <h2 class="tit-03 tit-link">
+        <v-btn block variant="text">흡연 분석</v-btn>
+      </h2>
+      <p class="text-info-grey fs-16">최근 1주일의 흡연 분석입니다</p>
+      <v-tabs align-tabs="start" class="tab-line mt-4">
+        <v-tab :ripple="false" class="fs-20">1주일</v-tab>
+        <v-tab :ripple="false" class="fs-20">1개월</v-tab>
+        <v-tab :ripple="false" class="fs-20">6개월</v-tab>
+      </v-tabs>
+      <div class="text-info-grey2 fs-14 mt-6">2023.08.14~2023.08.24</div>
+      <v-btn
+        block
+        variant="outlined"
+        rounded="lg"
+        :ripple="false"
+        class="btn-select-arrow py-0 mt-2"
+        color="#26282C"
+        height="48"
+        @click="modal4 = true"
+      >
+        <span ref="selectBox" class="text fs-16 font-weight-bold">
+          {{ modal4ListBtn }}
+          <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+        </span>
+      </v-btn>
+      <div class="mt-5">
+        <img
+          src="@/assets/images/img-graph-bar2.png"
+          style="width: 100%"
+          alt=""
+        />
+      </div>
+    </div>
+    <!-- //흡연분석 -->
+
+    <div class="section-page">
+      <template v-if="smokeMode === false">
         <h2 class="tit-03 tit-link">
           <v-btn block variant="text">흡연 기록</v-btn>
         </h2>
@@ -173,48 +201,10 @@
             </dl>
           </template>
         </CardReport>
-      </div>
+      </template>
       <!-- //흡연기록 -->
 
-      <div class="section-page">
-        <h2 class="tit-03 tit-link">
-          <v-btn block variant="text">흡연 분석</v-btn>
-        </h2>
-        <p class="text-info-grey fs-16">기간별 인사이트를 보여드려요</p>
-        <v-tabs align-tabs="start" class="tab-line mt-4">
-          <v-tab :ripple="false" class="fs-20">1주일</v-tab>
-          <v-tab :ripple="false" class="fs-20">1개월</v-tab>
-          <v-tab :ripple="false" class="fs-20">6개월</v-tab>
-        </v-tabs>
-        <div class="text-info-grey2 mt-7">2023.08.14~2023.08.24</div>
-        <div class="mt-5">
-          <img
-            src="@/assets/images/img-graph-bar2.png"
-            style="width: 100%"
-            alt=""
-          />
-        </div>
-      </div>
-      <!-- //흡연분석 -->
-    </template>
-    <!-- //흡연결과 -->
-
-    <!-- 금연모드 시작전 -->
-    <template v-if="smokeMode === true">
-      <div class="section-page">
-        <h2 class="tit-03">금연하면 생기는 긍정적인 변화</h2>
-        <div
-          v-for="list in nsmokeList"
-          :key="list.id"
-          class="list-iconlst2 mt-2"
-        >
-          <i :class="`icon${list.id}`"></i>
-          <p>{{ list.text }}</p>
-        </div>
-      </div>
-      <!-- //금연긍정변화 -->
-
-      <div class="section-page">
+      <template v-if="smokeMode === true">
         <h2 class="tit-03 tit-link">
           <v-btn block variant="text">금연 기록</v-btn>
         </h2>
@@ -237,22 +227,61 @@
             </dl>
           </template>
         </CardReport>
-      </div>
-      <!-- //금연기록 -->
+      </template>
+      <!-- //금연시간 -->
 
-      <div class="section-page">
-        <h2 class="tit-03">챌린지</h2>
-        <p class="text-info-grey fs-16">챌린지 관련 서브 텍스트 노출</p>
-      </div>
-      <!-- //챌린지 -->
+      <Carousel
+        :items-to-Show="1.1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper mt-8"
+      >
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+      </Carousel>
+      <!-- //배너 -->
+    </div>
 
-      <div class="section-page">
-        <h2 class="tit-03">추천영역</h2>
-        <p class="text-info-grey fs-16">추천영역 관련 서브 텍스트 노출</p>
-      </div>
-      <!-- //추천영역 -->
-    </template>
-    <!-- //금연모드 시작전 -->
+    <div class="section-page">
+      <h2 class="tit-03">챌린지</h2>
+      <p class="text-info-grey fs-16">챌린지 관련 서브 텍스트 노출</p>
+      <swiper :slides-per-view="1.7" :space-between="16" class="swiper-card">
+        <swiper-slide v-for="swiperCard in swiperCard" :key="swiperCard">
+          <v-card :line="2" class="swiperCard" elevation="0" color="#F8F8F8">
+            <v-img
+              :src="`/src/assets/images/` + swiperCard.src"
+              cover
+              min-height="1"
+            >
+            </v-img>
+
+            <v-card-text>{{ swiperCard.title }}</v-card-text>
+          </v-card>
+        </swiper-slide>
+      </swiper>
+    </div>
+    <!-- //챌린지 -->
+
+    <div class="section-page pb-0">
+      <h2 class="tit-03">오건강님을 위한 건강뉴스</h2>
+      <ul class="news-list type-2">
+        <li class="news-item pt-4" v-for="item in healthNews" :key="item.id">
+          <div class="news-left">
+            <p class="news-title text-overflow line3">{{ item.text }}</p>
+          </div>
+          <v-img
+            :src="`/src/assets/images/${item.img}`"
+            alt=""
+            class="news-img type-2"
+          />
+        </li>
+      </ul>
+    </div>
+    <!-- //건강뉴스 -->
 
     <DialogSetting
       :lists="modalList"
@@ -271,24 +300,45 @@
       @close="modal3 = false"
       @update="modal3 = false"
     />
+    <DialogSelectList
+      :lists="modal4List"
+      :title="modal4Title"
+      v-model="modal4"
+      @close="modal4 = false"
+      @update="changeCategory"
+    />
   </div>
 </template>
 <script>
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue' // 달력
+  import VCalendar from '@/components/VCalendar.vue' // 달력
   import BanerReport from '@/components/BanerReport.vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
   import CardReport from '@/components/CardReport.vue'
   import DialogSetting from '@/components/DialogSetting.vue'
   import RecordSmoking from '@/views/pub/MAJ0202963.vue'
   import DialogSmokeSuccess from '@/views/pub/MAJ0203677.vue'
+  import DialogSelectList from '@/components/DialogSelectList.vue'
+  import SmokeAmount from '@/views/pub/MAJ0202960-2.vue'
   import { ref, computed } from 'vue'
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Carousel, Slide } from 'vue3-carousel'
+  import 'swiper/css'
+  import 'vue3-carousel/dist/carousel.css'
   export default {
     components: {
-      LifeCalendar,
+      VCalendar,
       BanerReport,
+      BanerSimple,
       CardReport,
       DialogSetting,
       RecordSmoking,
-      DialogSmokeSuccess
+      DialogSmokeSuccess,
+      DialogSelectList,
+      Swiper,
+      SwiperSlide,
+      Carousel,
+      Slide,
+      SmokeAmount
     },
     setup() {
       const smokeMode = ref(false)
@@ -318,37 +368,18 @@
         {
           id: 1,
           date: '2023.03. 23 ~ 2023.03. 24',
-          title: '금연기록',
+          title: '금연시간',
           count: '<span class="text-blue">00:06:12:30</span>'
         },
         {
           id: 2,
           date: '2023.03. 23 ~ 2023.03. 24',
-          title2: '금연기록',
+          title2: '금연시간',
           ml: '<span class="text-blue">10:20:30:00</span>'
         }
       ])
       function handleClick() {
         console.log('emit')
-      }
-
-      const cigaBtn = ref()
-      const cigaBtns = ref([
-        {
-          value: 1,
-          text: '궐련형<br/>전자담배'
-        },
-        {
-          value: 2,
-          text: '일반담배'
-        },
-        {
-          value: 3,
-          text: '액상형<br/>전자담배'
-        }
-      ])
-      function cigaSelected(val) {
-        cigaBtn.value = val
       }
 
       const numcount = ref(0)
@@ -488,6 +519,80 @@
         }
       }
 
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        }
+      ])
+
+      const smokeTypeList = ref([
+        {
+          value: 1,
+          text: '일반담배',
+          count: 0
+        },
+        {
+          value: 2,
+          text: '권련형 전자담배',
+          count: 0
+        },
+        {
+          value: 3,
+          text: '액상형 전자담배',
+          count: 0
+        }
+      ])
+      const modal4 = ref(false)
+      const modal4ListBtn = ref('일반담배')
+      const modal4Title = ref('담배종류선택')
+      const modal4List = ref([
+        {
+          value: 1,
+          text: '일반담배'
+        },
+        {
+          value: 2,
+          text: '권련형'
+        },
+        {
+          value: 2,
+          text: '액상형'
+        }
+      ])
+      function changeCategory(val) {
+        modal4.value = false
+        return (modal4ListBtn.value = val.text)
+      }
+      const swiperCard = ref([
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' },
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'exercise.png' },
+        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' }
+      ])
+      const banerList = ref([
+        {
+          title: '기분 관리해 보러 가기',
+          text: '흡연과 함께 관리해보세요',
+          iconName: 'icon-circle-count3.svg'
+        },
+        {
+          title: '올바른 가정혈압 측정 방법 안내',
+          text: '올바른 측정 준비단계와 방법을 알려드려요',
+          iconName: 'icon-meal.svg'
+        }
+      ])
+      const healthNews = ref([
+        {
+          text: '면연력이 떨어지면 찾아오는 불청객 독감',
+          img: 'img-news-thumb.png'
+        },
+        {
+          text: '운동이 정신건강에 미치는 5가지 장점은?',
+          img: 'img-news-thumb.png'
+        }
+      ])
+
       return {
         smokeMode,
         smokeModeCheck,
@@ -495,10 +600,6 @@
         reports,
         reports2,
         handleClick,
-
-        cigaBtn,
-        cigaBtns,
-        cigaSelected,
 
         numcount,
 
@@ -526,7 +627,17 @@
         second,
         minute,
         hour,
-        day
+        day,
+        calendarAttr,
+        smokeTypeList,
+        modal4,
+        modal4ListBtn,
+        modal4Title,
+        modal4List,
+        changeCategory,
+        swiperCard,
+        banerList,
+        healthNews
       }
     }
   }

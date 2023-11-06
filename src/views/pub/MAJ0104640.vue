@@ -145,12 +145,17 @@
         result.value = true
       }
       function filteredList() {
-        if (text.value !== '') {
-          return list.value.filter((i) => i.title.includes(text.value))
-        } else if (selBtn.value !== undefined) {
-          return list.value.filter((i) => i.id === selBtn.value)
+        console.log()
+        if (router.currentRoute.value.name === 'MAJ0104640Nodata') {
+          return (list.value = [])
         } else {
-          return list.value
+          if (text.value !== '') {
+            return list.value.filter((i) => i.title.includes(text.value))
+          } else if (selBtn.value !== undefined) {
+            return list.value.filter((i) => i.id === selBtn.value)
+          } else {
+            return list.value
+          }
         }
       }
       function hightlight(i) {

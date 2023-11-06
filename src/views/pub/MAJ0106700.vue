@@ -1,36 +1,34 @@
 <template>
-  <div class="contents">
-    <div class="servey-wrap">
-      <!-- paging -->
-      <SurveyPaging
-        :page="page + 1"
-        :pageLengh="pageLengh()"
-        :pageList="pageList"
-        :progress="progress"
-        @update:prev="page--"
-        @update:next="page++"
-      />
-      <!-- 설문 -->
-      <div class="survey-content">
-        <!-- 설문 페이지 -->
-        <v-window v-model="page">
-          <v-window-item v-for="item in pageList" :key="item.id">
-            <component :is="item.path" />
-          </v-window-item>
-        </v-window>
-      </div>
-      <!-- bottom btn -->
-      <div class="btn-bottom">
-        <div class="btn-area d-flex">
-          <v-btn
-            variant="text"
-            height="56"
-            class="btn-summit"
-            @click.stop="getPage"
-          >
-            {{ page + 1 === pageList.length ? '결과보기' : '다음' }}
-          </v-btn>
-        </div>
+  <div class="servey-wrap">
+    <!-- paging -->
+    <SurveyPaging
+      :page="page + 1"
+      :pageLengh="pageLengh()"
+      :pageList="pageList"
+      :progress="progress"
+      @update:prev="page--"
+      @update:next="page++"
+    />
+    <!-- 설문 -->
+    <div class="survey-content">
+      <!-- 설문 페이지 -->
+      <v-window v-model="page">
+        <v-window-item v-for="item in pageList" :key="item.id">
+          <component :is="item.path" />
+        </v-window-item>
+      </v-window>
+    </div>
+    <!-- bottom btn -->
+    <div class="btn-bottom">
+      <div class="btn-area d-flex">
+        <v-btn
+          variant="text"
+          height="56"
+          class="btn-summit"
+          @click.stop="getPage"
+        >
+          {{ page + 1 === pageList.length ? '결과보기' : '다음' }}
+        </v-btn>
       </div>
     </div>
   </div>

@@ -31,7 +31,7 @@
             class="btn-list-block"
             @click="onClicked(btn)"
           >
-            {{ btn.text }}
+            <span v-html="btn.text"></span>
           </v-btn>
         </div>
       </div>

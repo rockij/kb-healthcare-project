@@ -23,7 +23,7 @@
         <div class="flex-shrink-0 modal-body-container">
           <slot name="modalBody"></slot>
           <!-- btn-bottom -->
-          <div class="btn-bottom">
+          <div class="btn-bottom" v-if="!bottomBtn">
             <div class="btn-area d-flex">
               <slot name="modalButton"></slot>
             </div>
@@ -36,7 +36,7 @@
 </template>
 <script>
   export default {
-    props: ['modalTitle'],
+    props: ['modalTitle', 'bottomBtn'],
     emits: ['update', 'close', 'clickfunction'],
     setup() {
       return {}

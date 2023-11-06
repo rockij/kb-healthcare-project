@@ -3,7 +3,7 @@
     <div style="height: 200px; background-color: red"></div>
     <!-- stickyArea -->
     <div ref="stickyArea" :style="{ height: navHeight }">
-      <div ref="sticky">
+      <div class="sticky">
         <!-- contents -->
         STICKY
         <!-- //contents -->
@@ -19,17 +19,16 @@
   export default {
     setup() {
       //sticky
-      const sticky = ref(null)
       const stickyArea = ref(null)
       const navHeight = ref(null)
       onMounted(() => {
-        const stickyHeight = (navHeight.value =
-          sticky.value.offsetHeight + 'px')
+        const sticky = document.querySelector('.sticky')
+        navHeight.value = sticky.offsetHeight + 'px'
         const stickyObserver = new IntersectionObserver(
           ([e]) => {
-            if (!e.isIntersecting && sticky.value !== null)
-              sticky.value.classList.add('isFixed')
-            else sticky.value.classList.remove('isFixed')
+            if (!e.isIntersecting && sticky !== null)
+              sticky.classList.add('isFixed')
+            else sticky.classList.remove('isFixed')
           },
           {
             root: null,
@@ -38,7 +37,7 @@
         )
         stickyObserver.observe(stickyArea.value)
       })
-      return { navHeight, sticky, stickyArea }
+      return { navHeight, stickyArea }
     }
   }
 </script>

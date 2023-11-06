@@ -1,6 +1,8 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
+    </div>
     <div class="section-page bg pa-4">
       <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
         휴레이 메시지는 아직 확정되지 않았다
@@ -132,14 +134,14 @@
   </div>
 </template>
 <script>
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import BanerReport from '@/components/BanerReport.vue'
   import CardReport from '@/components/CardReport.vue'
   import DialogSetting from '@/components/DialogSetting.vue' // 설정
   import { ref } from 'vue'
   export default {
     components: {
-      LifeCalendar,
+      VCalendar,
       BanerReport,
       CardReport,
       DialogSetting
@@ -209,6 +211,14 @@
         alert('삭제')
       }
 
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        }
+      ])
+
       return {
         reports,
         getText,
@@ -216,7 +226,8 @@
         modalTitle,
         modalList,
         modifyFunc,
-        delFunc
+        delFunc,
+        calendarAttr
       }
     }
   }

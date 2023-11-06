@@ -26,6 +26,10 @@ body {
   letter-spacing: -0.2px;
 }
 
+strong {
+  @include fontWeight(semibold);
+}
+
 #app {
   display: flex;
   height: 100%;
@@ -97,6 +101,18 @@ button[disabled],
   flex-direction: column;
 }
 
+.text-overflow {
+  &.line1 {
+    @include textOverflow;
+  }
+  &.line2 {
+    @include textOverflow(2);
+  }
+  &.line3 {
+    @include textOverflow(3);
+  }
+}
+
 // title영역
 .title-area {
   &.underline {
@@ -139,6 +155,105 @@ button[disabled],
     text-decoration: underline;
   }
 }
+.tit-emotion {
+  display: flex;
+  align-items: center;
+  &::before {
+    content: '';
+    width: toRem(48);
+    height: toRem(48);
+    background-size: toRem(32) auto;
+    background-position: 50% 50%;
+    background-color: #00c378;
+    border-radius: 16px;
+    margin-right: toRem(10);
+  }
+  &.verygood::before {
+    @include bgimg('icon-state-emoji05');
+  }
+  &.good::before {
+    @include bgimg('icon-state-emoji04');
+  }
+  &.normal::before {
+    @include bgimg('icon-state-emoji03');
+  }
+  &.bad::before {
+    @include bgimg('icon-state-emoji02');
+  }
+  &.verybad::before {
+    @include bgimg('icon-state-emoji01');
+  }
+}
+
+.tooltip-balloon {
+  position: relative;
+  line-height: toRem(24);
+  border-radius: toRem(50);
+  background-color: $black;
+  padding: toRem(2) toRem(14);
+  min-height: toRem(28);
+  display: inline-flex;
+  align-items: center;
+  font-size: toRem(14);
+  text-align: center;
+  color: $white;
+  &::after {
+    content: '';
+    width: toRem(10);
+    height: toRem(12);
+    position: absolute;
+    background-color: $black;
+    border-radius: toRem(2);
+    z-index: -1;
+  }
+  &[class*='icon-'] {
+    &::before {
+      content: '';
+      margin-right: toRem(2);
+      width: toRem(16);
+      height: toRem(16);
+    }
+  }
+  &.icon-emoji {
+    &::before {
+      @include bgimg('icon-tip-emoji');
+    }
+  }
+  &.icon-walk {
+    &::before {
+      @include bgimg('icon-walk');
+    }
+  }
+  &.arrow-bottom {
+    &::after {
+      bottom: toRem(-3);
+      left: 50%;
+      transform: translateX(-50%) rotate(35deg) skewY(20deg);
+    }
+  }
+  &.arrow-bottom-front {
+    &::after {
+      bottom: toRem(-3);
+      left: toRem(16);
+      transform: rotate(35deg) skewY(20deg);
+    }
+  }
+  &.arrow-left {
+    &::after {
+      left: toRem(-1);
+      top: 50%;
+      transform: translateY(-50%) rotate(-61deg) skewY(30deg);
+    }
+  }
+  &.arrow-right {
+    &::after {
+      right: toRem(-1);
+      top: 50%;
+      transform: translateY(-50%) rotate(-61deg) skewY(30deg);
+    }
+  }
+}
+
 // title
 .tit-01 {
   &.color {
@@ -177,11 +292,10 @@ button[disabled],
 // 리스트영역 내 뱃지
 .badge {
   display: inline-block;
-  padding: 0 6px;
-  border-radius: 4px;
+  padding: 0 toRem(6);
+  border-radius: toRem(4);
   font-size: toRem(13);
   line-height: toRem(24);
-  &,
   &.ing {
     box-shadow: inset 0 0 0 1px #0f61ff;
     color: #0f61ff;
@@ -190,6 +304,72 @@ button[disabled],
     color: #888;
     box-shadow: none;
     background-color: rgba(102, 102, 102, 0.06);
+  }
+  &.complete {
+    border: 1px solid #3f86f1;
+    color: #3f86f1;
+  }
+  &.accept {
+    color: #666;
+    background-color: #f8f8f8;
+  }
+}
+
+// 공유하기 팝업
+.v-btn.btn-cmm-sns {
+  @include v-btn-reset;
+  padding: 0;
+  font-size: toRem(14);
+  .v-btn__content {
+    &::before {
+      content: '';
+      width: toRem(48);
+      height: toRem(48);
+      margin-bottom: toRem(8);
+    }
+    display: flex;
+    flex-direction: column;
+  }
+  &.kakao {
+    .v-btn__content {
+      &::before {
+        @include bgimg('icon-sns-kao');
+      }
+    }
+  }
+  &.fb {
+    .v-btn__content {
+      &::before {
+        @include bgimg('icon-sns-fb');
+      }
+    }
+  }
+  &.ins {
+    .v-btn__content {
+      &::before {
+        @include bgimg('icon-sns-ins');
+      }
+    }
+  }
+  &.url {
+    .v-btn__content {
+      &::before {
+        @include bgimg('icon-sns-url');
+        background-position: 50% 50%;
+        background-color: #f8f8f8;
+        border-radius: 50%;
+      }
+    }
+  }
+  &.etc {
+    .v-btn__content {
+      &::before {
+        @include bgimg('icon-sns-etc');
+        background-position: 50% 50%;
+        background-color: #f8f8f8;
+        border-radius: 50%;
+      }
+    }
   }
 }
 
@@ -205,7 +385,7 @@ button[disabled],
     display: inline-block;
     vertical-align: middle;
     &::after {
-      margin: -2px 10px 0;
+      margin: toRem(-2) toRem(10) 0;
       display: inline-block;
       content: '';
       width: 1px;
@@ -228,7 +408,6 @@ button[disabled],
 }
 
 // v-textfield + v-textarea 기본형
-
 .textfield-search {
   .mdi-magnify {
     &::before {
@@ -298,13 +477,13 @@ button[disabled],
 .textfield-default {
   &.suffix {
     .v-field__append-inner {
-      font-size: 18px;
+      font-size: toRem(18);
       font-style: normal;
       font-weight: 600;
-      line-height: 26px;
+      line-height: toRem(26);
       letter-spacing: -0.2px;
       color: #ccc;
-      margin: 41px 16px 15px 0;
+      margin: toRem(41) toRem(16) toRem(15) 0;
       //margin-top: 42px;
     }
     .v-field--appended {
@@ -313,7 +492,7 @@ button[disabled],
     .v-field {
       &.v-field--single-line {
         .v-field__append-inner {
-          margin: 0 16px 0 0;
+          margin: 0 toRem(16) 0 0;
         }
       }
     }
@@ -348,8 +527,8 @@ button[disabled],
       &.v-field--single-line {
         .v-field__field {
           .v-field__input {
-            height: 60px;
-            padding: 17px 16px;
+            height: toRem(60);
+            padding: toRem(17) toRem(16);
           }
         }
         .v-field__clearable {
@@ -362,19 +541,19 @@ button[disabled],
       --v-field-padding-end: 0;
       .v-field__field {
         .v-field__input {
-          height: 84px;
-          padding: 41px 16px 15px;
+          height: toRem(84);
+          padding: toRem(41) toRem(16) toRem(15);
           display: flex;
           flex-direction: row-reverse;
           justify-content: space-around;
           align-items: flex-start;
           font-size: toRem(18);
-          line-height: 26px;
+          line-height: toRem(26);
           &::placeholder {
             opacity: 1;
             color: #ccc;
             text-overflow: ellipsis;
-            line-height: 26px;
+            line-height: toRem(26);
           }
           .input-count {
             align-self: flex-end;
@@ -383,7 +562,7 @@ button[disabled],
         }
         .v-field-label {
           visibility: visible;
-          top: 26px;
+          top: toRem(26);
           font-size: toRem(14);
           line-height: toRem(20);
           font-weight: 300;
@@ -392,7 +571,7 @@ button[disabled],
       }
       .v-field__outline {
         border: 1px solid #ccc;
-        border-radius: 16px;
+        border-radius: toRem(16);
         .v-field__outline__start,
         .v-field__outline__end {
           border: 0;
@@ -404,7 +583,7 @@ button[disabled],
         }
       }
       .v-field__clearable {
-        padding-top: 27px;
+        padding-top: toRem(27);
         margin-inline-end: toRem(10);
         .mdi-close-circle::before {
           color: #8c949e;
@@ -440,12 +619,12 @@ button[disabled],
     }
   }
   .v-text-field__suffix {
-    --v-field-padding-top: 27px;
-    --v-field-padding-end: 16px;
+    --v-field-padding-top: 1.6875rem;
+    --v-field-padding-end: 1rem;
     --v-input-chips-margin-top: 0;
     @include fontWeight(semibold);
     font-size: toRem(18);
-    line-height: 26px;
+    line-height: toRem(26);
     color: $black;
   }
   &.input-basic {
@@ -482,6 +661,7 @@ button[disabled],
           animation: Caption 0.3s ease-in-out;
           opacity: 1;
           color: $red !important;
+          display: none !important;
         }
       }
     }
@@ -540,14 +720,14 @@ button[disabled],
     }
     .mdi {
       width: toRem(60);
-      margin-top: 20px;
+      margin-top: toRem(20);
       &::before {
         content: '';
         border-width: 2px 2px 0 0;
         border-style: solid;
         border-color: #888;
-        width: 9px;
-        height: 9px;
+        width: toRem(9);
+        height: toRem(9);
         transform: rotate(135deg);
         position: absolute;
       }
@@ -575,10 +755,10 @@ button[disabled],
     color: #ccc;
     .v-input__control {
       .v-field__input {
-        height: 48px !important;
-        padding: 12px 16px !important;
+        height: toRem(48) !important;
+        padding: toRem(12) toRem(16) !important;
         justify-content: center !important;
-        min-height: 24px !important;
+        min-height: toRem(24) !important;
       }
     }
     .mdi {
@@ -589,19 +769,19 @@ button[disabled],
 
 // v-textfield 검색
 .textfield-search {
-  --clear-width: 50px;
+  --clear-width: toRem(50);
   &.v-input--density-default {
-    --v-input-control-height: 24px;
-    --v-input-padding-top: 9px;
+    --v-input-control-height: 1.5rem;
+    --v-input-padding-top: 0.5625rem;
     .v-field--variant-outlined {
-      --v-field-padding-bottom: 9px;
+      --v-field-padding-bottom: toRem(9);
     }
   }
   .v-field--prepended {
-    padding-inline-start: 16px;
+    padding-inline-start: toRem(16);
   }
   .v-field--appended {
-    padding-inline-end: 16px;
+    padding-inline-end: toRem(16);
   }
   .v-field__clearable {
     //position: absolute;
@@ -626,8 +806,8 @@ button[disabled],
   }
   .v-field__prepend-inner {
     .v-icon {
-      width: 20px;
-      height: 20px;
+      width: toRem(20);
+      height: toRem(20);
     }
     .mdi-magnify {
       &::before {
@@ -653,7 +833,7 @@ button[disabled],
     .v-field--variant-outlined {
       .v-field__field {
         .v-field__input {
-          padding: 14px 24px 14px 16px;
+          padding: toRem(14) toRem(24) toRem(14) toRem(16);
           height: toRem(200);
           font-size: initial;
           letter-spacing: -0.032px;
@@ -663,6 +843,7 @@ button[disabled],
             font-size: toRem(16);
             line-height: toRem(23);
             letter-spacing: -0.032px;
+            @include fontWeight;
           }
         }
       }
@@ -699,11 +880,15 @@ button[disabled],
     color: $black;
     width: inherit;
   }
+  &.shadow-none {
+    box-shadow: none;
+    border-width: 1px;
+  }
 }
 
 .search-area {
   display: grid;
-  grid-template-columns: 1fr 44px;
+  grid-template-columns: 1fr toRem(44);
   .btn {
     font-size: toRem(16);
     margin-top: toRem(4);
@@ -852,7 +1037,13 @@ button[disabled],
 .radio-basic {
   gap: toRem(10);
   &.v-selection-control--density-default {
-    --v-selection-control-size: 52px;
+    --v-selection-control-size: 3.25rem;
+  }
+  .v-label {
+    .v-btn {
+      padding: 0;
+      font-size: toRem(16);
+    }
   }
   .v-selection-control__wrapper {
     width: toRem(24);
@@ -868,7 +1059,7 @@ button[disabled],
   }
   .mdi-radiobox-blank {
     &::before {
-      color: #aaaaaa;
+      color: #aaa;
     }
   }
   .mdi-radiobox-marked {
@@ -880,13 +1071,21 @@ button[disabled],
       height: toRem(24);
     }
   }
+  &.v-selection-control--dirty {
+    .v-label {
+      .v-btn {
+        @include fontWeight(semibold);
+      }
+    }
+  }
   &.type {
     &:not(:last-of-type) {
       border-bottom: 1px solid #eee;
     }
-    --v-selection-control-size: 64px;
+    --v-selection-control-size: 4rem;
   }
 }
+
 .radio-answer-group {
   position: relative;
   .v-selection-control__input {
@@ -922,23 +1121,27 @@ button[disabled],
 
       @include fontWeight(semibold);
       .v-selection-control__wrapper {
-        width: 34px;
+        width: toRem(34);
       }
       &.v-selection-control--density-default {
-        --v-selection-control-size: 84px;
+        --v-selection-control-size: 5.25rem;
         .v-selection-control__input {
           width: auto;
           height: auto;
         }
+        &.small {
+          --v-selection-control-size: 3.125rem;
+          background-color: #fff;
+        }
       }
       &.v-selection-control--dirty {
-        background-color: #fff;
-        border: 1px solid #fc0;
+        background-color: #fffaeb;
+        border: 1px solid #fed633;
       }
       .mdi-radiobox-blank {
         &::before {
           content: '\F043D';
-          color: #aaaaaa;
+          color: #aaa;
         }
       }
       .mdi-radiobox-marked {
@@ -955,7 +1158,7 @@ button[disabled],
     .v-radio {
       flex: 1 1 20%;
       .v-selection-control__wrapper {
-        height: 52px;
+        height: toRem(52);
       }
       $sizes: 48, 32, 24;
       @each $size in $sizes {
@@ -980,7 +1183,7 @@ button[disabled],
         }
         .v-icon {
           width: auto;
-          height: 48px;
+          height: toRem(48);
           background-color: #fff;
           &::before {
             border-radius: 50%;
@@ -991,14 +1194,14 @@ button[disabled],
             top: 24px;
             left: 100%;
             z-index: 0;
-            width: calc((100vw - 48px) / 6);
+            width: calc((100vw - toRem(48)) / 6);
             height: 1px;
             background-color: #ccc;
           }
         }
       }
       .v-label {
-        min-height: 48px;
+        min-height: toRem(48);
         align-items: flex-start;
         text-align: center;
       }
@@ -1018,10 +1221,10 @@ button[disabled],
           justify-content: flex-start;
         }
         .v-selection-control__input {
-          margin-left: 5px;
+          margin-left: toRem(5);
         }
         .v-label {
-          margin-left: -10px;
+          margin-left: toRem(-10);
         }
       }
       &.right {
@@ -1030,7 +1233,7 @@ button[disabled],
           justify-content: flex-end;
         }
         .v-selection-control__input {
-          margin-right: 5px;
+          margin-right: toRem(5);
         }
         .v-icon {
           &::after {
@@ -1038,7 +1241,7 @@ button[disabled],
           }
         }
         .v-label {
-          margin-right: -10px;
+          margin-right: toRem(-10);
         }
       }
     }
@@ -1072,7 +1275,7 @@ button[disabled],
     width: toRem(54);
     height: toRem(32);
     opacity: 1;
-    border-radius: 20px;
+    border-radius: toRem(20);
   }
   .v-switch__thumb {
     background-color: #fff !important;
@@ -1114,6 +1317,7 @@ button[disabled],
   }
   .v-snackbar--variant-elevated {
     transform: none !important;
+    min-width: auto !important;
     left: $contentsPadding !important;
     right: $contentsPadding !important;
     bottom: 0 !important;
@@ -1131,8 +1335,9 @@ button[disabled],
   height: toRem(56);
   position: relative;
   z-index: 100;
+  flex: 0 0 auto;
   .btn-area {
-    padding: 34px 24px 10px;
+    padding: toRem(34) toRem(24) toRem(10);
     gap: toRem(7);
     @include position($ps: fixed, $t: null, $b: 0, $l: 0);
     width: 100%;
@@ -1168,7 +1373,7 @@ button[disabled],
     color: #222;
     text-align: center;
     font-size: toRem(16);
-    font-weight: 700;
+    @include fontWeight(bold);
     line-height: normal;
     letter-spacing: -0.032px;
   }
@@ -1177,7 +1382,7 @@ button[disabled],
 // .btn-double : default 두개(백그라운드 없음, fixed 없음)
 .btn-double {
   display: flex;
-  gap: 6px;
+  gap: toRem(6);
   width: 100%;
   .v-btn {
     flex: 1;
@@ -1209,7 +1414,7 @@ button[disabled],
     color: inherit;
     text-align: center;
     font-size: toRem(14);
-    font-weight: 700;
+    @include fontWeight(bold);
     line-height: normal;
     letter-spacing: -0.032px;
   }
@@ -1221,13 +1426,36 @@ button[disabled],
   }
 }
 
+.btn-share {
+  &.v-btn {
+    --v-btn-height: 32px;
+    font-size: toRem(14);
+    color: $black;
+    padding: 0 12px;
+    .v-btn__prepend {
+      margin: 0 2px 0 0;
+    }
+    &.v-btn--variant-outlined {
+      border-color: #ccc;
+    }
+  }
+}
+
+.news {
+  stroke: #444444;
+  stroke-width: 1.5;
+  &.active {
+    fill: #ff5858;
+    stroke: #ff5858;
+  }
+}
+
 // bottom 영역 구분선
 .section-page {
   position: relative;
   padding: toRem(40) $contentsPadding;
   margin-inline: -$contentsPadding;
   &::before {
-    content: '';
     content: '';
     position: absolute;
     top: 0;
@@ -1260,7 +1488,7 @@ button[disabled],
 
 .report-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   .calendar-handle {
     padding: 0;
@@ -1282,7 +1510,7 @@ button[disabled],
     }
     &.v-chip--size-small {
       font-size: toRem(13);
-      padding-inline: 6px;
+      padding-inline: toRem(6);
     }
   }
   &.chip-color {
@@ -1300,7 +1528,7 @@ button[disabled],
 
 .text-dot {
   display: grid;
-  grid-template-columns: 12px 1fr;
+  grid-template-columns: toRem(12) 1fr;
   &::before {
     content: '';
     width: toRem(6);
@@ -1353,7 +1581,13 @@ button[disabled],
 }
 
 .box-rounded-fill {
-  background-color: #f8f8f8;
+  &,
+  &.v-card {
+    background-color: #f8f8f8;
+  }
+  &.fill-red {
+    background-color: #fff4f6;
+  }
   border-radius: toRem(8);
   padding: toRem(16);
 }
@@ -1473,6 +1707,127 @@ button[disabled],
   }
 }
 
+// tab
+.tab-line {
+  margin-inline-end: -5px;
+  .v-slide-group__container {
+    padding-right: toRem(10);
+    //border-bottom: 1px solid #dde1e4;
+    &::before {
+      content: '';
+      height: 1px;
+      background-color: #dde1e4;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+    &::after {
+      content: '';
+      @include position($ps: absolute, $t: 0, $b: 0, $l: null, $r: 0, $zi: 0);
+      width: toRem(10);
+      background: linear-gradient(
+        270deg,
+        #fff 15%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+  }
+  .v-tab {
+    font-size: toRem(20);
+    color: #8c949e;
+    &.v-tab {
+      @include fontWeight(400);
+      min-width: auto;
+    }
+    & + .v-tab {
+      margin-left: toRem(28);
+    }
+    &.v-tab--selected {
+      @include fontWeight(semibold);
+      color: $black;
+      .v-tab__slider {
+        height: 4px;
+        background-color: $black;
+      }
+    }
+    &[data-count] {
+      display: flex;
+      .v-btn__content {
+        order: -1;
+      }
+      &::after {
+        content: attr(data-count);
+        position: static;
+        background-color: #dde1e4;
+        border-radius: 50%;
+        color: #fff;
+        opacity: 1;
+        left: auto;
+        width: auto;
+        height: auto;
+        min-width: toRem(20);
+        line-height: toRem(20);
+        border: none;
+        @include fontWeight;
+        font-size: toRem(13);
+        padding: 0 toRem(5);
+        margin: toRem(-10) 0 0 toRem(4);
+      }
+    }
+  }
+  .v-btn--size-default {
+    padding: 0;
+  }
+  &.slide {
+    .v-tab {
+      min-width: toRem(42);
+      font-size: toRem(20);
+      line-height: toRem(28);
+      letter-spacing: -0.04px;
+      &.v-tab--selected {
+        .v-btn__content {
+          &::after {
+            content: '';
+            @include position(
+              $ps: absolute,
+              $t: calc(100% - 4px),
+              $b: null,
+              $l: 0,
+              $r: null,
+              $zi: 10
+            );
+            width: 100%;
+            height: 4px;
+            background-color: $black;
+          }
+        }
+      }
+    }
+  }
+  &.right-p0 {
+    $right-shadow-width: toRem(36);
+    margin-inline-end: $contentsPaddingN;
+    .v-slide-group__container {
+      padding-right: calc($contentsPadding + $right-shadow-width);
+      &::after {
+        content: '';
+        background: linear-gradient(
+          270deg,
+          #fff 15%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: $right-shadow-width;
+      }
+    }
+  }
+}
+
+// table
 .table {
   &-flex {
     .table {
@@ -1606,6 +1961,7 @@ button[disabled],
       overflow-y: auto;
       .modal-body-container {
         padding-inline: $contentsPadding;
+        padding-top: toRem(24);
       }
     }
     .v-toolbar__content {
@@ -1675,10 +2031,474 @@ button[disabled],
   color: #666;
 }
 
+// 공통 화면 > 알림팝업_기본타입 > 버튼 1개
+.common-popup {
+  .v-card {
+    border-radius: 16px !important;
+  }
+
+  .modal-body {
+    color: #484b51;
+  }
+}
+
+// 공통 화면 > 알림팝업_기본타입 > 버튼 2개
+.btn-cancel {
+  &.common-cancel {
+    background-color: #f3f7ff;
+    border: none;
+  }
+}
+
 // 추가
 @media (max-width: 280px) {
   html {
     font-size: toRem(13) !important;
+  }
+}
+
+.emoji-anim {
+  $size: toRem(72);
+  .face {
+    width: $size;
+    height: $size;
+    position: relative;
+    border-radius: 50%;
+    background-color: #ffd633;
+  }
+  .eye,
+  .mouth,
+  [class*='heart'] {
+    position: absolute;
+  }
+  &.verygood {
+    @keyframes heart-pulse {
+      30% {
+        transform: scale(1.1, 1.1);
+      }
+      70% {
+        transform: scale(1, 1);
+      }
+    }
+    @keyframes eye-bounce {
+      30% {
+        transform: translateY(-3px);
+      }
+      70% {
+        transform: translateY(0);
+      }
+    }
+    .eye {
+      width: toRem(19);
+      height: toRem(11);
+      left: toRem(14);
+      top: toRem(19);
+      @include bgimg('icon-emoji-eye', $format: 'png');
+      background-size: 100% auto;
+      &.last {
+        left: auto;
+        right: 14px;
+      }
+    }
+    .mouth {
+      width: toRem(24);
+      height: toRem(15);
+      bottom: toRem(18);
+      left: toRem(24);
+      @include bgimg('icon-emoji-smile', $format: 'png');
+      background-size: 100% auto;
+    }
+    [class*='heart'] {
+      @include bgimg('icon-emoji-heart');
+      background-size: 100% auto;
+    }
+    .heart1 {
+      width: toRem(20);
+      height: toRem(19);
+      left: 0;
+      top: 0;
+    }
+    .heart2 {
+      width: toRem(16);
+      height: toRem(15);
+      left: toRem(4);
+      bottom: toRem(6);
+    }
+    .heart3 {
+      width: toRem(23);
+      height: toRem(21);
+      right: toRem(-2);
+      bottom: toRem(10);
+    }
+    .eye {
+      animation: eye-bounce 0.5s calc(var(--delay-Interval) + 0.5s) 2;
+      &.last {
+        animation-delay: calc(var(--delay-Interval) + 0.7s);
+      }
+    }
+    [class*='heart'] {
+      animation: heart-pulse 0.5s var(--delay-Interval) 4;
+    }
+    .heart2 {
+      animation-delay: calc(var(--delay-Interval) + 0.1s);
+    }
+    .heart3 {
+      animation-delay: calc(var(--delay-Interval) + 0.2s);
+    }
+  }
+  &.good {
+    @keyframes eye-blink {
+      0% {
+        transform: scaleY(1);
+      }
+      50% {
+        transform: scaleY(0);
+      }
+      75% {
+        transform: scaleY(1);
+      }
+      100% {
+        transform: scaleY(1);
+      }
+    }
+    @keyframes mouth-giggle {
+      0% {
+        transform: translate(0, -1px);
+      }
+      50% {
+        transform: translate(0, 2px);
+      }
+      100% {
+        transform: translate(0, -1px);
+      }
+    }
+    .eye {
+      width: toRem(22.5);
+      height: toRem(22.5);
+      top: toRem(13.5);
+      left: toRem(11);
+      z-index: 1;
+      border-radius: 50%;
+      background-color: #fff;
+      &::after {
+        content: '';
+        position: absolute;
+        left: toRem(7.88);
+        top: toRem(4.5);
+        background-color: #26282c;
+        width: toRem(11);
+        height: toRem(11);
+        border-radius: 50%;
+      }
+      &.last {
+        left: auto;
+        right: toRem(10.12);
+        &::after {
+          left: auto;
+          right: toRem(7.88);
+        }
+      }
+    }
+    .mouth {
+      @include bgimg('icon-emoji-mouse', $format: 'png');
+      background-size: 100% auto;
+      bottom: toRem(10);
+      left: toRem(14);
+      width: toRem(45.5);
+      height: toRem(43);
+    }
+    .eye {
+      &::after {
+        animation: eye-blink 0.5s calc(var(--delay-Interval) + 0.5s) 2 backwards;
+      }
+    }
+    .mouth {
+      animation: mouth-giggle 0.2s calc(var(--delay-Interval) + 0.5s) 4;
+    }
+  }
+  &.normal {
+    @keyframes eyebrows-bounce {
+      0% {
+        transform: translateY(var(--bounce-position)) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) rotate(180deg);
+      }
+    }
+    @keyframes mouth-scale {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    .face {
+      box-shadow: inset 0 0 0 2px #ffb729;
+      background-color: #ffc633;
+    }
+    .eye {
+      width: toRem(22.5);
+      height: toRem(22.5);
+      top: toRem(18);
+      left: toRem(11);
+      z-index: 1;
+      border-radius: 50%;
+      background-color: #fff;
+      &::before {
+        --bounce-position: 5px;
+        position: absolute;
+        left: toRem(5);
+        top: toRem(-4);
+        content: '';
+        width: toRem(16);
+        height: toRem(7);
+        @include bgimg('icon-emoji-eyebrows', $format: 'png');
+        transform: translateY(var(--bounce-position)) rotate(180deg);
+        background-size: 100% auto;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        left: toRem(7.88);
+        top: toRem(8);
+        background-color: #26282c;
+        width: toRem(11);
+        height: toRem(11);
+        border-radius: 50%;
+      }
+      &.last {
+        left: auto;
+        right: toRem(10.12);
+        &::before {
+          transform: rotate(0);
+          left: toRem(3);
+          top: toRem(-6);
+          animation-name: none;
+        }
+        &::after {
+          left: auto;
+          right: toRem(7.88);
+        }
+      }
+    }
+    .mouth {
+      width: toRem(14);
+      height: toRem(4);
+      border-radius: 135px;
+      background-color: #26282c;
+      left: toRem(29);
+      bottom: toRem(23);
+    }
+    .eye {
+      &::before {
+        animation: eyebrows-bounce 1s calc(var(--delay-Interval) + 0.4s)
+          forwards;
+      }
+    }
+    .mouth {
+      animation: mouth-scale 0.5s calc(var(--delay-Interval) + 0.6s) backwards;
+    }
+  }
+  &.bad {
+    @keyframes bad-fuming {
+      10% {
+        transform: translate(-5px);
+      }
+
+      15% {
+        transform: translate(5px);
+      }
+
+      20% {
+        transform: translate(-5px);
+      }
+
+      25% {
+        transform: translate(5px);
+      }
+
+      30% {
+        transform: translate(-5px);
+      }
+
+      35% {
+        transform: translate(5px);
+      }
+
+      40% {
+        transform: translate(-5px);
+      }
+
+      45% {
+        transform: translate(5px);
+      }
+
+      50% {
+        transform: translate(0);
+      }
+    }
+    @keyframes bad-wow {
+      70% {
+        transform: scale(0.5, 0.5);
+      }
+      100% {
+        transform: scale(1, 1);
+      }
+    }
+    .eye {
+      width: toRem(17);
+      height: toRem(17);
+      @include bgimg('icon-emoji-eyex');
+      background-size: 100% auto;
+      left: toRem(14);
+      top: toRem(20);
+      &.last {
+        left: auto;
+        right: toRem(13);
+      }
+    }
+    .mouth {
+      background-color: #f56455;
+      width: toRem(21);
+      height: toRem(21);
+      border-radius: 50%;
+      bottom: toRem(10);
+      left: toRem(26);
+    }
+    .face {
+      animation: bad-fuming 2s calc(var(--delay-Interval) + 0.5s) linear;
+    }
+    .mouth {
+      animation: bad-wow 2.5s calc(var(--delay-Interval) + 0.5s);
+    }
+  }
+  &.verybad {
+    @keyframes bad-bomb {
+      to {
+        transform: scale(1);
+      }
+    }
+    @keyframes bad-eyes {
+      to {
+        transform: translateY(0);
+      }
+    }
+    .eye {
+      width: toRem(20);
+      height: toRem(20);
+      bottom: toRem(14);
+      left: toRem(13);
+      z-index: 1;
+      border-radius: 50%;
+      background-color: #fff;
+      &::after {
+        content: '';
+        position: absolute;
+        left: toRem(9);
+        top: toRem(4);
+        background-color: #26282c;
+        width: toRem(7);
+        height: toRem(7);
+        border-radius: 50%;
+        transform: translateY(7px);
+      }
+      &.last {
+        left: auto;
+        right: toRem(13);
+        &::after {
+          left: auto;
+          right: toRem(9);
+        }
+      }
+    }
+    .face {
+      @include bgimg('icon-emoji-badface');
+      background-position: 0 100%;
+      background-size: 100% auto;
+      background-color: transparent;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+      }
+      &::before {
+        background-color: #eb5147;
+        width: toRem(53);
+        height: toRem(12);
+        border-radius: 50%;
+        bottom: toRem(38);
+        left: toRem(10);
+      }
+      &::after {
+        @include bgimg('icon-emoji-bomb');
+        background-size: 100% auto;
+        width: toRem(60);
+        height: toRem(34);
+        top: toRem(2);
+        left: toRem(5);
+        transform-origin: center bottom;
+        transform: scale(0);
+      }
+    }
+    .eye {
+      &::after {
+        animation: bad-eyes 0.5s linear calc(var(--delay-Interval) + 0.5s)
+          forwards;
+      }
+    }
+    .face {
+      animation: bad-fuming 1s calc(var(--delay-Interval) + 0.5s) linear;
+      &::after {
+        animation: bad-bomb 0.5s ease-in calc(var(--delay-Interval) + 0.5s)
+          forwards;
+      }
+    }
+  }
+}
+.emoji-anim-frame {
+  @keyframes emoji-size {
+    to {
+      transform: scale(1);
+    }
+  }
+  .emoji-anim {
+    transform: scale(0);
+    animation-name: emoji-size;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+    animation-duration: 0.35s;
+    &.verygood {
+      --delay-Interval: 0s;
+      animation-delay: var(--delay-Interval);
+    }
+    &.good {
+      --delay-Interval: 2s;
+      animation-delay: var(--delay-Interval);
+    }
+    &.normal {
+      --delay-Interval: 3.5s;
+      animation-delay: var(--delay-Interval);
+    }
+    &.bad {
+      --delay-Interval: 5s;
+      animation-delay: var(--delay-Interval);
+    }
+    &.verybad {
+      --delay-Interval: 7.5s;
+      animation-delay: var(--delay-Interval);
+    }
+  }
+}
+
+.life-calendar {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 toRem(4) toRem(8) 0 rgba(0, 0, 0, 0.08);
+  margin-inline: $contentsPaddingN;
+  padding: 0 $contentsPadding toRem(16);
+  .vc-info {
+    border-bottom: 0;
   }
 }
 
@@ -1687,3 +2507,5 @@ button[disabled],
 @import './sub02.scss';
 @import './sub03.scss';
 @import './sub04.scss';
+@import './sub05.scss';
+@import './sub06.scss';

@@ -311,12 +311,12 @@
           title: '블루투스',
           contents:
             '앱 주변 블루투스 기기로 송신하거나 이에 대한 정보를 수집하기위해 사용',
-          path: '/src/assets/images/ico-bluetooth.svg'
+          path: '/src/assets/images/icon-bluetooth.svg'
         },
         {
           title: '위치',
           contents: '기기 탐색을 위해 사용',
-          path: '/src/assets/images/ico-location.svg'
+          path: '/src/assets/images/icon-location.svg'
         }
       ])
 

@@ -3,25 +3,27 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
   >
     <v-card>
       <div class="modal-body pt-4 pb-4">
         <div class="flex-shrink-0 modal-body-container">
-          <v-text-field
-            id="search"
-            variant="outlined"
-            rounded="xl"
-            clearable
-            placeholder="병원명 입력"
-            append-inner-icon="mdi-magnify"
-            persistent-placeholder
-            @keypress.enter="getText"
-            @click:append-inner="getInput"
-            class="fs-16 textfield-default input-simple mb-4"
-            :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
-          ></v-text-field>
+          <div class="search-area mb-4">
+            <v-text-field
+              id="search"
+              variant="outlined"
+              rounded="xl"
+              clearable
+              placeholder="약국명 입력"
+              prepend-inner-icon="mdi-magnify"
+              class="textfield-search type fs-16"
+              :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
+              @keypress.enter="getText"
+              @click:append-inner="getInput"
+            ></v-text-field>
+            <v-btn variant="text" class="btn">취소</v-btn>
+          </div>
           <h3 class="fs-18 font-weight-bold">최근 검색어</h3>
           <div role="tablist" class="sorting-area type-3 mt-4 mb-6">
             <v-btn

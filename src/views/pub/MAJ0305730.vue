@@ -117,7 +117,7 @@
   import dialogMyhospital from '@/views/pub/MAJ0305737.vue'
   import dialogHospital from '@/views/pub/MAJ0305738.vue'
   import Nodata from '@/components/nodata/Nodata.vue'
-  import { ref, computed } from 'vue'
+  import { ref, computed, onUnmounted } from 'vue'
   export default {
     components: {
       HospitalCard,
@@ -213,6 +213,9 @@
       function goPath(val) {
         router.push(val)
       }
+      onUnmounted(() => {
+        document.querySelector('.v-layout').classList.remove('overflow-hidden')
+      })
       return {
         modal,
         modal2,

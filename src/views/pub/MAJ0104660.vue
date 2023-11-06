@@ -13,8 +13,12 @@
         인증까지 완료했는데, 건강검진 정보가 연동이 되지 않아요
       </p>
     </div>
-
-    <div class="withanswer" v-if="withAnswer">
+    <!-- 2023-10-23 이미지 있을경우 -->
+    <div class="mt-4 img-box">
+      <img src="@/assets/images/img-food.png" alt="" />
+    </div>
+    <!-- 답변완료시 -->
+    <div class="withanswer" v-if="$route.name === 'MAJ0104660'">
       <div class="answer-area d-flex mt-4">
         <v-avatar color="#FFD338" size="28" class="font-weight-bold"
           >A</v-avatar
@@ -33,8 +37,8 @@
         >
       </div>
     </div>
-
-    <div class="btn-bottom" v-if="!withAnswer">
+    <!-- 접수대기중에만 버튼 -->
+    <div class="btn-bottom" v-if="$route.name === 'MAJ0104660Waiting'">
       <div class="btn-area d-flex">
         <v-btn variant="text" height="56px" class="btn-cancel">삭제하기</v-btn>
         <v-btn variant="text" height="56px" class="btn-summit">수정하기</v-btn>
@@ -44,10 +48,14 @@
 </template>
 
 <script>
+  import router from '@/router'
+  import { ref } from 'vue'
   export default {
     setup() {
-      const withAnswer = true
-      return { withAnswer }
+      const withAnswer = false
+      return {
+        withAnswer
+      }
     }
   }
 </script>

@@ -1,39 +1,10 @@
 <template>
-  <div class="contents">
-    <!-- 달력 -->
-    <div class="calendar large">
-      <!-- 달 선택 -->
-      <div class="calendar-head py-4">
-        <div class="container">
-          <v-btn variant="flat" density="compact" height="20" class="btn">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <div class="tit-02 pb-0 px-1">2023.08</div>
-          <v-btn variant="flat" density="compact" height="20" class="btn">
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </div>
-      </div>
-      <!-- 주 -->
-      <div class="calendar-body">
-        <div v-for="(week, i) in weekday" :key="i" class="weekday">
-          {{ week }}
-        </div>
-        <!-- 일 -->
-        <div v-for="n in 31" :key="n" class="days">
-          <div class="text">{{ n }}</div>
-          <!-- 상태 -->
-          <div class="state" v-if="n === 17">
-            <v-avatar color="#907776" size="6" />
-            <v-avatar color="#E02A61" size="6" />
-            <v-avatar color="#B171F7" size="6" />
-          </div>
-        </div>
-      </div>
-      <!-- 몸상태 안내 -->
-      <div class="calendar-info">
-        <div class="state" v-for="(state, i) in states" :key="i">
-          <v-avatar :color="state.color" size="8" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
+      <div class="vc-dots-info">
+        <div class="state" v-for="(state, i) in calendarStates" :key="i">
+          <i class="icon" :class="state.icon" />
           <div class="text">{{ state.text }}</div>
         </div>
       </div>
@@ -141,10 +112,17 @@
   import MAJ0202944 from './MAJ0202944.vue'
   import MAJ0202945 from './MAJ0202945.vue'
   import MAJ0202946 from './MAJ0202946.vue'
+  import VCalendar from '@/components/VCalendar.vue'
 
   import { ref, reactive } from 'vue'
   export default {
-    components: { MAJ0202944, MAJ0202945, MAJ0202946, ReportResult },
+    components: {
+      MAJ0202944,
+      MAJ0202945,
+      MAJ0202946,
+      ReportResult,
+      VCalendar
+    },
     setup() {
       const text1 = ref()
       const text2 = ref()
@@ -199,6 +177,70 @@
       function moreText() {
         list.value = result.value
       }
+      // 여성건강
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-love' },
+          dates: [new Date(2023, 9, 27)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-circle' },
+          dates: [new Date(2023, 9, 2)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-medicine' },
+          dates: [new Date(2023, 9, 12)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-circle' },
+          dates: [new Date(2023, 9, 12)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-love' },
+          dates: [new Date(2023, 9, 12)]
+        },
+        // 베란기간
+        {
+          highlight: { class: 'vc-veran' },
+          content: { class: 'vc-veran' },
+          dates: [{ start: new Date(2023, 9, 1), span: 6 }]
+        },
+        // 베란예정일
+        {
+          highlight: { class: 'vc-veran-day' },
+          dates: [new Date(2023, 9, 4)]
+        },
+        // 월경기간
+        {
+          highlight: { class: 'vc-menses' },
+          content: { class: 'vc-menses' },
+          dates: [{ start: new Date(2023, 9, 18), span: 7 }]
+        }
+      ])
+      const calendarStates = reactive([
+        {
+          icon: 'circle',
+          text: '몸상태'
+        },
+        {
+          icon: 'love',
+          text: '사랑일'
+        },
+        {
+          icon: 'pill',
+          text: '피임약'
+        }
+      ])
       return {
         text1,
         text2,
@@ -216,7 +258,9 @@
         addText,
         addText2,
         moreText,
-        getCondition
+        getCondition,
+        calendarAttr,
+        calendarStates
       }
     }
   }

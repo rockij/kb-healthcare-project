@@ -1,6 +1,8 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar />
+    </div>
     <div class="section-page bg px-4 pt-4 pb-2">
       <BanerReport :videBox="false" class="mb-4">
         아직 흡연 기록이 없어요<br />흡연 기록을 입력하면 확인할 수 있어요
@@ -97,13 +99,13 @@
 </template>
 <script>
   import Nodata from '@/components/nodata/Nodata.vue'
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import BanerReport from '@/components/BanerReport.vue'
   import { ref, computed } from 'vue'
   export default {
     components: {
       Nodata,
-      LifeCalendar,
+      VCalendar,
       BanerReport
     },
     setup() {

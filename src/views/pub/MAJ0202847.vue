@@ -1,78 +1,118 @@
 <template>
   <div class="contents">
     <div class="exercise-start" v-if="!modeMap">
-      <div class="time-spinner">
+      <div class="time-spinner" v-if="!timerCountStart">
         <!-- 3초카운트 다운 -->
-        <div class="count-down" v-if="!timerCountStart">
+        <div class="count-down">
           {{ countDownCount }}
         </div>
-        <!-- 운동 타이머 -->
-        <div class="wrap-timer" v-if="timerCountStart">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="200"
-            height="200"
-            viewBox="0 0 200 200"
-            fill="#fff"
-            color="#FC0"
-            ref="spinner"
-          >
-            <defs>
-              <linearGradient id="spinner-firstHalf">
-                <stop offset="0%" stop-opacity="1" stop-color="currentColor" />
-                <stop
-                  offset="100%"
-                  stop-opacity="0"
-                  stop-color="currentColor"
+      </div>
+      <!-- 운동 타이머 -->
+      <div class="wrap-timer" v-if="timerCountStart">
+        <div class="timer-container">
+          <div class="spinner" :class="{ paused: paused }">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="200"
+              height="200"
+              viewBox="0 0 200 200"
+              fill="#fff"
+              color="#3F86F1"
+              ref="spinner"
+            >
+              <defs>
+                <linearGradient id="spinner-secondHalf">
+                  <stop
+                    offset="0%"
+                    stop-opacity="0"
+                    stop-color="currentColor"
+                  />
+                  <stop
+                    offset="100%"
+                    stop-opacity="0.5"
+                    stop-color="currentColor"
+                  />
+                </linearGradient>
+                <linearGradient id="spinner-firstHalf">
+                  <stop
+                    offset="0%"
+                    stop-opacity="1"
+                    stop-color="currentColor"
+                  />
+                  <stop
+                    offset="100%"
+                    stop-opacity="0.5"
+                    stop-color="currentColor"
+                  />
+                </linearGradient>
+              </defs>
+              <g stroke-width="4">
+                <path
+                  stroke="url(#spinner-secondHalf)"
+                  d="M 4 100 A 96 96 0 0 1 196 100"
                 />
-              </linearGradient>
-            </defs>
-            <g stroke-width="4">
-              <path
-                stroke="url(#spinner-secondHalf)"
-                d="M 4 100 A 96 96 0 0 1 196 100"
+                <path
+                  stroke="url(#spinner-firstHalf)"
+                  d="M 196 100 A 96 96 0 0 1 4 100"
+                />
+              </g>
+              <animateTransform
+                from="0 0 0"
+                to="360 0 0"
+                attributeName="transform"
+                type="rotate"
+                repeatCount="indefinite"
+                dur="3000ms"
               />
-              <path
-                stroke="url(#spinner-firstHalf)"
-                d="M 196 100 A 96 96 0 0 1 4 100"
-              />
-            </g>
-            <animateTransform
-              from="0 0 0"
-              to="360 0 0"
-              attributeName="transform"
-              type="rotate"
-              repeatCount="indefinite"
-              dur="3000ms"
-            />
-          </svg>
+            </svg>
+          </div>
           <div class="timer">
-            <span>{{ hoursCount }}</span
-            ><span class="addon">:</span><span>{{ minutesCount }}</span
-            ><span class="addon">:</span><span> {{ secondsCount }} </span>
+            <p class="icon-sports" :class="exerciseName"></p>
+            <div class="timer-time">
+              <span>{{ hoursCount }}</span
+              ><span class="addon">:</span><span>{{ minutesCount }}</span
+              ><span class="addon">:</span><span> {{ secondsCount }} </span>
+            </div>
+            <p class="name" :class="{ nameStop: paused }">
+              {{ stateName.name }}
+            </p>
           </div>
         </div>
+        <div class="change-mode-button">
+          <v-btn
+            variant="flat"
+            @click="changeMode"
+            prepend-icon="icon-location-black"
+            color="#FFD633"
+            class="btn-changeMode"
+            >지도보기</v-btn
+          >
+        </div>
       </div>
-      <div class="d-flex justify-end">
-        <v-btn variant="flat" @click="changeMode">지도보기</v-btn>
+      <div
+        class="box-rounded timer-info"
+        v-if="
+          paused &&
+          (hoursCount != '00' || minutesCount != '00' || secondsCount != '00')
+        "
+      >
+        <dl class="dl dl-table">
+          <dt>총 운동시간</dt>
+          <dd class="font-weight-bold">
+            <span v-if="hoursCount != '00'">{{ hoursCount }}시간</span>
+            <span v-if="minutesCount != '00'">{{ minutesCount }}분</span>
+            <span v-if="secondsCount != '00'">{{ secondsCount }}초</span>
+          </dd>
+          <dt v-if="report.moving">총 이동거리</dt>
+          <dd v-if="report.moving" class="font-weight-bold">
+            <span>{{ report.moving }}</span>
+          </dd>
+          <dt>총 칼로리</dt>
+          <dd class="font-weight-bold">
+            <span>{{ report.recordCalorie }}</span>
+          </dd>
+        </dl>
       </div>
-      <dl class="dl dl-table" v-for="report in report" :key="report">
-        <dt>총 운동시간</dt>
-        <dd class="font-weight-bold">
-          <span>{{ hoursCount }}</span
-          >시간 <span>{{ minutesCount }}</span
-          >분 <span>{{ secondsCount }}</span
-          >초
-        </dd>
-        <dt v-if="report.moving">총 이동거리</dt>
-        <dd v-if="report.moving" class="font-weight-bold">
-          <span>{{ report.moving }}</span>
-        </dd>
-        <dt>총 칼로리</dt>
-        <dd class="font-weight-bold">
-          <span class="color-blue">{{ report.recordCalorie }}</span>
-        </dd>
-      </dl>
       <div class="btn-bottom" v-if="timerCountStart">
         <div class="btn-area d-flex">
           <v-btn
@@ -103,15 +143,60 @@
         fullscreen
         :scrim="false"
         transition="dialog-bottom-transition"
-        class="modal-bottom"
+        class="modal-bottom modal-timer"
       >
+        <div class="change-mode-button">
+          <v-btn
+            variant="flat"
+            @click="changeMode"
+            prepend-icon="icon-timer"
+            color="#FFD633"
+            class="btn-changeMode"
+            >타이머보기</v-btn
+          >
+        </div>
         <v-card>
           <div class="modal-body">
             <div class="flex-shrink-0 modal-body-container">
               <div class="mode-map-timer">
-                <span>{{ hoursCount }}</span
-                ><span class="addon">:</span><span>{{ minutesCount }}</span
-                ><span class="addon">:</span><span> {{ secondsCount }} </span>
+                <p class="name" :class="{ nameStop: paused }">
+                  {{ stateName.name }}
+                </p>
+                <div class="timer-time">
+                  <span>{{ hoursCount }}</span
+                  ><span class="addon">:</span><span>{{ minutesCount }}</span
+                  ><span class="addon">:</span><span> {{ secondsCount }} </span>
+                </div>
+              </div>
+              <div
+                class="box-rounded timer-info"
+                v-if="
+                  paused &&
+                  (hoursCount != '00' ||
+                    minutesCount != '00' ||
+                    secondsCount != '00')
+                "
+              >
+                <dl class="dl dl-table">
+                  <dt>총 운동시간</dt>
+                  <dd class="font-weight-bold">
+                    <span v-if="hoursCount != '00'">{{ hoursCount }}시간</span>
+                    <span v-if="minutesCount != '00'"
+                      >{{ minutesCount }}분</span
+                    >
+                    <span v-if="secondsCount != '00'"
+                      >{{ secondsCount }}초</span
+                    >
+                  </dd>
+                  <dt v-if="report.moving">총 이동거리</dt>
+                  <dd v-if="report.moving" class="font-weight-bold">
+                    <span>{{ report.moving }}</span>
+                  </dd>
+                  <dt>총 칼로리</dt>
+                  <dd class="font-weight-bold">
+                    <span>{{ report.recordCalorie }}</span>
+                  </dd>
+                </dl>
               </div>
             </div>
           </div>
@@ -142,14 +227,25 @@
       </v-dialog>
     </div>
     <!-- MAJ0202849	 운동 측정 종료 -->
-    <MAJ0202849 v-model="documentModal" @close="documentModal = false" />
+    <MAJ0202849
+      v-model="documentModal"
+      @close="documentModal = false"
+      :sportsName="report.name"
+      :sportsClass="exerciseName"
+      :sportsTimeHours="sportsTime.hours"
+      :sportsTimeMinutes="sportsTime.minutes"
+      :sportsTimeSeconds="sportsTime.seconds"
+      :recordCalorie="report.recordCalorie"
+      :sportsDistance="report.distance"
+      :paused="paused"
+    />
   </div>
 </template>
 
 <script>
   import gpsMap from '@/components/MAJ0202848.vue'
   import MAJ0202849 from './MAJ0202849.vue'
-  import { onMounted, ref } from 'vue'
+  import { onMounted, reactive, ref } from 'vue'
   export default {
     components: { gpsMap, MAJ0202849 },
     setup() {
@@ -167,10 +263,33 @@
       let countDownCount = ref(3)
       const countDown = ref()
       const timerCountStart = ref(false)
-      const report = ref([{ moving: '1.4km', recordCalorie: '1,600kcal' }])
+      const exerciseName = ref()
+      const sportsTime = reactive({
+        hours: '00',
+        minutes: '00',
+        seconds: '00'
+      })
+      const report = reactive({
+        name: '자전거',
+        recordCalorie: '1,600kcal',
+        distance: '1.81km'
+      })
+      const stateName = reactive({ name: '지속 시간' })
       const modeMap = ref(false)
       const gpsMap = ref('map-dummy.png')
-
+      const exerciseNameIcon = () => {
+        switch (report.name) {
+          case '야구':
+            exerciseName.value = 'baseball'
+            break
+          case '자전거':
+            exerciseName.value = 'bicycle'
+            break
+          case '탁구':
+            exerciseName.value = 'ping-pong'
+            break
+        }
+      }
       const changeMode = () => {
         modeMap.value = !modeMap.value
         setTimeout(function () {
@@ -192,6 +311,10 @@
       } //운동 타이머 정지
 
       const timerReset = () => {
+        sportsTime.hours = hoursCount.value
+        sportsTime.minutes = minutesCount.value
+        sportsTime.seconds = secondsCount.value
+
         hoursCount.value = '00'
         minutesCount.value = '00'
         secondsCount.value = '00'
@@ -243,12 +366,14 @@
       const svgController = () => {
         if (paused.value) {
           buttonText.value = '일시정지'
+          stateName.name = '지속 시간'
           if (spinner.value) {
             spinner.value.unpauseAnimations()
           }
           timerStart()
         } else {
           buttonText.value = '계속하기'
+          stateName.name = '일시 정지'
           if (spinner.value) {
             spinner.value.pauseAnimations()
           }
@@ -259,6 +384,7 @@
 
       onMounted(() => {
         countDownStart() //카운트다운시작
+        exerciseNameIcon()
       })
       return {
         spinner,
@@ -282,6 +408,10 @@
         gpsMap,
         changeMode,
         modeMap,
+        exerciseName,
+        exerciseNameIcon,
+        stateName,
+        sportsTime,
         documentModal
       }
     }

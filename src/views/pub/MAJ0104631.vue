@@ -9,11 +9,13 @@
     </div>
     <div class="text-center mt-16">
       <div class="text-info-black">더 궁금한 점이 있으신가요?</div>
+      <!-- 2023-10-23 버튼 height/클래스 수정  -->
       <v-btn
         variant="flat"
         rounded="lg"
-        height="40"
-        class="btn-grey mt-4"
+        height="32"
+        color="#F2F4F6"
+        class="text-primary mt-7 fs-13"
         @click="goPath('MAJ0104670')"
       >
         1:1 문의하기

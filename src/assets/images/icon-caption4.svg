@@ -1,0 +1,22 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ic">
+<circle id="Ellipse 3109" cx="10" cy="10" r="10" fill="url(#paint0_linear_1119_7181)"/>
+<rect id="Rectangle 17245" x="8.88525" y="13.5723" width="2.22143" height="2.22222" rx="1.11071" fill="url(#paint1_linear_1119_7181)"/>
+<rect id="Rectangle 17246" x="8.92847" y="12.1426" width="7.85714" height="2.14286" rx="1.07143" transform="rotate(-90 8.92847 12.1426)" fill="url(#paint2_linear_1119_7181)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1119_7181" x1="3.88889" y1="0.972223" x2="17.2222" y2="18.0556" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF7979"/>
+<stop offset="0.747259" stop-color="#FF4E4E"/>
+<stop offset="1" stop-color="#F46262"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1119_7181" x1="8.96379" y1="14.7508" x2="11.0844" y2="14.7508" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.9"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint2_linear_1119_7181" x1="12.887" y1="8.44921" x2="12.887" y2="18.8664" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0.9"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+</defs>
+</svg>

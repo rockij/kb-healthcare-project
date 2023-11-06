@@ -7,13 +7,15 @@
       </p>
     </div>
 
-    <div class="btn-area sorting-area mt-6 d-flex type-4">
-      <v-tabs align-tabs="start" v-model="tab">
+    <!-- 2023-10-23 탭 스타일 수정 -->
+    <div class="btn-area mt-6">
+      <v-tabs align-tabs="start" v-model="tab" class="tabs-sliding">
         <v-tab
           v-for="btn in stateBtn"
           :key="btn.value"
           :value="btn.value"
           :ripple="false"
+          class="btn-tab"
         >
           {{ btn.text }}
         </v-tab>
@@ -28,11 +30,10 @@
             v-for="item in filteredList()"
             :key="item.id"
           >
-            <span
-              class="badge"
-              :class="{ waiting: item.badge.state === true }"
-              >{{ item.badge.text }}</span
-            >
+            <!-- 2023-10-23 뱃지 스타일 수정 -->
+            <span class="badge" :class="getStyle(item.value)">{{
+              item.badge.text
+            }}</span>
             <p class="summary pt-3">{{ item.summary }}</p>
             <div class="info-group">
               <span class="date">{{ item.date }}</span>
@@ -76,18 +77,22 @@
         },
         {
           value: 1,
-          text: '대기중'
+          text: '접수대기'
         },
         {
           value: 2,
-          text: '완료'
+          text: '접수완료'
+        },
+        {
+          value: 3,
+          text: '답변완료'
         }
       ])
       const qnalist = reactive([
         {
           badge: {
             state: true,
-            text: '대기중'
+            text: '접수대기중'
           },
           summary:
             '건강검진 연동이 되지 않아요건강검진 연동이 되지 않아요건강검진 연동이 되지 않아요',
@@ -98,7 +103,7 @@
         {
           badge: {
             state: true,
-            text: '대기중'
+            text: '접수대기중'
           },
           summary: '건강검진 연동이 되지 않아요건강검진 연동이 되지 않아요',
           date: '2023.08.18',
@@ -108,7 +113,7 @@
         {
           badge: {
             state: false,
-            text: '완료'
+            text: '접수완료'
           },
           summary: '건강검진 연동이 되지 않아요',
           date: '2023.08.14',
@@ -118,12 +123,12 @@
         {
           badge: {
             state: false,
-            text: '완료'
+            text: '답변완료'
           },
           summary: '건강검진 연동',
           date: '2023.08.10',
           type: '정보연동',
-          value: 2
+          value: 3
         }
       ])
       function filteredList() {
@@ -133,12 +138,23 @@
           return qnalist
         }
       }
+      function getStyle(id) {
+        switch (id) {
+          case 1:
+            return 'waiting'
+          case 2:
+            return 'accept'
+          case 3:
+            return 'complete'
+        }
+      }
 
       return {
         tab,
         qnalist,
         selBtn,
         selected,
+        getStyle,
         stateBtn,
         filteredList
       }

@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
   >
     <v-card>
@@ -77,7 +77,11 @@
                   :value="list.id"
                   class="radio-basic type"
                 >
-                  <template v-slot:label>{{ list.text }}</template>
+                  <template v-slot:label
+                    ><v-btn variant="text" @click="$emit('close')">{{
+                      list.text
+                    }}</v-btn></template
+                  >
                 </v-radio>
               </v-radio-group>
               <div class="btn-area2">
@@ -99,6 +103,7 @@
   </v-dialog>
 </template>
 <script>
+  import router from '@/router'
   import { ref } from 'vue'
   export default {
     props: ['modal2'],
@@ -124,8 +129,11 @@
           text: '서울특별시 동작구동작구 대방동대방동'
         }
       ])
+      function goPath(val) {
+        router.push(val)
+      }
 
-      return { dialog, addressList, searchDep1, searchDep2 }
+      return { dialog, addressList, searchDep1, searchDep2, goPath }
     }
   }
 </script>

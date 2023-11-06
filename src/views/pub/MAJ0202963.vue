@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
     @click:outside="$emit('close')"
   >
@@ -18,7 +18,7 @@
                 height="48"
                 class="bdr-8 btn-summit"
                 @click="$emit('close')"
-                >수정하기</v-btn
+                >저장하기</v-btn
               >
             </div>
           </div>

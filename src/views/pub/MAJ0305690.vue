@@ -93,6 +93,9 @@
           </v-radio>
         </v-radio-group>
       </div>
+      <div class="ansbox">
+        <p class="sentence on">위 질문에 대한 답변입니다</p>
+      </div>
 
       <div class="logo-dot"></div>
       <div class="sentence2 font-weight-bold">위치가 어디인가요?</div>

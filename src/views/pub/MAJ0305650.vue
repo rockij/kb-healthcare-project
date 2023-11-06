@@ -41,7 +41,7 @@
     <v-text-field
       class="textfield-default mt-4"
       :rules="[
-        (v) => (v && v.length <= 3) || '이름을 두 글자 이상 입력해주세요'
+        (v) => (v && v.length >= 3) || '이름을 두 글자 이상 입력해주세요'
       ]"
       label="이름"
       required

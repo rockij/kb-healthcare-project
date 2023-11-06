@@ -19,29 +19,25 @@
       @update="changeCategory"
     />
 
-    <div class="d-flex fs-14 mt-4">
-      <span>총 25건</span>
+    <div class="result-count">
+      <span>총 {{ reports.length }}건</span>
       <span class="ml-auto">2023.07.29 ~ 2023.08.03</span>
     </div>
 
     <!-- 기록 component -->
     <CardReport
       :btn="true"
-      v-for="report in reports"
-      :key="report.id"
+      v-for="(report, index) in reports"
+      :key="index"
       @handleClick="modal2 = true"
     >
       <template #date>{{ report.date }}</template>
       <!-- card 내용 -->
       <template #content>
-        <v-chip
-          label
-          size="small"
-          color="#3F86F1"
-          class="chip-default chip-color"
-        >
-          {{ report.state }}
-        </v-chip>
+        <span class="record-card-name">
+          <i class="icon-sports small" :class="exerciseName[index]"></i
+          ><span class="text">{{ report.state }}</span>
+        </span>
         <v-chip
           label
           size="small"
@@ -53,15 +49,20 @@
           class="card-swiper"
           :pagination="true"
           :modules="modules"
-          :class="`swiper-` + report.id"
           v-if="report.picture"
+          virtual
         >
           <span class="swiper-counter" v-if="report.picture.length - 1 != 0"
             >+{{ report.picture.length - 1 }}</span
           >
-          <swiper-slide v-for="slides in report.picture" :key="slides">
+          <swiper-slide
+            v-for="(slides, index) in report.picture"
+            :key="index"
+            :virtualIndex="index"
+          >
             <v-img
               aspect-ratio="16/9"
+              min-height="1"
               cover
               :src="`/src/assets/images/` + slides"
             ></v-img>
@@ -97,11 +98,12 @@
 </template>
 
 <script>
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, onMounted } from 'vue'
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import 'swiper/css'
   import 'swiper/css/pagination'
   import { Pagination } from 'swiper/modules'
+  import { Virtual } from 'swiper/modules'
   import DialogSelectList from '@/components/DialogSelectList.vue'
   import DialogSetting from '@/components/DialogSetting.vue'
   import CardReport from '@/components/CardReport.vue'
@@ -116,7 +118,7 @@
     setup() {
       const tab = ref(null)
       const Analysis = ref(null)
-
+      const exerciseName = ref([])
       const modal = ref(false)
       const category = ref('일주일')
       const option = reactive([
@@ -131,26 +133,26 @@
       const reports = ref([
         {
           id: 0,
-          date: '오전 6시 35분',
-          device: '',
-          state: '걷기',
+          date: '03.23 오전 6:35',
+          device: '플랫폼',
+          state: '야구',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal'
         },
         {
           id: 1,
-          date: '오전 6시 35분',
-          device: '',
-          state: '달리기',
+          date: '03.23 오전 6:35',
+          device: '플랫폼',
+          state: '자전거',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal',
           moving: '1.81km'
         },
         {
           id: 2,
-          date: '오전 10시 35분',
-          device: '',
-          state: '근력운동',
+          date: '03.23 오전 6:35',
+          device: '플랫폼',
+          state: '탁구',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal',
           moving: '1.81km',
@@ -159,9 +161,9 @@
         },
         {
           id: 3,
-          date: '오전 10시 35분',
-          device: '',
-          state: '근력운동',
+          date: '03.23 오전 6:35',
+          device: '플랫폼',
+          state: '골프',
           recordTime: '1시간 13분',
           recordCalorie: '208kcal',
           moving: '1.81km',
@@ -169,6 +171,25 @@
           picture: ['exercise.png', 'exercise.png', 'exercise.png']
         }
       ])
+
+      const exerciseNameIcon = () => {
+        reports.value.forEach((number, index) => {
+          switch (reports.value[index].state) {
+            case '야구':
+              exerciseName.value.push('baseball')
+              break
+            case '자전거':
+              exerciseName.value.push('bicycle')
+              break
+            case '탁구':
+              exerciseName.value.push('ping-pong')
+              break
+            case '골프':
+              exerciseName.value.push('golf')
+              break
+          }
+        })
+      }
 
       function handleClick() {
         console.log('emit')
@@ -189,6 +210,10 @@
         alert('삭제')
       }
 
+      onMounted(() => {
+        exerciseNameIcon()
+      })
+
       return {
         tab,
         Analysis,
@@ -202,7 +227,9 @@
         changeCategory,
         delFunc,
         handleClick,
-        modules: [Pagination]
+        exerciseName,
+        exerciseNameIcon,
+        modules: [Pagination, Virtual]
       }
     }
   }

@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
   >
     <v-card>
@@ -11,14 +11,16 @@
         <div class="flex-shrink-0 modal-body-container">
           <div class="search-area mb-4">
             <v-text-field
+              id="search"
               variant="outlined"
               rounded="xl"
               clearable
               placeholder="병원명 및 진료과목 검색"
               prepend-inner-icon="mdi-magnify"
-              persistent-clear
               class="textfield-search type fs-16"
               :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
+              @keypress.enter="getText"
+              @click:append-inner="getInput"
             ></v-text-field>
             <v-btn variant="text" class="btn">취소</v-btn>
           </div>
@@ -36,7 +38,7 @@
               ]"
               v-for="btn in recently"
               :key="btn.value"
-              @click="recentlySelected(btn.value), (dialog2 = false)"
+              @click="recentlySelected(btn.value)"
               >{{ btn.text }}</v-btn
             >
           </div>
@@ -44,7 +46,6 @@
           <HospitalCard
             v-for="item in filteredList()"
             :key="item.id"
-            :titleBisde="true"
             :title="item.title"
             :titleClass="'fs-18 star'"
             :road="item.road"
@@ -52,6 +53,8 @@
             :state="item.state"
             :stateClass="item.stateClass"
             :path="item.path"
+            :toastMsgOn="'내 약국에 등록 되었습니다'"
+            :toastMsgOff="'내 약국에 해제 되었습니다'"
             class="mt-3"
             :hightlight="hightlight"
             @update="goPath(item.path)"
@@ -62,9 +65,6 @@
             </div>
           </Nodata>
         </div>
-        <!-- [D] 개발시 삭제 -->
-        <v-btn class="btn-sample" @click="dialog = false">전체팝업닫기</v-btn>
-        <!-- //[D] 개발시 삭제 -->
       </div>
     </v-card>
   </v-dialog>
@@ -76,12 +76,8 @@
   import { ref } from 'vue'
   export default {
     components: { Nodata, HospitalCard },
-    data() {
-      return {
-        dialog: true
-      }
-    },
     setup() {
+      const dialog = ref(true)
       const list = ref([
         {
           id: 1,
@@ -150,9 +146,6 @@
           return '<span class="text-blue font-weight-bold">' + match + '</span>'
         })
       }
-      function onClear() {
-        text.value = ''
-      }
       function goPath(val) {
         router.push(val)
       }
@@ -175,6 +168,7 @@
         recentlyBtn.value = val
       }
       return {
+        dialog,
         text,
         list,
         listCount,
@@ -183,7 +177,6 @@
         filteredList,
         hightlight,
         goPath,
-        onClear,
         recently,
         recentlyBtn,
         recentlySelected

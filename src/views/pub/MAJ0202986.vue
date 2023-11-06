@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
     @click:outside="$emit('close')"
   >
@@ -70,6 +70,26 @@
           </div>
           <!-- //청주 -->
 
+          <!-- 양주 -->
+          <h4 class="fs-18 font-weight-bold">양주</h4>
+          <div class="d-flex align-center mt-1 mb-5">
+            <v-btn
+              variant="text"
+              @click="modal6 = true"
+              class="numcount-select ws-145 mr-2"
+              >{{ modal6ListBtn }}</v-btn
+            >
+            <DialogSelectList
+              :lists="liquorList"
+              :title="modalTitle"
+              v-model="modal6"
+              @close="modal6 = false"
+              @update="modal6Category"
+            />
+            <CountList />
+          </div>
+          <!-- //양주 -->
+
           <!-- 막걸리 -->
           <h4 class="fs-18 font-weight-bold">막걸리</h4>
           <div class="d-flex align-center mt-1 mb-5">
@@ -110,26 +130,6 @@
           </div>
           <!-- //와인 -->
 
-          <!-- 양주 -->
-          <h4 class="fs-18 font-weight-bold">양주</h4>
-          <div class="d-flex align-center mt-1 mb-5">
-            <v-btn
-              variant="text"
-              @click="modal6 = true"
-              class="numcount-select ws-145 mr-2"
-              >{{ modal6ListBtn }}</v-btn
-            >
-            <DialogSelectList
-              :lists="liquorList"
-              :title="modalTitle"
-              v-model="modal6"
-              @close="modal6 = false"
-              @update="modal6Category"
-            />
-            <CountList />
-          </div>
-          <!-- //양주 -->
-
           <!-- 샴페인 -->
           <h4 class="fs-18 font-weight-bold">샴페인</h4>
           <div class="d-flex align-center mt-1 mb-5">
@@ -149,6 +149,26 @@
             <CountList />
           </div>
           <!-- //샴페인 -->
+
+          <!-- 양주 -->
+          <h4 class="fs-18 font-weight-bold">고량주</h4>
+          <div class="d-flex align-center mt-1 mb-5">
+            <v-btn
+              variant="text"
+              @click="modal9 = true"
+              class="numcount-select ws-145 mr-2"
+              >{{ modal9ListBtn }}</v-btn
+            >
+            <DialogSelectList
+              :lists="liquorList"
+              :title="modalTitle"
+              v-model="modal9"
+              @close="modal9 = false"
+              @update="modal9Category"
+            />
+            <CountList />
+          </div>
+          <!-- //양주 -->
 
           <!-- 기타 -->
           <h4 class="fs-18 font-weight-bold">기타</h4>
@@ -202,39 +222,44 @@
 
       const lists = ref([
         {
-          id: 1,
+          value: 1,
           text: '맥주'
         },
         {
-          id: 2,
+          value: 2,
           text: '소주'
         },
         {
-          id: 3,
+          value: 3,
           text: '청주'
         },
         {
-          id: 4,
-          text: '막걸리'
-        },
-        {
-          id: 5,
-          text: '와인'
-        },
-        {
-          id: 6,
+          value: 6,
           text: '양주'
         },
         {
-          id: 7,
+          value: 4,
+          text: '막걸리'
+        },
+        {
+          value: 5,
+          text: '와인'
+        },
+        {
+          value: 7,
           text: '샴페인'
         },
         {
-          id: 8,
+          value: 8,
+          text: '고량주'
+        },
+        {
+          value: 0,
           text: '기타'
         }
       ])
 
+      //맥주
       const beerList = ref([
         {
           value: 0,
@@ -249,6 +274,8 @@
           text: '병(640ml)'
         }
       ])
+
+      //소주
       const sojuList = ref([
         {
           value: 0,
@@ -259,6 +286,8 @@
           text: '병(360ml)'
         }
       ])
+
+      //청주
       const cheongjuList = ref([
         {
           value: 0,
@@ -269,26 +298,8 @@
           text: '병(300ml)'
         }
       ])
-      const makgeolliList = ref([
-        {
-          value: 0,
-          text: '잔(200ml)'
-        },
-        {
-          value: 1,
-          text: '병(935ml)'
-        }
-      ])
-      const wineList = ref([
-        {
-          value: 0,
-          text: '잔(125ml)'
-        },
-        {
-          value: 1,
-          text: '병(750ml)'
-        }
-      ])
+
+      //양주
       const liquorList = ref([
         {
           value: 0,
@@ -299,6 +310,32 @@
           text: '병(700ml)'
         }
       ])
+
+      //막걸리
+      const makgeolliList = ref([
+        {
+          value: 0,
+          text: '잔(200ml)'
+        },
+        {
+          value: 1,
+          text: '병(935ml)'
+        }
+      ])
+
+      //와인
+      const wineList = ref([
+        {
+          value: 0,
+          text: '잔(125ml)'
+        },
+        {
+          value: 1,
+          text: '병(750ml)'
+        }
+      ])
+
+      //샴페인
       const champagneList = ref([
         {
           value: 0,
@@ -309,6 +346,20 @@
           text: '병(750ml)'
         }
       ])
+
+      //고량주
+      const goliangliquorList = ref([
+        {
+          value: 0,
+          text: '잔(50ml)'
+        },
+        {
+          value: 1,
+          text: '병(250ml)'
+        }
+      ])
+
+      //기타
       const etcList = ref([
         {
           value: 0,
@@ -374,6 +425,13 @@
         return (modal8ListBtn.value = val.text)
       }
 
+      const modal9 = ref(false)
+      const modal9ListBtn = ref('잔')
+      function modal9Category(val) {
+        modal9.value = false
+        return (modal9ListBtn.value = val.text)
+      }
+
       return {
         dialog,
 
@@ -387,6 +445,7 @@
         liquorList,
         champagneList,
         etcList,
+        goliangliquorList,
 
         modalTitle,
         modal,
@@ -412,7 +471,10 @@
         modal7Category,
         modal8,
         modal8ListBtn,
-        modal8Category
+        modal8Category,
+        modal9,
+        modal9ListBtn,
+        modal9Category
       }
     }
   }

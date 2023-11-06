@@ -47,6 +47,9 @@
         class="mt-3"
         @update="goPath('MAJ0305750_02')"
       />
+      <Nodata :icon="true" :iconSize="'big'">
+        <div class="fs-16">검색결과가 없습니다<br />조건을 변경해주세요</div>
+      </Nodata>
     </template>
     <!-- //목록보기 -->
 

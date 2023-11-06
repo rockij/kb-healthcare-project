@@ -1,7 +1,9 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
-    <div class="section-page bg pa-4">
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
+    </div>
+    <div class="section-page bg pa-4 pb-2" style="z-index: 5">
       <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
         자리에서 일어나 조금 더 걸어볼까요?
       </BanerReport>
@@ -25,47 +27,18 @@
             <strong class="title">{{ item.value }}</strong
             >{{ item.text }}
             <Tooltip
-              class="tooltip-type type"
-              title="보폭안내"
               v-if="item.tooltip === true"
-              text="케어님의 권장 보폭은 64cm에요!"
+              v-model="toolTip1"
+              @close="toolTip1 = false"
+              title="보폭안내"
             >
+              케어님의 권장 보폭은 64cm에요!
             </Tooltip>
           </li>
         </ul>
       </v-card>
     </div>
     <!-- //차트 -->
-
-    <div class="py-8">
-      <h2 class="tit-03 tit-link">
-        <v-btn block variant="text">걸음 기록</v-btn>
-      </h2>
-      <p class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</p>
-      <CardReport
-        class="mt-6"
-        v-for="report in reports"
-        :key="report.id"
-        @handleClick="handleClick"
-      >
-        <template #date>{{ report.date }}</template>
-        <template #content>
-          <v-chip label size="small" class="chip-default">
-            {{ report.tag }}
-          </v-chip>
-          <dl v-if="report.title" class="dl">
-            <dt class="fs-14">{{ report.title }}</dt>
-            <dd class="point font-weight-bold">{{ report.steps }} 걸음</dd>
-          </dl>
-          <dl v-if="report.title2" class="dl">
-            <dt class="fs-14">{{ report.title2 }}</dt>
-            <dd class="font-weight-bold">{{ report.record }} 걸음</dd>
-          </dl>
-        </template>
-      </CardReport>
-      <!-- //기록 component -->
-    </div>
-    <!-- //걸음기록 -->
 
     <div ref="progress" class="section-page">
       <div class="d-flex align-center">
@@ -79,7 +52,7 @@
       </div>
       <div class="progress-bar mt-12" data-num="50">
         <div class="bar">
-          <span class="num">0</span>
+          <span class="tooltip-balloon arrow-bottom icon-walk num">0</span>
         </div>
       </div>
       <ul class="progress-list mt-1">
@@ -158,11 +131,41 @@
       </div>
     </div>
     <!-- //걸음분석 -->
+
+    <div class="section-page">
+      <h2 class="tit-03 tit-link">
+        <v-btn block variant="text">걸음 기록</v-btn>
+      </h2>
+      <p class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</p>
+      <CardReport
+        class="mt-6"
+        v-for="report in reports"
+        :key="report.id"
+        @handleClick="handleClick"
+      >
+        <template #date>{{ report.date }}</template>
+        <template #content>
+          <v-chip label size="small" class="chip-default">
+            {{ report.tag }}
+          </v-chip>
+          <dl v-if="report.title" class="dl">
+            <dt class="fs-14">{{ report.title }}</dt>
+            <dd class="point font-weight-bold">{{ report.steps }} 걸음</dd>
+          </dl>
+          <dl v-if="report.title2" class="dl">
+            <dt class="fs-14">{{ report.title2 }}</dt>
+            <dd class="font-weight-bold">{{ report.record }} 걸음</dd>
+          </dl>
+        </template>
+      </CardReport>
+      <!-- //기록 component -->
+    </div>
+    <!-- //걸음기록 -->
   </div>
 </template>
 <script>
-  import Tooltip from '@/components/Tooltip.vue'
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue'
+  import Tooltip from '@/components/Tooltip2.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import BanerReport from '@/components/BanerReport.vue'
   import CardReport from '@/components/CardReport.vue'
   import DialogStepInfo from '@/views/pub/MAJ0202851.vue'
@@ -171,7 +174,7 @@
   export default {
     components: {
       Tooltip,
-      LifeCalendar,
+      VCalendar,
       BanerReport,
       CardReport,
       DialogStepInfo,
@@ -364,8 +367,18 @@
         console.log('emit')
       }
 
-      const modal = ref()
-      const modal2 = ref()
+      const modal = ref(false)
+      const modal2 = ref(false)
+
+      const toolTip1 = ref(false)
+
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        }
+      ])
 
       return {
         date,
@@ -388,7 +401,9 @@
         handleClick,
 
         modal,
-        modal2
+        modal2,
+        toolTip1,
+        calendarAttr
       }
     }
   }

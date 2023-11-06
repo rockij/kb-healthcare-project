@@ -24,13 +24,13 @@ $thWidth: toRem(110) !default;
   }
   --font-primary: Pretendard;
   --font-secondary: KBFG;
-  --v-avatar-height: 20px;
+  --v-avatar-height: 1.25rem;
   --v-theme-gray-1: #fafafa;
   --v-theme-primary: 15, 97, 255 !important;
   --v-theme-info: 40, 126, 255 !important;
 
   .rounded-xl {
-    border-radius: 16px !important;
+    border-radius: toRem(16) !important;
   }
   .v-field--variant-outlined {
     &.v-field--focused {
@@ -77,6 +77,11 @@ $thWidth: toRem(110) !default;
       }
     }
   }
+  .v-field--prepended {
+    .v-field__input {
+      padding-left: toRem(8) !important;
+    }
+  }
   .v-input--error {
     .v-input__details {
       display: block;
@@ -84,7 +89,7 @@ $thWidth: toRem(110) !default;
     .v-messages__message {
       font-size: toRem(14);
       &::before {
-        @include bgimg('icon_caption3');
+        @include bgimg('icon-caption3');
         width: toRem(20);
         height: toRem(20);
       }
@@ -135,5 +140,31 @@ $thWidth: toRem(110) !default;
   .flex-1-1-0,
   .flex-1 {
     flex: 1 !important;
+  }
+  .d-grid {
+    display: grid;
+  }
+  .v-icon {
+    &.icon-search {
+      width: toRem(14);
+      height: toRem(14);
+      @include bgimg('icon-srch');
+      background-size: 100% auto;
+    }
+  }
+  @for $i from 1 through 3 {
+    .g-tcol-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+  @for $i from 1 through 50 {
+    .flex-1-1-#{$i} {
+      flex: 1 1 #{$i} + '%' !important;
+    }
+  }
+  @for $i from 1 through 50 {
+    .flex-0-0-#{$i} {
+      flex: 0 0 #{$i} + '%' !important;
+    }
   }
 }

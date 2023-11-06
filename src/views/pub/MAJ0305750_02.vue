@@ -56,7 +56,7 @@
   import dialogAddress from '@/views/pub/MAJ0305736.vue'
   import dialogMyhospital from '@/views/pub/MAJ0305751.vue'
   import Nodata from '@/components/nodata/Nodata.vue'
-  import { ref, reactive, onMounted } from 'vue'
+  import { ref, reactive, onMounted, onUnmounted } from 'vue'
   export default {
     components: {
       HospitalMap,
@@ -109,6 +109,9 @@
       }
       onMounted(() => {
         document.querySelector('.v-layout').classList.add('overflow-hidden')
+      })
+      onUnmounted(() => {
+        document.querySelector('.v-layout').classList.remove('overflow-hidden')
       })
       return {
         modal2,

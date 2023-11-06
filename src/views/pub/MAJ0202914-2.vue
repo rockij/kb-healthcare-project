@@ -1,6 +1,8 @@
 <template>
-  <div class="contents">
-    <LifeCalendar :classOption="'life-calendar'" />
+  <div class="contents pt-0">
+    <div class="life-calendar">
+      <VCalendar />
+    </div>
     <div class="section-page bg pa-4">
       <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
         휴레이 메시지 영역
@@ -67,14 +69,14 @@
 </template>
 <script>
   import Nodata from '@/components/nodata/Nodata.vue'
-  import LifeCalendar from '@/views/pub/LifeCalendar.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import BanerReport from '@/components/BanerReport.vue'
   import CardReport from '@/components/CardReport.vue'
   import { ref } from 'vue'
   export default {
     components: {
       Nodata,
-      LifeCalendar,
+      VCalendar,
       BanerReport,
       CardReport
     },

@@ -1,6 +1,6 @@
 <template>
-  <div ref="stickyArea" class="survey-header">
-    <div ref="sticky">
+  <div ref="stickyArea" class="survey-header" :style="{ height: navHeight }">
+    <div class="sticky">
       <!-- 심리설문 -->
       <template v-if="type === 'range'">
         <div class="header-info">
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted, computed, nextTick } from 'vue'
   import Tooltip from '@/components/Tooltip.vue'
 
   export default {
@@ -99,18 +99,16 @@
     components: { Tooltip },
     setup() {
       //sticky
-      const sticky = ref(null)
       const stickyArea = ref(null)
       const navHeight = ref(null)
       onMounted(() => {
-        const stickyHeight = (navHeight.value =
-          sticky.value.offsetHeight + 'px')
+        const sticky = document.querySelector('.sticky')
+        navHeight.value = sticky.offsetHeight + 'px'
         const stickyObserver = new IntersectionObserver(
           ([e]) => {
-            if (!e.isIntersecting && sticky.value !== null)
-              sticky.value.classList.add('isFixed')
-            else sticky.value.classList.remove('isFixed')
-            console.log(navHeight.value)
+            if (!e.isIntersecting && sticky !== null)
+              sticky.classList.add('isFixed')
+            else sticky.classList.remove('isFixed')
           },
           {
             root: null,
@@ -121,7 +119,6 @@
       })
       return {
         navHeight,
-        sticky,
         stickyArea
       }
     }

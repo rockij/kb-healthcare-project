@@ -22,6 +22,15 @@
       @map="funcMap"
       class="mt-4"
     />
+    <DialogSns
+      v-model="modal"
+      @close="modal = false"
+      @kakao="kakaoFnc"
+      @facebook="fbFnc"
+      @Instagram="insFnc"
+      @url="urlFnc"
+      @more="moreFnc"
+    />
     <div class="section-page mt-8">
       <h3 class="tit-03 pb-0">진료시간</h3>
       <p class="text-info-caution text-grey fs-13">
@@ -52,7 +61,7 @@
       <h2 class="tit-02">전문의</h2>
       <p class="mt-3">이비인후과 전문의 2명, 내과 전문의 2명</p>
     </div>
-    <div class="section-page">
+    <div class="section-page pb-0">
       <h3 class="tit-02">위치</h3>
       <div class="list-iconlst mt-2">
         <ul class="list">
@@ -87,13 +96,16 @@
   </div>
 </template>
 <script>
+  import { ref } from 'vue'
   import buttonSns from '@/components/ButtonSns.vue'
   import HospitalCard from '@/components/CardHospital.vue'
+  import DialogSns from '@/components/BottomSheetSns.vue'
   import { reactive } from 'vue'
   export default {
     components: {
+      buttonSns,
       HospitalCard,
-      buttonSns
+      DialogSns
     },
     data() {
       return {
@@ -157,6 +169,7 @@
       }
     },
     setup() {
+      const modal = ref(false)
       const hospitalList = reactive([
         {
           id: 1,
@@ -176,7 +189,7 @@
         }
       ])
       function funcSns() {
-        alert('공유하기')
+        modal.value = true
       }
       function funcFavorit() {
         alert('즐겨찾기')
@@ -184,7 +197,33 @@
       function funcMap() {
         alert('길찾기')
       }
-      return { hospitalList, funcSns, funcFavorit, funcMap }
+      function kakaoFnc() {
+        alert('공유하기 카카오톡')
+      }
+      function fbFnc() {
+        alert('공유하기 페이스북')
+      }
+      function insFnc() {
+        alert('공유하기 인스타그램')
+      }
+      function urlFnc() {
+        alert('공유하기 URL')
+      }
+      function moreFnc() {
+        alert('공유하기 더보기')
+      }
+      return {
+        modal,
+        hospitalList,
+        funcSns,
+        funcFavorit,
+        funcMap,
+        kakaoFnc,
+        fbFnc,
+        insFnc,
+        urlFnc,
+        moreFnc
+      }
     }
   }
 </script>

@@ -53,6 +53,29 @@
     <div class="mt-6">
       <h2 class="tit-03">흡연량 추이</h2>
 
+      <v-btn
+        block
+        variant="outlined"
+        rounded="lg"
+        :ripple="false"
+        class="btn-select-arrow py-0 mt-2"
+        color="#26282C"
+        height="48"
+        @click="modal4 = true"
+      >
+        <span ref="selectBox" class="text fs-16 font-weight-bold">
+          {{ modal4ListBtn }}
+          <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+        </span>
+      </v-btn>
+      <DialogSelectList
+        :lists="modal4List"
+        :title="modal4Title"
+        v-model="modal4"
+        @close="modal4 = false"
+        @update="smokeCategory"
+      />
+
       <!-- 데이터(O) -->
       <div class="mt-5">
         <img
@@ -149,13 +172,39 @@
           text: '권장 걸음 총 달성일은 <strong class="font-weight-bold">3일</strong>이에요.'
         }
       ])
+      const modal4ListBtn = ref('일반담배')
+      const modal4Title = ref('담배종류선택')
+      const modal4List = ref([
+        {
+          value: 1,
+          text: '일반담배'
+        },
+        {
+          value: 2,
+          text: '권련형'
+        },
+        {
+          value: 2,
+          text: '액상형'
+        }
+      ])
+      const modal4 = ref(false)
+      function smokeCategory(val) {
+        modal4.value = false
+        return (modal4ListBtn.value = val.text)
+      }
       return {
         modal,
         category,
         option,
         changeCategory,
         analysisList,
-        activityList
+        activityList,
+        modal4ListBtn,
+        modal4Title,
+        modal4List,
+        modal4,
+        smokeCategory
       }
     }
   }

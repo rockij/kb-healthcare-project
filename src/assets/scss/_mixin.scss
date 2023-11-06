@@ -80,7 +80,7 @@
 }
 
 // arrow, @include arrow(toRem(9), toRem(1.5), #26282c);
-@mixin arrow($size, $thick, $color, $deg: 45deg) {
+@mixin arrow($size, $thick: toRem(1.5), $color: #26282c, $deg: 45deg) {
   display: inline-block;
   border-width: $thick $thick 0 0;
   border-style: solid;
@@ -133,8 +133,42 @@
   -webkit-mask-size: contain;
 }
 
+// @include balloon-box('bottom');
+@mixin balloon-box($arrDir, $bg: $black) {
+  position: relative;
+  line-height: toRem(24);
+  border-radius: toRem(50);
+  background-color: $bg;
+  padding: toRem(2) toRem(14);
+  min-height: toRem(28);
+  display: inline-flex;
+  align-items: center;
+  font-size: toRem(14);
+  text-align: center;
+  color: $white;
+  &::after {
+    content: '';
+    width: toRem(10);
+    height: toRem(12);
+    position: absolute;
+    @if $arrDir == 'bottom' {
+      bottom: toRem(-3);
+      left: 50%;
+      transform: translateX(-50%) rotate(35deg) skewY(20deg);
+    } @else if $arrDir == 'left' {
+      left: toRem(-1);
+      top: 50%;
+      transform: translateY(-50%) rotate(-61deg) skewY(30deg);
+    }
+    background-color: $bg;
+    border-radius: toRem(2);
+    z-index: -1;
+  }
+}
+
 // @include icon-emoji-state;
 @mixin icon-emoji-state($case: null) {
+  background-size: 100% auto;
   @if $case == 'off' {
     &[data-emoji='매우좋음'] {
       @include bgimg('icon-state-emoji05-off');
@@ -198,5 +232,11 @@
   }
   &[data-emoji='만족한'] {
     @include bgimg('icon-emo-emoji08');
+  }
+  &[data-emoji='차분함'] {
+    @include bgimg('icon-emo-emoji09');
+  }
+  &[data-emoji='개운한'] {
+    @include bgimg('icon-emo-emoji10');
   }
 }

@@ -3,7 +3,7 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
+    transition="dialog-bottom-transition"
     class="modal-full"
   >
     <v-card>
@@ -29,9 +29,6 @@
             <div class="fs-16">찜한 병원이 없습니다.</div>
           </Nodata>
         </div>
-        <!-- [D] 개발시 삭제 -->
-        <v-btn class="btn-sample" @click="$emit('close')">전체팝업닫기</v-btn>
-        <!-- //[D] 개발시 삭제 -->
       </div>
     </v-card>
   </v-dialog>

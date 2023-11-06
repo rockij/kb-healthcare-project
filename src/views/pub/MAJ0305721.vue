@@ -3,18 +3,42 @@
     <template v-if="visibleList">
       <div class="search-area mb-4">
         <v-text-field
+          id="search"
           variant="outlined"
           rounded="xl"
           clearable
           placeholder="병원명 및 진료과목 검색"
           prepend-inner-icon="mdi-magnify"
-          persistent-clear
           class="textfield-search type fs-16"
           :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
+          @keyup="getText"
         ></v-text-field>
-        <v-btn variant="text" class="btn">취소</v-btn>
+        <v-btn variant="text" @click="goPath('MAJ0305720')" class="btn"
+          >취소</v-btn
+        >
       </div>
       <!-- //검색입력 -->
+      <div v-if="text" class="list-keyword mt-8">
+        <span class="fs-18">진료과목</span>
+        <ul class="list mt-2">
+          <li v-for="(item, i) in keywordList" :key="i">
+            <v-btn variant="text"
+              ><span v-html="hightlight(item.text)"></span
+            ></v-btn>
+          </li>
+        </ul>
+        <v-btn
+          variant="flat"
+          rounded="lg"
+          prepend-icon="icon-search"
+          color="#F3F7FF"
+          class="text-grey mt-5"
+          height="40"
+          block
+          >병원명으로 검색</v-btn
+        >
+      </div>
+      <!-- //키워드 -->
       <div class="section-page brt-0 pa-0 mt-4 mb-5">
         <div class="bside-area type px-6">
           <v-btn variant="text" class="btn-map" @click="modal2 = true"
@@ -33,6 +57,7 @@
               class="ml-1"
             />
           </v-btn>
+          <span class="fs-14">총 25건</span>
           <dialogAddress v-model="modal2" @close="modal2 = false" />
           <DialogSelectList
             :lists="modalList"
@@ -45,7 +70,7 @@
       </div>
       <!-- //지역검색 -->
       <HospitalCard
-        v-for="item in hospitalList"
+        v-for="item in lists"
         :key="item.id"
         :title="item.title"
         :titleClass="'star fs-18'"
@@ -61,8 +86,14 @@
         :toastMsgOn="'내 병원에서 등록 되었습니다'"
         :toastMsgOff="'내 병원에서 해제 되었습니다'"
         class="mt-3"
-        @update="goPath"
+        :hightlight="hightlight"
+        @update="goPath(item.path)"
       />
+      <Nodata :icon="true">
+        <div class="fs-16">
+          검색 결과가 없습니다.<br />다른 검색어를 입력해주세요.
+        </div>
+      </Nodata>
     </template>
     <!-- //목록보기 -->
 
@@ -95,14 +126,16 @@
 </template>
 <script>
   import router from '@/router'
+  import Nodata from '@/components/nodata/Nodata.vue'
   import HospitalCard from '@/components/CardHospital.vue'
   import HospitalMap from '@/views/pub/MAJ0305733.vue'
   import HospitalMapInfo from '@/views/pub/MAJ0305734.vue'
   import DialogSelectList from '@/components/DialogSelectList.vue'
   import dialogAddress from '@/views/pub/MAJ0305736.vue'
-  import { ref } from 'vue'
+  import { onUnmounted, ref } from 'vue'
   export default {
     components: {
+      Nodata,
       HospitalCard,
       HospitalMap,
       HospitalMapInfo,
@@ -112,7 +145,7 @@
     setup() {
       const modal = ref(false)
       const modal2 = ref(false)
-      const hospitalList = ref([
+      const lists = ref([
         {
           id: 1,
           title: '강남초이스영상의학과의원',
@@ -267,10 +300,31 @@
       function goPath(val) {
         router.push(val)
       }
+      const text = ref('')
+      function getText(e) {
+        text.value = e.target.value
+      }
+      function hightlight(i) {
+        // 검색어 하이라이트 정규식
+        return i.replace(new RegExp(text.value, 'gi'), (match) => {
+          return '<span class="text-blue font-weight-bold">' + match + '</span>'
+        })
+      }
+      const keywordList = ref([
+        {
+          text: '진료과목 > 신경외과'
+        },
+        {
+          text: '진료과목 > 신경정신과'
+        }
+      ])
+      onUnmounted(() => {
+        document.querySelector('.v-layout').classList.remove('overflow-hidden')
+      })
       return {
         modal,
         modal2,
-        hospitalList,
+        lists,
         modalTitle,
         modalList,
         modalListBtn,
@@ -280,7 +334,11 @@
         mapViewFuc,
         listViewFuc,
         mapList,
-        goPath
+        goPath,
+        text,
+        getText,
+        hightlight,
+        keywordList
       }
     }
   }

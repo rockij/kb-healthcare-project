@@ -31,7 +31,9 @@
     <!-- 심박기록 -->
     <div class="py-8">
       <h2 class="tit-03 tit-link pb-2">
-        <v-btn block variant="text">심박기록</v-btn>
+        <v-btn block variant="text" @click="$router.push('MAJ0203392')">
+          심박기록
+        </v-btn>
       </h2>
       <div class="text-info-grey">최근 3개 기록만 표시됩니다</div>
 
