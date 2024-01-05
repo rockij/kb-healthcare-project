@@ -18,6 +18,11 @@ import VCalendar from 'v-calendar'
 import 'v-calendar/style.css'
 
 import VueNumber from 'vue-number-animation'
+import Vue3Lottie from 'vue3-lottie'
+
+import uiCommon from '@/assets/js/ui_common.js'
+import anime from 'animejs/lib/anime.es.js'
+import uiButtonTop from '@/components/uiButtonTop.vue' // 탑이동버튼
 
 const vuetify = createVuetify({
   components,
@@ -44,4 +49,8 @@ app.use(vuetify)
 app.use(VCalendar, {})
 app.provide('dayJS', dayjs)
 app.use(VueNumber)
+app.use(Vue3Lottie)
+app.use(uiCommon)
+app.config.globalProperties.$anime = anime
+app.component('ui-button-top', uiButtonTop)
 app.mount('#app')

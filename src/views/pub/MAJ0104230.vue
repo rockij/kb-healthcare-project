@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <div class="btn-area sorting-area d-flex type-4">
+    <div class="tab-line"> <!-- 20231205 - 수정 -->
       <v-tabs align-tabs="start" v-model="tab">
         <v-tab
           v-for="btn in stateBtn"
@@ -23,7 +23,7 @@
             :key="item.id"
           >
             <div class="evt-thmub">
-              <img :src="`/src/assets/images/${item.imgUrl}`" alt="" />
+              <img :src="`/assets/images/${item.imgUrl}`" alt="" />
             </div>
             <span v-if="item.endEvt" class="badge waiting">이벤트 종료</span>
             <p class="evt-tit">{{ item.title }}</p>
@@ -54,12 +54,13 @@
         {
           value: 1,
           text: '당첨자발표'
-        },
+        }
       ])
       const eventList = reactive([
         {
           imgUrl: 'event-dummy1.png',
-          title: '현대그린푸드 그라이팅 케어식단 서비스 오픈 기념 Pay-Back 프로모션',
+          title:
+            '현대그린푸드 그라이팅 케어식단 서비스 오픈 기념 Pay-Back 프로모션',
           period: '2023.07.29 ~ 2023.08.03',
           endEvt: false
         },
@@ -71,7 +72,8 @@
         },
         {
           imgUrl: 'event-dummy1.png',
-          title: '현대그린푸드 그라이팅 케어식단 서비스 오픈 기념 Pay-Back 프로모션',
+          title:
+            '현대그린푸드 그라이팅 케어식단 서비스 오픈 기념 Pay-Back 프로모션',
           period: '2023.07.29 ~ 2023.08.03',
           endEvt: true
         }

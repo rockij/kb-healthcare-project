@@ -14,7 +14,7 @@
           density="compact"
           @click="$emit('handleClick')"
         >
-          <img src="@/assets/images/icon-more.svg" alt="삭제" />
+          <img src="/assets/images/icon-more.svg" alt="삭제" />
         </v-btn>
       </div>
     </v-card-title>

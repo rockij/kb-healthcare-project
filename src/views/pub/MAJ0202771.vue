@@ -71,7 +71,7 @@
         },
         {
           cateCd: 2,
-          text: '관심뉴스'
+          text: '찜한뉴스'
         }
       ])
       const btns2 = reactive([

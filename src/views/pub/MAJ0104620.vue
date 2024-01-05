@@ -19,7 +19,7 @@
     >
       <span class="text">
         궁금하신 내용을 입력해 주세요
-        <img src="@/assets/images/icon-search.svg" alt="검색" />
+        <img src="/assets/images/icon-search.svg" alt="검색" />
       </span>
     </v-btn>
     <!-- 카테고리 btn -->
@@ -56,14 +56,14 @@
         >
           1:1문의
         </v-btn>
-        <v-btn
+        <!-- <v-btn
           block
           variant="text"
           height="24"
           class="btn-link"
           @click="goPath('MAJ0104682')"
           >이용약관
-        </v-btn>
+        </v-btn> -->
       </div>
 
       <!-- 전화상담 -->
@@ -74,7 +74,7 @@
             <div class="text-tel">1234-5678</div>
             <div class="text-info-grey type-2">평일 09:00~ 18:00</div>
           </div>
-          <img src="@/assets/images/icon-call.svg" alt="" />
+          <img src="/assets/images/icon-call.svg" alt="" />
         </v-card-text>
       </v-card>
       <!--// 링크 -->

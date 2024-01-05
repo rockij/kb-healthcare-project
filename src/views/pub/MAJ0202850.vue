@@ -1,9 +1,9 @@
 <template>
-  <div class="contents pt-0">
+  <div class="contents">
     <div class="life-calendar">
       <VCalendar :attributesValue="calendarAttr" />
     </div>
-    <div class="section-page bg pa-4 pb-2" style="z-index: 5">
+    <div class="section-page bg pa-4" style="z-index: 5">
       <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
         자리에서 일어나 조금 더 걸어볼까요?
       </BanerReport>
@@ -14,13 +14,31 @@
       >
         <v-card-title class="pa-0">
           <span class="fs-20"
-            ><strong>4,000</strong>걸어서<br /><strong>1,510kcal</strong>
+            ><strong>4,000</strong>걸어서<br /><strong>1510kcal</strong>
             소모했어요</span
           >
         </v-card-title>
         <!-- chart -->
-        <div class="mt-8 d-flex justify-center">
-          <img src="@/assets/images/dummy-chart-step.svg" alt="" />
+        <v-btn @click="CircleProgressTestFunc">값변화</v-btn>
+        <div class="mt-8 walking-chart">
+          <CircleProgress
+            :size="CircleProgressSize"
+            :percent="CircleProgressPersent"
+            :transition="CircleProgressSpeed"
+            :fill-color="'#FFC423'"
+            :borderWidth="27"
+            :borderBgWidth="27"
+            :empty-color="'#eee'"
+            :style="{ margin: '0 auto' }"
+          />
+          <figure
+            class="circle-icon-shoes"
+            :style="`--circle-size:${CircleProgressSize}px; --circle-percent:${CircleProgressPersent};--circle-speed:${CircleProgressSpeed}ms`"
+          ></figure>
+          <div class="txbox">
+            목표 걸음
+            <span class="numberCounter">1,000</span>
+          </div>
         </div>
         <ul class="list-xbase mt-4">
           <li v-for="item in goalsList" :key="item.id">
@@ -40,7 +58,7 @@
     </div>
     <!-- //차트 -->
 
-    <div ref="progress" class="section-page">
+    <div class="section-page pos-reset brt-0">
       <div class="d-flex align-center">
         <h2 class="tit-03 pb-0">나의 걸음 3대</h2>
         <v-btn variant="text" class="ml-auto" color="#888" @click="modal = true"
@@ -50,11 +68,21 @@
         <DialogStepInfo v-model="modal" @close="modal = false" />
         <!-- //기준안내 팝업 -->
       </div>
-      <div class="progress-bar mt-12" data-num="50">
-        <div class="bar">
-          <span class="tooltip-balloon arrow-bottom icon-walk num">0</span>
-        </div>
-      </div>
+      <ProgressBar
+        :dataNum="86"
+        :countValueOn="false"
+        :noCount="false"
+        :minMax="true"
+        :barClass="'opacity'"
+        class="mt-12 px-2"
+      >
+        <template v-slot:numText1
+          ><v-icon class="icon-walk mr-1"></v-icon>걸음중급자&nbsp;</template
+        >
+        <template v-slot:numText2
+          ><span class="text-yellow">3점</span></template
+        >
+      </ProgressBar>
       <ul class="progress-list mt-1">
         <li v-for="item in mystepList" :key="item.id">
           {{ item.name }}<span class="num">{{ item.text }}</span>
@@ -66,7 +94,7 @@
           :key="item.id"
           class="list-smcard flex-1-1-100"
         >
-          <img src="@/assets/images/icon-map4.svg" class="icon" alt="" />
+          <img :src="`/assets/images/${item.iname}`" class="icon" alt="" />
           <strong class="num">{{ item.num }}</strong>
           <span class="text">{{ item.text }}</span>
         </div>
@@ -81,22 +109,12 @@
       </p>
       <div class="d-flex mt-5 gap-8">
         <template v-for="item in compareList" :key="item.id">
-          <v-btn
-            v-if="item.button === true"
-            variant="text"
-            class="list-smcard btn-plus flex-1-1-100"
-            @click="modal2 = true"
-            >{{ item.text }}</v-btn
-          >
-          <div v-else class="list-smcard flex-1-1-100">
-            <img src="@/assets/images/icon-map4.svg" class="icon" alt="" />
+          <div class="list-smcard flex-1-1-100">
+            <img :src="`/assets/images/${item.iname}`" class="icon" alt="" />
             <strong class="num">{{ item.num }}</strong>
             <span class="text">{{ item.text }}</span>
           </div>
         </template>
-        <!-- 비교군추가 팝업 -->
-        <DialogCompare v-model="modal2" @close="modal2 = false" />
-        <!-- //비교군추가 팝업 -->
       </div>
     </div>
     <!-- //비교 데이터 -->
@@ -105,7 +123,7 @@
       <h2 class="tit-03 tit-link">
         <v-btn block variant="text">걸음 분석</v-btn>
       </h2>
-      <p class="text-info-grey fs-16">기간별 인사이트를 보여드려요</p>
+      <p class="text-info-grey fs-16">최근 1주일의 걸음 분석입니다</p>
       <v-tabs align-tabs="start" class="tab-line mt-4">
         <v-tab :ripple="false" class="fs-20">1주일</v-tab>
         <v-tab :ripple="false" class="fs-20">1개월</v-tab>
@@ -124,7 +142,7 @@
       </div>
       <div class="mt-5">
         <img
-          src="@/assets/images/img-graph-bar2.png"
+          src="/assets/images/img-graph-bar2.png"
           style="width: 100%"
           alt=""
         />
@@ -159,26 +177,74 @@
         </template>
       </CardReport>
       <!-- //기록 component -->
+
+      <Carousel
+        :items-to-Show="1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper mt-8"
+      >
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName" @update="goPath(item.path)">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+      <!-- //배너 -->
     </div>
     <!-- //걸음기록 -->
+
+    <div class="section-page">
+      <LifelogChallenge />
+    </div>
+    <!-- //챌린지 -->
+
+    <div class="section-page pb-0">
+      <LifelogHealthnews />
+    </div>
+    <!-- //건강뉴스 -->
   </div>
 </template>
 <script>
+  import router from '@/router'
+  import NumberCounter from '@/components/NumberCounter.vue'
+  import ProgressBar from './ProgressBar.vue'
   import Tooltip from '@/components/Tooltip2.vue'
   import VCalendar from '@/components/VCalendar.vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
   import BanerReport from '@/components/BanerReport.vue'
   import CardReport from '@/components/CardReport.vue'
   import DialogStepInfo from '@/views/pub/MAJ0202851.vue'
-  import DialogCompare from '@/views/pub/MAJ0202876.vue'
-  import { ref, reactive, onMounted, onUnmounted } from 'vue'
+  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
+  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
+  import CircleProgress from 'vue3-circle-progress'
+  import { ref, reactive, onMounted } from 'vue'
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Carousel, Slide, Pagination } from 'vue3-carousel'
+  import 'swiper/css'
+  import 'vue3-carousel/dist/carousel.css'
   export default {
     components: {
       Tooltip,
+      ProgressBar,
+      BanerSimple,
       VCalendar,
       BanerReport,
       CardReport,
       DialogStepInfo,
-      DialogCompare
+      Swiper,
+      SwiperSlide,
+      Carousel,
+      Slide,
+      Pagination,
+      LifelogChallenge,
+      LifelogHealthnews,
+      NumberCounter,
+      CircleProgress
     },
     setup() {
       const date = ref(new Date())
@@ -242,7 +308,6 @@
             return '부족'
         }
       }
-
       const mystepList = reactive([
         {
           id: 1,
@@ -269,106 +334,48 @@
         {
           id: 1,
           num: '120점',
-          text: '최고걸음'
+          text: '최고걸음',
+          iname: 'icon-star-award.svg'
         },
         {
           id: 2,
           num: '120점',
-          text: '누적 걸음'
+          text: '누적 걸음',
+          iname: 'icon-shoes-plus.svg'
         },
         {
           id: 3,
           num: '100점',
-          text: '목표 달성일'
+          text: '목표 달성일',
+          iname: 'icon-target.svg'
         }
       ])
       const compareList = reactive([
         {
           id: 1,
           num: '20%',
-          text: '여성상위'
+          text: '여성상위 기준',
+          iname: 'icon-person-red.svg'
         },
         {
           id: 2,
           num: '20%',
-          text: '또래상위'
+          text: '또래상위 기준',
+          iname: 'icon-person-orange.svg'
         },
         {
           id: 3,
-          button: true,
-          text: '추가하기'
+          num: '20%',
+          text: '동일 BMI 기준',
+          iname: 'icon-bmi.svg'
         }
       ])
-      const progress = ref()
-      const excuted = ref(false)
-      const initialRate = ref(0)
-      function numberAnimation() {
-        const targetRate = parseInt(
-          progress.value.querySelector('.progress-bar').getAttribute('data-num')
-        )
-        let numAnimation = setInterval(function () {
-          const list = progress.value.querySelector('.progress-list')
-          const bar = progress.value.querySelector('.progress-bar .bar')
-          const num = progress.value.querySelector('.progress-bar .num')
-          initialRate.value++
-          if (initialRate.value == targetRate) {
-            clearInterval(numAnimation)
-          }
-          //bar.style.width = `${targetRate}%`
-          bar.style.width = `${initialRate.value}%`
-          if (targetRate >= 0 && targetRate <= 34) {
-            num.innerHTML = `걸음 입문자 <span>${initialRate.value}점</span>`
-            list.classList.add('step1')
-          } else if (targetRate > -35 && targetRate <= 69) {
-            num.innerHTML = `걸음 중급자 <span>${initialRate.value}점</span>`
-            list.classList.add('step2')
-          } else if (targetRate >= 70 && targetRate <= 99) {
-            num.innerHTML = `걸음 고급자 <span>${initialRate.value}점</span>`
-            list.classList.add('step3')
-          } else {
-            num.innerHTML = `걸음 선수급 <span>${initialRate.value}점</span>`
-            list.classList.add('step4')
-          }
-          if (targetRate > 82) {
-            num.classList.add(`end-${targetRate}`)
-          }
-          //console.log(targetRate)
-        }, 20) // 대략 1초
-      }
-      function scroll() {
-        if (this.scrollTop > progress.value.offsetTop - 200) {
-          if (!excuted.value) {
-            console.log('progress start')
-            numberAnimation()
-            excuted.value = true
-          }
-        }
-        if (
-          Math.ceil(this.scrollTop) + this.clientHeight >=
-          this.scrollHeight
-        ) {
-          console.log('스크롤 끝')
-          if (!excuted.value) {
-            numberAnimation()
-            excuted.value = true
-          }
-        }
-      }
-      onMounted(() => {
-        document.querySelector('#mainWrap').addEventListener('scroll', scroll)
-      })
-      onUnmounted(() => {
-        document
-          .querySelector('#mainWrap')
-          .removeEventListener('scroll', scroll)
-      })
 
       function handleClick() {
         console.log('emit')
       }
 
       const modal = ref(false)
-      const modal2 = ref(false)
 
       const toolTip1 = ref(false)
 
@@ -377,8 +384,54 @@
           key: 'today',
           dates: [new Date()],
           content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 10, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 10)]
         }
       ])
+
+      const banerList = ref([
+        {
+          title: '운동 관리하러 가기',
+          text: '걸음과 함께 관리해보세요!',
+          iconName: 'icon-dumbbell.svg',
+          path: '/MAJ0202856'
+        },
+        {
+          title: '체성분 관리하러 가기',
+          text: '걸음과 함께 관리해보세요!',
+          iconName: 'icon-weight.svg',
+          path: '/MAJ0203120'
+        }
+      ])
+      function goPath(val) {
+        router.push(val)
+      }
+
+      const CircleProgressSize = ref(204)
+      const CircleProgressPersent = ref(0)
+      const CircleProgressSpeed = ref(3000)
+
+      const CircleProgressTestFunc = () => {
+        CircleProgressPersent.value = 0
+        CircleProgressSpeed.value = 0
+        setTimeout(() => {
+          alert('값불러오기')
+          CircleProgressSpeed.value = 3000
+          CircleProgressPersent.value = 20
+        }, 500)
+      }
+
+      onMounted(() => {
+        setTimeout(() => {
+          CircleProgressPersent.value = 40
+        }, 1000)
+      })
 
       return {
         date,
@@ -392,18 +445,19 @@
         mystepList,
         mystepResult,
         compareList,
-        progress,
-        initialRate,
-        scroll,
-        excuted,
-        numberAnimation,
 
         handleClick,
 
         modal,
-        modal2,
         toolTip1,
-        calendarAttr
+        calendarAttr,
+        banerList,
+        goPath,
+
+        CircleProgressSize,
+        CircleProgressPersent,
+        CircleProgressSpeed,
+        CircleProgressTestFunc
       }
     }
   }

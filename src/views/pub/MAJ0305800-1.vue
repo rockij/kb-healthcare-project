@@ -1,6 +1,6 @@
 <template>
   <div class="contents pb-0">
-    <div class="d-flex align-center">
+    <div class="d-flex align-center pt-3">
       <strong class="font-weight-bold fs-24">2022.12.30</strong>
       <v-btn
         variant="flat"
@@ -12,347 +12,165 @@
         >다른 검진선택</v-btn
       >
     </div>
-    <div class="d-flex gap-8 align-center mt-1">
-      일반검진
-      <v-divider
-        class="border-opacity-100 align-self-center"
-        :thickness="1"
-        color="#eee"
-        vertical
-        style="height: 14px"
-      />
-      신촌연세세브란스
-    </div>
+    <MAJ0305805
+      :img-name="'img-check-result02.png'"
+      :title="'정상B'"
+      :text="'이제 건강한 생활습관을 만들어야만 해요'"
+    />
     <!-- //title -->
-    <div class="text-center mt-6">
-      <figure class="d-inline-block">
-        <img
-          width="140"
-          height="140"
-          src="/src/assets/images/img-health-results01.svg"
-          alt=""
-        />
-      </figure>
-      <figcaption class="mt-3">
-        <strong class="fs-20 font-weight-700">정상A</strong>
-        <p class="mt-1">지금처럼 건강을 유지하세요</p>
-      </figcaption>
-    </div>
-    <div class="text-center mt-6">
-      <figure class="d-inline-block">
-        <img
-          width="140"
-          height="140"
-          src="/src/assets/images/img-health-results02.svg"
-          alt=""
-        />
-      </figure>
-      <figcaption class="mt-3">
-        <strong class="fs-20 font-weight-700">정상B</strong>
-        <p class="mt-1">이제 건강한 생활습관을 만들어야만 해요</p>
-      </figcaption>
-    </div>
-    <div class="text-center mt-6">
-      <figure class="d-inline-block">
-        <img
-          width="140"
-          height="140"
-          src="/src/assets/images/img-health-results03.svg"
-          alt=""
-        />
-      </figure>
-      <figcaption class="mt-3">
-        <strong class="fs-20 font-weight-700">일반 질환의심</strong>
-        <p class="mt-1">전문적이고 집중적인 관리가 필요해요</p>
-      </figcaption>
-    </div>
-    <div class="text-center mt-6">
-      <figure class="d-inline-block">
-        <img
-          width="140"
-          height="140"
-          src="/src/assets/images/img-health-results04.svg"
-          alt=""
-        />
-      </figure>
-      <figcaption class="mt-3">
-        <strong class="fs-20 font-weight-700">유질환자</strong>
-        <p class="mt-1">전문의와 함께 꾸준한 치료가 필요해요</p>
-      </figcaption>
-    </div>
+
     <!-- //판정결과 -->
-    <div class="title-area2 mt-7">
-      <h3 class="tit-03 pb-0">취약항목</h3>
-      <div class="tooltip-balloon arrow-left icon-emoji ml-4">
-        <span class="text-yellow">오건강님,</span> 이것부터 확인하세요!
-      </div>
-    </div>
-    <div class="d-grid g-tcol-2 g-gap-7 mt-4 mb-8">
-      <v-btn
-        v-for="list in weakList"
-        :key="list.id"
-        variant="text"
-        class="list-roundbox"
-        :data-result="list.category"
-      >
-        <strong class="tit">{{ list.title }}</strong>
-        <p class="text">{{ list.text }}</p>
-      </v-btn>
-    </div>
+    <h3 class="tit-03 mt-6 lh-4">
+      오건강님,<br /><span class="text-blue">취약항목</span>부터 확인해보세요!
+    </h3>
+    <MAJ0305803 :lists="weakList" />
     <div class="mt-4 mb-8">
-      <h3 class="tit-02 pb-6">나의 취약항목 변화</h3>
-      <div class="text-date-list px-4" :class="vulnerableLength">
-        <ul class="bar">
-          <li v-for="list in vulnerableList" :key="list.id">
-            <span class="tooltip-balloon arrow-bottom">{{ list.year }}</span>
-            <ul class="list">
-              <li :data-name="list.text1">
-                {{ list.text1 }}<strong>{{ list.num1 }}</strong>
-              </li>
-              <li :data-name="list.text2">
-                {{ list.text2 }}<strong>{{ list.num2 }}</strong>
-              </li>
-              <li :data-name="list.text3">
-                {{ list.text3 }}<strong>{{ list.num3 }}</strong>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="text-date-list px-4" :class="vulnerable2Length">
-        <ul class="bar">
-          <li v-for="list in vulnerable2List" :key="list.id">
-            <span class="tooltip-balloon arrow-bottom">{{ list.year }}</span>
-            <ul class="list">
-              <li :data-name="list.text1">
-                {{ list.text1 }}<strong>{{ list.num1 }}</strong>
-              </li>
-              <li :data-name="list.text2">
-                {{ list.text2 }}<strong>{{ list.num2 }}</strong>
-              </li>
-              <li :data-name="list.text3">
-                {{ list.text3 }}<strong>{{ list.num3 }}</strong>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+      <h3 class="tit-03">나의 취약항목 변화</h3>
+      <MAJ03058004 />
     </div>
     <!-- //취약항목 -->
     <div class="section-page">
       <h2 class="tit-03">전체항목</h2>
-      <v-card
-        variant="flat"
-        rounded="xl"
-        class="box-rounded-fill pa-6 d-flex justify-space-evenly"
-      >
-        <div class="emoji-simple">
-          <i data-emoji="매우나쁨"></i>
-          <span class="text">의심<span class="num">0</span></span>
-        </div>
-        <v-divider
-          class="border-opacity-100 align-self-center mx-7"
-          :thickness="1"
-          color="#eee"
-          style="height: 50px"
-          vertical
-        />
-        <div class="emoji-simple">
-          <i data-emoji="나쁨"></i>
-          <span class="text">주의<span class="num">0</span></span>
-        </div>
-        <v-divider
-          class="border-opacity-100 align-self-center mx-7"
-          :thickness="1"
-          color="#eee"
-          style="height: 50px"
-          vertical
-        />
-        <div class="emoji-simple">
-          <i data-emoji="좋음"></i>
-          <span class="text">정상<span class="num">0</span></span>
-        </div>
-      </v-card>
-      <div class="d-grid g-tcol-2 g-gap-20 mt-6">
-        <v-btn
-          v-for="list in diseaseList"
-          :key="list.id"
-          variant="text"
-          class="list-disease-item"
-          :class="`icon-${list.id}`"
-          :data-state="list.state"
-          >{{ list.text }}</v-btn
-        >
-      </div>
+      <MAJ0305804 :lists="diseaseList" />
     </div>
     <!-- //전체항목 -->
     <div class="section-page">
       <h2 class="tit-03">전문가와 함께 관리하세요.</h2>
       <v-btn
         variant="text"
-        v-for="list in counselingList"
-        :key="list.id"
+        v-for="(list, i) in counselingList"
+        :key="i"
         class="list-iconlst2 mt-2"
       >
-        <i :class="`icon${list.id}`"></i>
+        <v-img
+          :src="`/assets/images/${list.icon}`"
+          class="icon"
+          alt=""
+          transition="none"
+        />
         <p>{{ list.text }}</p>
       </v-btn>
     </div>
     <!-- //전문가와 함께 관리하세요 -->
 
-    <MAJ0305800 v-model="modal" @close="modal = false" />
+    <MAJ0305830 v-model="modal" @close="modal = false" />
   </div>
 </template>
 <script>
-  import MAJ0305800 from '@/views/pub/MAJ0305830.vue' // 건강검진목록
-  import { computed, ref } from 'vue'
+  import MAJ0305830 from '@/views/pub/MAJ0305830.vue' // 건강검진목록
+  import MAJ0305805 from '@/views/pub/MAJ0305805.vue' // 판정결과
+  import MAJ03058004 from '@/views/pub/MAJ0305800-4.vue' // 나의취약항목변화
+  import MAJ0305803 from '@/views/pub/MAJ0305803.vue'
+  import MAJ0305804 from '@/views/pub/MAJ0305804.vue' // 전체항목
+  import { ref } from 'vue'
   export default {
-    components: { MAJ0305800 },
+    components: { MAJ0305830, MAJ0305805, MAJ03058004, MAJ0305803, MAJ0305804 },
     setup() {
       const weakList = ref([
         {
-          id: 1,
+          title: '당뇨',
+          text: '무조건 관리에 들어가야 해요!!',
+          category: '의심'
+        },
+        {
+          title: '빈혈',
+          text: '이제 참지말고 관리를 해야만 해요.',
+          category: '주의'
+        },
+        {
           title: '이상지질혈증',
           text: '주의에 2만큼 가까워요.',
           category: '정상'
         },
         {
-          id: 2,
           title: '비만',
           text: '지금보다 조금만 더 관리하면 충분해요',
-          category: '정상'
+          category: '주의'
         },
         {
-          id: 3,
           title: '신장질환',
           text: '증상이 없다고 방치하면 점점 나빠져요',
           category: '정상'
         },
         {
-          id: 4,
           title: '시력',
           text: '이제 참지말고 관리를 해야만 해요.',
-          category: '의심'
+          category: '정상'
         }
       ])
       const counselingList = ref([
         {
-          id: 1,
-          text: '당뇨 진료가 가능한 병원'
+          text: '당뇨 진료가 가능한 병원',
+          icon: 'icon-hospital2.svg'
         },
         {
-          id: 2,
-          text: '이상지질혈증 진료가 가능한 병원'
+          text: '이상지질혈증 진료가 가능한 병원',
+          icon: 'icon-hospital2.svg'
         },
         {
-          id: 3,
-          text: '의료진에게 묻고 싶은 것이 있다면'
+          text: '의료진에게 묻고 싶은 것이 있다면',
+          icon: 'icon-doctor2.svg'
         },
         {
-          id: 4,
-          text: '지금 몸에 특정한 증상이 있다면'
+          text: '지금 몸에 특정한 증상이 있다면',
+          icon: 'icon-doctor-note.svg'
         }
       ])
       const diseaseList = ref([
         {
-          id: 1,
-          text: '당뇨'
+          icon: 'icon-disease01.png',
+          text: '당뇨',
+          state: '주의'
         },
         {
-          id: 2,
+          icon: 'icon-disease02.png',
           text: '고혈압'
         },
         {
-          id: 3,
+          icon: 'icon-disease03.png',
           text: '이상지질혈증'
         },
         {
-          id: 4,
+          icon: 'icon-disease04.png',
           text: '비만'
         },
         {
-          id: 5,
+          icon: 'icon-disease05.png',
           text: '신장질환'
         },
         {
-          id: 6,
+          icon: 'icon-disease06.png',
           text: '간장질환'
         },
         {
-          id: 7,
-          text: '흉부질환'
+          icon: 'icon-disease07.png',
+          text: '흉부질환',
+          state: '의심'
         },
         {
-          id: 8,
+          icon: 'icon-disease08.png',
           text: '빈혈'
         },
         {
-          id: 9,
-          text: '시력'
+          icon: 'icon-disease09.png',
+          text: '시력',
+          state: '주의'
         },
         {
-          id: 10,
+          icon: 'icon-disease010.png',
           text: '청력'
         },
         {
-          id: 11,
+          icon: 'icon-disease011.png',
           text: '생활습관'
         }
       ])
-      const vulnerableList = ref([
-        {
-          id: 1,
-          year: '2018',
-          text1: '의심',
-          num1: '2',
-          text2: '주의',
-          num2: '1',
-          text3: '정상',
-          num3: '8'
-        },
-        {
-          id: 2,
-          year: '2023',
-          text1: '의심',
-          num1: '2',
-          text2: '주의',
-          num2: '1',
-          text3: '정상',
-          num3: '8'
-        }
-      ])
-      const vulnerable2List = ref([
-        {
-          id: 1,
-          year: '2018',
-          text1: '의심',
-          num1: '2',
-          text2: '주의',
-          num2: '1',
-          text3: '정상',
-          num3: '8'
-        }
-      ])
-      const vulnerableLength = computed(() => {
-        if (vulnerableList.value.length === 2) {
-          return 'list-count2'
-        }
-      })
-      const vulnerable2Length = computed(() => {
-        if (vulnerable2List.value.length === 1) {
-          return 'list-count1'
-        }
-      })
       const modal = ref()
 
       return {
         weakList,
         counselingList,
         diseaseList,
-        vulnerableList,
-        vulnerable2List,
-        vulnerableLength,
-        vulnerable2Length,
         modal
       }
     }

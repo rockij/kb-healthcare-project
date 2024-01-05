@@ -11,7 +11,7 @@
       :title2Class="'mt-5'"
       :road="item.road"
       :subject="item.subject"
-      :tagDivider="item.tagDivider"
+      :sources="item.sources"
       :tags="item.tags"
       :state="item.state"
       :stateClass="item.stateClass"

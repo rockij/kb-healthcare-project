@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="24" rx="4.8" fill="#F8F8F8"/>
+<rect x="4.58105" y="6" width="2.4" height="2.4" rx="1.2" fill="#56B8F1"/>
+<rect x="8.18115" y="6.30078" width="9.6" height="1.81094" rx="0.905471" fill="#56B8F1"/>
+<rect x="4.58105" y="9.90039" width="2.4" height="2.4" rx="1.2" fill="#56B8F1"/>
+<rect x="8.18115" y="10.1992" width="9.6" height="1.81094" rx="0.905471" fill="#56B8F1"/>
+<rect x="4.58105" y="13.8008" width="2.4" height="2.4" rx="1.2" fill="#56B8F1"/>
+<rect x="8.18115" y="14.0996" width="9.6" height="1.81094" rx="0.905471" fill="#56B8F1"/>
+<path d="M19.4343 18.3662C19.6351 18.567 19.9608 18.567 20.1616 18.3662C20.3625 18.1653 20.3625 17.8397 20.1616 17.6389L19.4343 18.3662ZM17.3771 16.309L19.4343 18.3662L20.1616 17.6389L18.1044 15.5816L17.3771 16.309Z" fill="#3C6F9F"/>
+<circle cx="15.6845" cy="13.8886" r="3.08582" fill="#E7FCFF" fill-opacity="0.5" stroke="#3C6F9F" stroke-width="1.02861" stroke-miterlimit="10" stroke-linecap="round"/>
+</svg>

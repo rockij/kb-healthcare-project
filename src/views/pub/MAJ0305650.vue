@@ -2,7 +2,14 @@
   <div class="contents">
     <div class="title-area">
       <h1 class="subTit-01">증상 검색 대상을 선택하세요</h1>
-      <v-btn variant="text" class="slink">내 증상 검색하기</v-btn>
+      <v-btn
+        variant="flat"
+        height="32"
+        rounded="lg"
+        color="#f2f4f6"
+        class="text-primary px-3 fs-13 mt-2"
+        >내 증상 검색하기</v-btn
+      >
     </div>
     <div class="d-flex tabs-target person mt-6">
       <v-btn
@@ -28,7 +35,7 @@
       <span ref="selectBox" class="text text-info-grey type-3">
         <span class="placeholder" v-if="!modalListBtn">선택해주세요.</span>
         {{ modalListBtn.text }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="검색" />
       </span>
     </v-btn>
     <DialogSelectList
@@ -48,6 +55,8 @@
       variant="outlined"
       persistent-placeholder
       placeholder="입력해주세요."
+      @focus="focusFunc"
+      @blur="blurFunc"
       clearable
     ></v-text-field>
     <div class="section-page mt-8 pb-0">
@@ -83,7 +92,7 @@
       </div>
     </div>
     <div class="btn-bottom">
-      <div class="btn-area d-flex">
+      <div class="btn-area d-flex" :class="btnBottomArea">
         <v-btn
           variant="text"
           height="56px"
@@ -192,6 +201,14 @@
         return (modalListBtn.value = { ...val })
       }
 
+      const btnBottomArea = ref(null)
+      const focusFunc = () => {
+        btnBottomArea.value = 'no-fix'
+      }
+      const blurFunc = () => {
+        btnBottomArea.value = ''
+      }
+
       return {
         tabBtn,
         tabBtns,
@@ -205,7 +222,10 @@
         modalTitle,
         modalList,
         modalListBtn,
-        changeCategory
+        changeCategory,
+        focusFunc,
+        blurFunc,
+        btnBottomArea
       }
     }
   }

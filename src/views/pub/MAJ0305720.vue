@@ -12,7 +12,7 @@
     >
       <span class="text">
         병원명 및 진료과목 검색
-        <img src="@/assets/images/icon-search.svg" alt="검색" />
+        <img src="/assets/images/icon-search.svg" alt="검색" />
       </span>
     </v-btn>
     <!-- //카테고리 btn -->
@@ -58,6 +58,10 @@
         >쉽고 빠르게 신체부위별 내 증상을<br />선택해 물어보세요</span
       >
     </Baner>
+
+    <p class="mt-2 text-right fs-13 text-grey">
+      출처 건강보험심사평가원의 의료 빅테이터 활용 및 제공
+    </p>
   </div>
 </template>
 <script>

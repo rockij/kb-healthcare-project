@@ -1,36 +1,17 @@
 <template>
   <div class="contents">
-    <v-btn variant="text" class="pl-0" @click="goPath('MAJ0104670')">
-      <span class="fs-24">프로그램 문의</span>
+    <div class="title-area pt-0">
+      <p class="desc">문의 사항을 남겨주시면 신속하게 답변드릴게요</p>
+    </div>
+
+    <v-btn variant="text" class="pl-0 mt-8" @click="goPath('MAJ0104670')">
+      <span class="fs-24 font-weight-bold">회원가입</span>
       <v-icon class="ml-2">
-        <img src="@/assets/images/icon-arrow-down.svg" alt="" />
+        <img src="/assets/images/icon-arrow-down.svg" alt="" />
       </v-icon>
     </v-btn>
 
-    <!-- 2023-10-23 버튼 클래스 수정 -->
-    <v-btn
-      block
-      variant="outlined"
-      rounded="xl"
-      height="48"
-      :ripple="false"
-      class="btn-search shadow-none mt-5"
-      color="#ccc"
-      @click="modal = true"
-    >
-      <span class="text text-info-grey type-3">
-        테라젠
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
-      </span>
-    </v-btn>
-
-    <div class="title-area">
-      <p class="desc pt-4">
-        진행 중인 프로그램에 관한 문의를 남겨 주시면 신속하게 도와드릴게요!
-      </p>
-    </div>
-
-    <div class="textfield-area pt-8">
+    <div class="textfield-area pt-6">
       <v-text-field
         class="input-basic textfield-default input-qna"
         label="제목"
@@ -50,20 +31,29 @@
         :counter="20"
         variant="outlined"
         no-resize
-      ></v-textarea>
+      >
+        <template v-slot:counter="{ value, max }">
+          <span class="current-value">{{ value }}</span> /
+          <span class="max-length">{{ max }}</span>
+        </template>
+      </v-textarea>
     </div>
     <div class="attach-area">
       <v-btn variant="text" height="40" class="attach-btn ws-94" block
         >사진첨부<v-icon class="pl-1">mdi-plus</v-icon>
       </v-btn>
-      <v-chip
-        v-if="chip"
-        class="file-chip mt-4"
-        closable
-        @click:close="chip = false"
-      >
-        IMG_1234.png
-      </v-chip>
+      <div class="list-inputFile-picture">
+        <template v-for="(items, i) in addFileListImg" :key="i">
+          <v-chip class="file-chip file-image mt-4" v-if="items" closable>
+            <template #append>
+              <v-avatar
+                class="bdr-4"
+                :image="`/assets/images/` + items.src"
+              ></v-avatar>
+            </template>
+          </v-chip>
+        </template>
+      </div>
 
       <div class="smDesc d-flex">
         <v-avatar color="#cccccc" size="16"
@@ -75,24 +65,7 @@
         </span>
       </div>
     </div>
-    <div class="section-page section-write"></div>
-    <div class="checkbox-area">
-      <v-checkbox
-        v-model="checkedItem"
-        :value="item.id"
-        v-for="item in agreeItems"
-        :key="item.id"
-        class="checked-agree"
-      >
-        <template v-slot:label
-          >{{ item.text }}
-          <v-spacer></v-spacer>
-          <a target="_blank" href="https://vuetifyjs.com" @click.stop>
-            <v-icon>mdi-chevron-right</v-icon></a
-          >
-        </template>
-      </v-checkbox>
-    </div>
+
     <div class="btn-bottom">
       <div class="btn-area d-flex">
         <v-btn
@@ -100,7 +73,6 @@
           height="56px"
           class="btn-summit"
           :disabled="name2.length === 0"
-          @click.stop="snackbar = true"
           >등록하기</v-btn
         >
       </div>
@@ -112,15 +84,6 @@
     @close="modal = false"
     @update="goPath('MAJ0104681')"
   />
-  <!-- toast 팝업 연결 -->
-  <v-snackbar v-model="snackbar" :timeout="timeout" class="toast-basic">
-    {{ snackbarText }}
-    <template v-slot:actions>
-      <v-btn color="blue" variant="text" @click="snackbar = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-    </template>
-  </v-snackbar>
 </template>
 
 <script>
@@ -132,7 +95,6 @@
     setup() {
       const timeout = 2000
       const snackbar = ref(false)
-      const snackbarText = ref('등록되었어요')
       const modal = ref(false)
       const program = true
       const select = ref({ state: '선택해주세요', value: 0 })
@@ -159,11 +121,20 @@
           text: '[필수] 고유식별정보 처리 동의'
         }
       ])
+
+      const addFileListImg = ref([
+        { src: 'addfile-dummy.png' },
+        { src: 'addfile-dummy.png' },
+        { src: 'addfile-dummy.png' },
+        { src: 'addfile-dummy.png' },
+        { src: 'addfile-dummy.png' }
+      ])
+
       function goPath(val) {
         router.push(val)
       }
       return {
-        snackbarText,
+        addFileListImg,
         timeout,
         snackbar,
         modal,

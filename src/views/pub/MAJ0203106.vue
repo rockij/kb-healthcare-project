@@ -41,19 +41,20 @@
               model-value="오후 9:30"
               readonly
               clearable
+              hide-details
             >
               <template v-slot:append-inner
-                ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
               /></template>
             </v-text-field>
 
-            <v-list-item class="textfield-area textfield-memo">
+            <v-list-item class="textfield-area textfield-memo mt-2">
               <v-list-item-title
                 ><span class="font-weight-bold"
                   >측정 상태</span
                 ></v-list-item-title
               >
-              <div role="tablist" class="tabs-simple2">
+              <div role="tablist" class="tabs-simple2 mt-2">
                 <v-btn variant="text" role="tab" aria-selected="true"
                   >공복</v-btn
                 >
@@ -78,28 +79,25 @@
               required
               persistent-placeholder
               variant="outlined"
-              placeholder="입력해 주세요"
+              placeholder="예. 120"
               v-model="name4"
+              type="number"
               clearable
             >
               <template v-slot:append-inner>mg/dL</template>
             </v-text-field>
 
             <v-list-item class="textfield-area pa-0">
-              <v-list-item-title
-                >오늘 먹은 음식<span class="small"
-                  >(선택)</span
-                ></v-list-item-title
-              >
+              <v-list-item-title>오늘 먹은 음식</v-list-item-title>
               <p class="desc py-2 fs-14">
-                문의가 많을 경우 시간이 걸릴 수 있으니 양해 부탁 드려요
+                식단을 등록해 당류가 얼마나 포함되었는지 확인해보세요
               </p>
               <div class="attach-area">
                 <div class="wrap-file-input">
-                  <input type="file" class="file-input" id="inputFile" />
-                  <label for="inputFile" class="btn-file-input"
-                    >사진첨부<v-icon size="16">mdi-plus</v-icon></label
-                  >
+                  <!-- <input type="file" class="file-input" id="inputFile" /> -->
+                  <button class="btn-file-input">
+                    사진첨부<v-icon size="16">mdi-plus</v-icon>
+                  </button>
                 </div>
                 <div class="list-inputFile-picture">
                   <template v-for="(items, i) in addFileListImg" :key="i">
@@ -107,12 +105,24 @@
                       class="file-chip file-image mt-4"
                       v-if="items"
                       closable
+                      @click:close="console.log('test')"
                     >
                       <template #append>
-                        <v-avatar
-                          class="bdr-4"
-                          :image="`/src/assets/images/` + items.src"
-                        ></v-avatar>
+                        <div
+                          class="v-avatar v-theme--light v-avatar--density-default v-avatar--size-default v-avatar--variant-flat bdr-4"
+                        >
+                          <div class="v-responsive v-img">
+                            <div
+                              class="v-responsive__sizer"
+                              style="padding-bottom: 100%"
+                            ></div>
+                            <img
+                              class="v-img__img v-img__img--cover"
+                              :src="`/assets/images/${items.src}`"
+                              alt=""
+                            />
+                          </div>
+                        </div>
                       </template>
                     </v-chip>
                   </template>
@@ -120,6 +130,9 @@
               </div>
             </v-list-item>
           </div>
+          <p class="pt-8 fs-13 c-gray">
+            식사 기록 수정은 식사 화면에서 가능합니다.
+          </p>
         </div>
         <div class="btn-bottom">
           <div class="btn-area d-flex">

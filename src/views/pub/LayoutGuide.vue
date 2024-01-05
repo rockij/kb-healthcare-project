@@ -4,7 +4,7 @@
       <h1 class="subTit-01">페이지 타이틀이 있는 경우 상단 여백: 28px</h1>
     </div>
 
-    페이지 타이틀이 없는 경우 상단 여백 : 16px (contents pt-3)
+    페이지 타이틀이 없는 경우 상단 여백 : 16px (contents pt-type)
 
     <br /><br />
 

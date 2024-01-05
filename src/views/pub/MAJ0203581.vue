@@ -64,7 +64,7 @@
       </div>
 
       <v-card-actions>
-        <v-btn height="48" class="bdr-8 btn-yellow mt-6" block>저장하기</v-btn>
+        <v-btn height="48" class="bdr-8 btn-yellow" block>저장하기</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

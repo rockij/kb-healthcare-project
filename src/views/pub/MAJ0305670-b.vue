@@ -6,14 +6,16 @@
       title="머리"
       class="head"
       @click="bodySelect('head')"
-    />
+      ><i class="pulse"></i
+    ></v-btn>
     <v-btn
       :ripple="false"
       variant="text"
       title="상체"
       class="upbody"
       @click="bodySelect('upbody')"
-    />
+      ><i class="pulse"></i
+    ></v-btn>
     <div class="body-box">
       <v-btn
         :ripple="false"
@@ -28,7 +30,8 @@
         title="골반"
         class="pelvis"
         @click="bodySelect('pelvis')"
-      />
+        ><i class="pulse"></i
+      ></v-btn>
       <v-btn
         :ripple="false"
         variant="text"
@@ -43,7 +46,8 @@
       title="하체"
       class="lowerbody"
       @click="bodySelect('lowerbody')"
-    />
+      ><i class="pulse"></i
+    ></v-btn>
   </figure>
 
   <v-dialog

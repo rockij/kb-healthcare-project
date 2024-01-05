@@ -4,12 +4,24 @@
     fullscreen
     :scrim="false"
     transition="dialog-bottom-transition"
-    class="modal-full"
+    class="modal-bottom body-direct"
   >
     <v-card>
-      <div class="modal-body pt-4 pb-4">
+      <v-toolbar dark color="white" height="auto">
+        <v-toolbar-title class="modal-title">약국 검색</v-toolbar-title>
+        <v-btn
+          icon
+          dark
+          @click="dialog = false"
+          class="btn-modal-close"
+          title="팝업닫기"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <div class="modal-body pb-4">
         <div class="flex-shrink-0 modal-body-container">
-          <div class="search-area mb-4">
+          <div class="search-area">
             <v-text-field
               id="search"
               variant="outlined"
@@ -18,13 +30,13 @@
               placeholder="병원명 및 진료과목 검색"
               prepend-inner-icon="mdi-magnify"
               class="textfield-search type fs-16"
-              :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
               @keypress.enter="getText"
               @click:append-inner="getInput"
             ></v-text-field>
             <v-btn variant="text" class="btn">취소</v-btn>
           </div>
-          <h3 class="fs-18 font-weight-bold">최근 검색어</h3>
+          <p class="text-message-error">2자 이상 입력해 주세요</p>
+          <h3 class="fs-18 font-weight-bold mt-4">최근 검색어</h3>
           <div role="tablist" class="sorting-area type-3 mt-4 mb-6">
             <v-btn
               role="tab"
@@ -55,7 +67,7 @@
             :path="item.path"
             :toastMsgOn="'내 약국에 등록 되었습니다'"
             :toastMsgOff="'내 약국에 해제 되었습니다'"
-            class="mt-3"
+            :class="item.id === 1 ? '' : 'mt-3'"
             :hightlight="hightlight"
             @update="goPath(item.path)"
           />

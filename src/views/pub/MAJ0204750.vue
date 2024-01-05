@@ -1,113 +1,87 @@
 <template>
-  <!-- contents -->
   <div class="contents">
-    <div class="title-area pt-7">
-      <p class="subTit-01">변경을 원하는<br />이메일을 인증해주세요</p>
-    </div>
-
-    <div class="textfield-area autocomplete">
-      <v-combobox
-        class="input-basic textfield-default"
-        label="이메일주소"
-        :items="[
-          'hong@naver.com',
-          'hong@daum.net',
-          'hong@gmail.com',
-          'hong@nate.com',
-          'hong@hanmail.net'
-        ]"
-        menu-icon=""
-        required
-        clearable
-        type="search"
-        placeholder="이메일 주소 입력"
-        variant="outlined"
-        v-model="email"
-        @click:clear="onClear"
-        :rules="emailRules"
-        :hide-no-data="true"
-        return-object
+    <Nodata :icon="true" iconType="nodata-attached" v-if="listItem == 0"
+      >소속정보가 없습니다</Nodata
+    >
+    <template v-else>
+      <div
+        class="wrap-list-border"
+        v-for="(settingItems, index) in settingItem"
+        :key="index"
       >
-        <template v-slot:append>
-          <span class="input-count"
-            ><v-btn
-              variant="tonal"
-              color="primary"
-              type="submit"
-              class="flex-wrap btn-input-submit"
-              v-if="!isActive"
-              :disabled="!disable"
-              @click="isActive = !isActive"
-              >인증</v-btn
+        <div class="login-title">{{ settingItems.title }}</div>
+        <div class="list-border">
+          <Nodata
+            :icon="true"
+            iconType="nodata-attached"
+            v-if="settingItems.items == 0"
+            >소속정보가 없습니다</Nodata
+          >
+          <template v-else>
+            <div
+              class="list-border-items"
+              v-for="item in settingItems.items"
+              :key="item"
             >
-            <v-btn
-              variant="tonal"
-              color="primary"
-              :ripple="false"
-              class="flex-wrap btn-input-submit"
-              v-if="isActive"
-              :disabled="!disable"
-              >재발송</v-btn
-            >
-          </span>
-        </template>
-      </v-combobox>
-    </div>
-    <div class="textfield-area" v-if="isActive">
-      <v-text-field
-        class="textfield-default"
-        :rules="[
-          (v) => !!v || '인증번호를 입력해주세요',
-          (v) =>
-            (v && v.length <= 4) || '인증번호가 잘못되었습니다. 재요청해주세요'
-        ]"
-        label="인증번호"
-        required
-        persistent-placeholder
-        clearable
-        variant="outlined"
-      >
-        <span class="input-count">5:00</span>
-      </v-text-field>
-    </div>
+              <span class="title-list-border">{{ item }}</span>
 
-    <div class="btn-bottom">
-      <div class="btn-area d-flex">
-        <v-btn variant="text" height="56px" class="btn-summit">확인</v-btn>
+              <v-btn
+                variant="tonal"
+                color="primary"
+                class="flex-wrap btn-input-submit"
+                >해제</v-btn
+              >
+            </div>
+          </template>
+        </div>
       </div>
+    </template>
+    <div class="btn-area mt-8">
+      <v-btn
+        height="48px"
+        variant="flat"
+        @click="dialog = false"
+        class="bdr-8 btn-yellow"
+        block
+        >소속 추가하기</v-btn
+      >
     </div>
   </div>
-  <!-- //contents -->
 </template>
 
 <script>
-  import { ref } from 'vue'
-
+  import { onMounted, ref } from 'vue'
+  import Nodata from '@/components/nodata/Nodata.vue'
   export default {
+    components: {
+      Nodata
+    },
     setup() {
-      const isActive = ref(false)
-      const email = ref('')
-      const disable = ref(false)
-      const emailRules = ref([
-        (value) => !!value || '이메일을 입력해주세요.',
-        (value) => {
-          if (
-            /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(
-              value
-            )
-          ) {
-            disable.value = true
-            return true
-          } else {
-            disable.value = false
-            return '옳바른 이메일 양식이 아닙니다.'
-          }
+      const settingItem = ref([
+        {
+          title: '임직원 소속',
+          items: []
+        },
+        {
+          title: '제휴상품 소속',
+          items: ['KB국민은행', 'KB헬스케어', 'KB손해보험']
         }
       ])
-      const onClear = () => {
-        disable.value = false
+
+      const listItem = ref(0)
+
+      const listItemCount = () => {
+        let listLength = 0
+        settingItem.value.map(function (item) {
+          listLength += item.items.length
+        })
+        listItem.value = listLength
       }
-      return { isActive, email, emailRules, disable, onClear }
+      onMounted(() => {
+        listItemCount()
+      })
+
+      return { settingItem, listItemCount, listItem }
     }
   }
 </script>

@@ -1,59 +1,46 @@
 <template>
   <div class="contents">
-    <div class="report-title mb-4">
-      <!-- picker -->
-      <v-btn variant="text" class="fs-24 pa-0">
-        <span class="pr-2">2023.08.03</span>
-        <img src="@/assets/images/icon-arrow-down.svg" alt="" />
-      </v-btn>
-      <v-chip label size="small" class="chip-default"
-        ><span class="text-dot">미연결</span></v-chip
-      >
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
     </div>
-    <v-list lines="1" class="list-simple-description">
-      <v-list-subheader class="fs-20 font-weight-bold mb-7"
-        >운동을 연결하고<br />
-        내게 맞는 분석을 받아보세요</v-list-subheader
+    <h2 class="fs-20 lh-4 font-weight-bold mt-9">
+      운동을 연결하고<br />
+      내게 맞는 분석을 받아보세요
+    </h2>
+    <v-list lines="1" class="list-simple-description mt-7">
+      <v-list-item
+        class="simple-description-items"
+        v-for="(item, i) in SportsList"
+        :key="i"
       >
-      <v-list-item class="simple-description-items">
         <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
+          <v-icon size="40"
+            ><img :src="`/assets/images/${item.iname}`" alt=""
+          /></v-icon>
         </template>
-        <template v-slot:title>소모칼로리 분석</template>
-        <template v-slot:subtitle
-          >기간 별로 나의 운동 정보를 알 수 있어요</template
-        >
-      </v-list-item>
-
-      <v-list-item class="simple-description-items">
-        <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
-        </template>
-        <template v-slot:title>운동 측정</template>
-        <template v-slot:subtitle
-          >수행한 운동의 칼로리와 시간을 알 수 있어요
-        </template>
-      </v-list-item>
-
-      <v-list-item class="simple-description-items">
-        <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
-        </template>
-        <template v-slot:title>운동기록</template>
-        <template v-slot:subtitle> 좋아하는 운동을 기록할 수 있어요 </template>
+        <template v-slot:title>{{ item.title }}</template>
+        <template v-slot:subtitle>{{ item.text }}</template>
       </v-list-item>
     </v-list>
 
-    <div class="btn-area2">
+    <!-- 2차 -->
+    <div class="btn-area-middle mt-7">
       <v-btn
         variant="flat"
-        height="46px"
-        class="bdr-8 fs-15"
+        height="40px"
+        class="bdr-8 fs-15 text-grey2 btn-option"
+        color="#F3F7FF"
+        >스마트로프 연결하기</v-btn
+      >
+      <v-btn
+        variant="flat"
+        height="40px"
+        class="bdr-8 fs-15 text-grey2 btn-option"
         color="#FCEBA6"
-        block
         >건강 플랫폼 연결하기</v-btn
       >
     </div>
+    <!-- //2차 -->
 
     <div class="btn-bottom">
       <div class="btn-area d-flex">
@@ -74,42 +61,33 @@
 </template>
 
 <script>
+  import VCalendar from '@/components/VCalendar.vue' // 달력
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
   import MAJ0202862 from './MAJ0202862.vue'
   import { ref } from 'vue'
 
   export default {
-    components: { CardReport, ReportResult, MAJ0202862 },
+    components: { VCalendar, CardReport, ReportResult, MAJ0202862 },
     setup() {
       const modal = ref(false)
       const tab = ref(null)
       const Analysis = ref(null)
-      const reports = ref([
+      const SportsList = ref([
         {
-          id: 0,
-          date: '오전 10시 35분',
-          device: '기기',
-          state: 'success',
-          recordBloodPressure: '100',
-          recordPulse: '120/80',
-          hasMemo: '사용자가 입력한 메모가 노출됩니다'
+          iname: 'icon-noregi-sports1.svg',
+          title: '소모칼로리 분석,',
+          text: '기간 별로 나의 운동 정보를 알 수 있어요'
         },
         {
-          id: 1,
-          date: '오전 6시 35분',
-          device: '플랫폼',
-          state: 'error',
-          recordBloodPressure: '100',
-          recordPulse: '132/32'
+          iname: 'icon-noregi-sports2.svg',
+          title: '운동 측정,',
+          text: '수행한 운동의 칼로리와 시간을 알 수 있어요'
         },
         {
-          id: 2,
-          date: '오전 6시 35분',
-          device: '',
-          state: 'error',
-          recordBloodPressure: '100',
-          recordPulse: '132/32'
+          iname: 'icon-noregi-sports3.svg',
+          title: '운동기록,',
+          text: '좋아하는 운동을 기록할 수 있어요'
         }
       ])
       function getText(props) {
@@ -126,13 +104,39 @@
       function handleClick() {
         console.log('emit')
       }
+
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 10, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 5)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 15)]
+        }
+      ])
+
       return {
         modal,
-        reports,
+        SportsList,
         getText,
         Analysis,
         handleClick,
-        tab
+        tab,
+        calendarAttr
       }
     }
   }

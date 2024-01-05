@@ -30,14 +30,19 @@
             </v-text-field>
 
             <v-text-field
-              class="input-basic textfield-default"
-              v-model="name2"
-              label="측정 시간"
+              class="input-basic textfield-default select-field type-btn hasData"
+              label="운동 시간"
               required
               persistent-placeholder
               variant="outlined"
+              v-model="name2"
+              readonly
+              clearable
               @click="event"
             >
+              <template v-slot:append-inner
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
+              /></template>
             </v-text-field>
 
             <v-text-field
@@ -66,6 +71,20 @@
               clearable
             >
               <template v-slot:append-inner>inch</template>
+            </v-text-field>
+
+            <v-text-field
+              class="input-basic textfield-default suffix input-bg"
+              :class="name5 ? 'hasData' : ''"
+              label="허리둘레"
+              required
+              persistent-placeholder
+              variant="outlined"
+              :placeholder="name5 ? '' : '허리둘레를 입력 시 cm 자동 변환'"
+              v-model="name5"
+              readonly
+            >
+              <template v-slot:append-inner v-if="name5"> cm </template>
             </v-text-field>
           </div>
         </div>
@@ -96,8 +115,9 @@
       const dialog = false
       const name = ref('2023.06.21')
       const name2 = ref('오전 9시 30분')
-      const name3 = ref('88')
+      const name3 = ref('100')
       const name4 = ref('')
+      const name5 = ref('')
 
       function event() {
         console.log('click')
@@ -108,6 +128,7 @@
         name2,
         name3,
         name4,
+        name5,
         event
       }
     }

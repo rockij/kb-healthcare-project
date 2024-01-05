@@ -4,11 +4,26 @@
     fullscreen
     :scrim="false"
     transition="dialog-bottom-transition"
-    class="modal-full"
+    class="modal-bottom body-direct"
   >
     <v-card>
-      <div class="modal-body pt-4 pb-4">
-        <div class="flex-shrink-0 modal-body-container">
+      <v-toolbar dark color="white" height="auto">
+        <v-toolbar-title class="modal-title">내 약국</v-toolbar-title>
+        <v-btn
+          icon
+          dark
+          @click="$emit('close')"
+          class="btn-modal-close"
+          title="팝업닫기"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <div class="modal-body pb-4">
+        <div class="flex-shrink-0 modal-body-container pt-4">
+          <div class="tabs-simple2 mb-4">
+            <v-btn variant="text">영업중보기</v-btn>
+          </div>
           <HospitalCard
             v-for="item in list"
             :key="item.id"
@@ -26,7 +41,7 @@
             class="mt-3"
             @update="$emit('close')"
           />
-          <Nodata :icon="true">
+          <Nodata :icon="true" iconSize="big" iconType="hospital">
             <div class="fs-16">찜한 약국이 없습니다.</div>
           </Nodata>
         </div>

@@ -2,6 +2,7 @@ $black: #26282c;
 $white: #fff;
 $red: #eb5147;
 $blue: #3f86f1;
+$green: #00c378;
 $vheight: 100dvh;
 $thWidth: toRem(110) !default;
 :root {
@@ -10,7 +11,7 @@ $thWidth: toRem(110) !default;
     --v-theme-primary: 63, 134, 241;
     --v-theme-secondary: 92, 187, 246;
     --v-theme-error: 235, 81, 71;
-    --v-theme-info: 33, 150, 243;
+    --v-theme-info: 63, 134, 241;
     --v-theme-success: 0, 195, 120;
     --v-theme-warning: 255, 134, 47;
     --v-theme-tertiary: 229, 115, 115;
@@ -21,23 +22,27 @@ $thWidth: toRem(110) !default;
     --v-medium-emphasis-opacity: 1;
     --v-hover-opacity: 0;
     --color-ccc: 204, 204, 204;
+    --v-theme-overlay-multiplier: 0.5;
   }
   --font-primary: Pretendard;
   --font-secondary: KBFG;
   --v-avatar-height: 1.25rem;
-  --v-theme-gray-1: #fafafa;
+  --v-theme-gray-1: #f8f8f8;
   --v-theme-primary: 15, 97, 255 !important;
   --v-theme-info: 40, 126, 255 !important;
 
   .rounded-xl {
-    border-radius: toRem(16) !important;
+    border-radius: 16px !important;
+  }
+  .v-list-subheader__text {
+    line-height: 1.4;
   }
   .v-field--variant-outlined {
     &.v-field--focused {
       .v-field__outline {
         --v-field-border-opacity: 1;
         --v-field-border-width: 1px;
-        border-color: #ccc;
+        //border-color: #ccc;
       }
     }
   }
@@ -95,6 +100,10 @@ $thWidth: toRem(110) !default;
       }
     }
   }
+
+  .v-overlay__scrim {
+    opacity: 0.6;
+  }
   .text-right {
     .v-field__input {
       text-align: right;
@@ -118,24 +127,54 @@ $thWidth: toRem(110) !default;
   .text-grey {
     color: #666 !important;
   }
-  .text-grey2 {
+  .text-grey2,
+  .text-info-grey2 {
     color: #444 !important;
   }
-  .text-yellow,
-  .yellow-darken-1 {
-    color: #fc0 !important;
+  .text-grey3 {
+    color: #888 !important;
   }
-  .font-weight-bold {
+  .text-grey4 {
+    color: #ccc !important;
+  }
+  .text-grey5 {
+    color: #999 !important;
+  }
+  .text-black,
+  .text-info-black {
+    color: $black !important;
+  }
+  .text-yellow,
+  .text-yellow-darken-1 {
+    color: #ffd633 !important;
+  }
+  .font-weight-bold,
+  .font-weight-700 {
     font-weight: 600 !important;
   }
-  .font-weight-700 {
-    font-weight: 700 !important;
+  .text-wrap-nowrap {
+    white-space: nowrap;
+  }
+  .v-btn {
+    @include fontWeight;
+    text-indent: 0;
+    &.text-wrap-normal {
+      .v-btn__content {
+        white-space: normal;
+      }
+    }
   }
   .v-card--variant-elevated {
     box-shadow: toRem(2) toRem(4) toRem(10) rgba(209, 216, 222, 0.25);
   }
   .v-card .v-card-title {
     line-height: 1.4;
+  }
+  .valign-middle {
+    vertical-align: middle;
+  }
+  .valign-top {
+    vertical-align: top;
   }
   .flex-1-1-0,
   .flex-1 {
@@ -149,7 +188,93 @@ $thWidth: toRem(110) !default;
       width: toRem(14);
       height: toRem(14);
       @include bgimg('icon-srch');
+      background-size: 100% 100%;
+    }
+    &.icon-reply {
+      width: toRem(14);
+      height: toRem(14);
+      @include bgimg('icon-reply');
+      background-size: 100% 100%;
+    }
+    &.icon-eye {
+      width: toRem(14);
+      height: toRem(14);
+      @include bgimg('icon-eye');
+      background-size: 100% 100%;
+    }
+    &.mdi-garbage {
+      width: toRem(20);
+      height: toRem(20);
+      @include bgimg('icon-garbage');
+      background-size: 100% 100%;
+    }
+    &.icon-caption {
+      width: toRem(20);
+      height: toRem(20);
+      @include bgimg('icon-caption6');
+      background-size: 100% 100%;
+      flex: 0 0 toRem(20); // 상위에 flex 사용시
+    }
+    &.icon-check-grey {
+      width: toRem(20);
+      height: toRem(20);
+      @include bgimg('icon-checked-gray2');
+    }
+    &.icon-arrow-right {
+      width: toRem(18);
+      height: toRem(18);
+      @include bgimg('icon-arrow-right');
+      background-size: 100% 100%;
+      vertical-align: text-top;
+    }
+    &.icon-x {
+      @include bgimg('icon-x', $format: 'png');
+      background-size: cover;
+      width: toRem(16);
+      height: toRem(16);
+    }
+    &.icon-walk {
+      @include bgimg('icon-walk');
+      width: toRem(16);
+      height: toRem(16);
+    }
+    &.icon-refresh {
+      @include bgimg('icon-refresh');
+      width: toRem(20);
+      height: toRem(20);
+    }
+    &.icon-calendar {
+      @include bgimg('icon-calendar3');
+      width: toRem(14);
+      height: toRem(14);
+    }
+    &.icon-dsc {
+      @include bgimg('icon-caption7');
+      width: toRem(8);
+      height: toRem(8);
+    }
+    &.icon-dot {
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+    &.draw-arrow-right {
+      @include arrow(toRem(8), toRem(1.5), currentColor);
+      min-width: auto;
+    }
+    &.icon-dotted-line {
+      @include bgimg('icon-dotted-line', $format: 'png');
       background-size: 100% auto;
+      background-position: 50% 0;
+      width: toRem(19);
+      height: 1px;
+    }
+  }
+  .mt {
+    &-17 {
+      margin-top: 68px;
+    }
+    &-18 {
+      margin-top: 72px;
     }
   }
   @for $i from 1 through 3 {
@@ -166,5 +291,9 @@ $thWidth: toRem(110) !default;
     .flex-0-0-#{$i} {
       flex: 0 0 #{$i} + '%' !important;
     }
+  }
+  b,
+  strong {
+    @include fontWeight(semibold);
   }
 }

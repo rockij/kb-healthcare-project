@@ -1,0 +1,15 @@
+<svg width="61" height="60" viewBox="0 0 61 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="60" height="60" transform="translate(0.5)" fill="white"/>
+<rect x="9.5" y="9" width="34" height="40" rx="5.15629" fill="#F2F3F5"/>
+<rect x="14.5" y="17" width="24" height="3" rx="1.5" fill="#DDDFE1"/>
+<rect x="14.5" y="26" width="24" height="3" rx="1.5" fill="#DDDFE1"/>
+<rect x="14.5" y="35" width="24" height="3" rx="1.5" fill="#DDDFE1"/>
+<ellipse cx="40.5001" cy="40" rx="12.0001" ry="12" fill="#FD6A6A"/>
+<path d="M40.1222 45.4485C38.3889 44.8415 34.5 42.2876 34.5 37.9586C34.5 36.0461 35.9889 34.5 37.8333 34.5C38.9222 34.5 39.8889 35.0383 40.5 35.8857C41.1 35.0497 42.0778 34.5 43.1667 34.5C45.0111 34.5 46.5 36.0461 46.5 37.9586C46.5 42.2876 42.6111 44.8415 40.8667 45.4485C40.6667 45.5172 40.3222 45.5172 40.1222 45.4485Z" fill="url(#paint0_linear_2691_48698)"/>
+<defs>
+<linearGradient id="paint0_linear_2691_48698" x1="36.2143" y1="34.5" x2="43.5415" y2="44.8002" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0.9"/>
+</linearGradient>
+</defs>
+</svg>

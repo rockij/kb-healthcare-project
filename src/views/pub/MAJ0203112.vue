@@ -31,8 +31,8 @@
                 <span>조절목표</span>
               </li>
               <li v-for="list in tableList2" :key="list" class="tbody">
-                <span class="ws-163">{{ list.title }}</span>
-                <span>{{ list.text }}</span>
+                <span class="ws-163" v-html="list.title"></span>
+                <span v-html="list.text"></span>
               </li>
             </ul>
             <p class="table-caution">
@@ -42,7 +42,8 @@
           </div>
         </div>
       </div>
-      <v-card-actions>
+      <!-- 231213 수정 -->
+      <!-- <v-card-actions>
         <v-btn
           height="48px"
           class="bdr-8 btn-yellow"
@@ -50,7 +51,7 @@
           @click="$emit('close')"
           >확인</v-btn
         >
-      </v-card-actions>
+      </v-card-actions> -->
     </v-card>
   </v-dialog>
 </template>

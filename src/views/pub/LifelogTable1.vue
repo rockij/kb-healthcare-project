@@ -21,7 +21,7 @@
           </v-btn>
         </v-toolbar>
 
-        <div class="modal-body mb-7">
+        <div class="modal-body">
           <div class="flex-shrink-0 modal-body-container">
             <div class="table-flex lifelog-table1">
               <ul class="table">
@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <v-card-actions>
+        <!-- <v-card-actions>
           <v-btn
             height="48px"
             class="bdr-8 btn-yellow"
@@ -51,7 +51,7 @@
             @click="dialog = false"
             >확인</v-btn
           >
-        </v-card-actions>
+        </v-card-actions> -->
       </v-card>
     </v-dialog>
   </div>

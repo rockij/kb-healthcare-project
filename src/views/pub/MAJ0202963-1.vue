@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex align-center mt-4">
-    <h4 class="fs-18 font-weight-bold ws-120">{{ text }}</h4>
-    <div class="numcount-area2 flex-1-1">
+  <div class="d-flex align-center justify-space-between">
+    <h4 class="fs-18 font-weight-bold">{{ text }}</h4>
+    <div class="numcount-area4 type" style="flex: 0 0 11.875rem">
       <v-btn
         variant="text"
         class="handle decrease"

@@ -7,7 +7,7 @@
     @clickfunction="clickfunction"
   >
     <template #modalBody>
-      <div class="title-area">
+      <div class="title-area pt-4">
         <p class="lead">
           활동적인 하루를 보내셨네요!<br />
           오늘 하루 어떠셨나요?
@@ -45,7 +45,9 @@
           </dd>
         </dl>
         <dl class="info-item" v-if="sportsDistance">
-          <dt class="info-title fs-14">총 이동거리</dt>
+          <dt class="info-title fs-14">
+            {{ sportsClass == 'jumpRope' ? '총 점프수' : '총 이동거리' }}
+          </dt>
           <dd class="info-desc">{{ sportsDistance }}</dd>
         </dl>
         <dl class="info-item">
@@ -70,20 +72,24 @@
               no-resize
             ></v-textarea>
           </v-sheet>
-          <div class="attach-area">
+          <div class="attach-area pb-2">
             <div class="wrap-file-input">
-              <input type="file" class="file-input" id="inputFile" />
-              <label for="inputFile" class="btn-file-input"
-                >사진첨부<v-icon size="16">mdi-plus</v-icon></label
-              >
+              <button type="button" class="btn-file-input">
+                사진첨부<v-icon size="16">mdi-plus</v-icon>
+              </button>
             </div>
             <div class="list-inputFile-picture">
               <template v-for="(items, i) in addFileListImg" :key="i">
-                <v-chip class="file-chip file-image mt-4" v-if="items" closable>
+                <v-chip
+                  class="file-chip file-image mt-4"
+                  v-if="items"
+                  closable
+                  @click:close="console.log('test')"
+                >
                   <template #append>
                     <v-avatar
                       class="bdr-4"
-                      :image="`/src/assets/images/` + items.src"
+                      :image="`/assets/images/` + items.src"
                     ></v-avatar>
                   </template>
                 </v-chip>

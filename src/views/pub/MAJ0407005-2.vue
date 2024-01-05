@@ -22,9 +22,25 @@
           <strong class="title-01">운동방법</strong>
             <div class="list-circle tip-list">
               <ol>
-                <li v-for="list in tipList" :key="list.id">
-                  <span class="list-number"> {{ list.number }} </span>
-                  <p class="list-text"> {{ list.text }} </p>
+                <li>
+                  <span class="list-number">1</span>
+                  <p class="list-text">의자에 바르게 앉습니다.</p>
+                </li>
+                <li>
+                  <span class="list-number">2</span>
+                  <p class="list-text">한쪽 다리는 바닥에 지지하고 양손은 의자를 잡습니다.</p>
+                </li>
+                <li>
+                  <span class="list-number">3</span>
+                  <p class="list-text">천천히 한쪽 다리를 들어올리며 무릎을 최대한 폅니다.</p>
+                </li>
+                <li>
+                  <span class="list-number">4</span>
+                  <p class="list-text">무릎을 편 상태에서 허벅지에 힘을 주며 10초간 버팁니다.</p>
+                </li>
+                <li>
+                  <span class="list-number">5</span>
+                  <p class="list-text">천천히 제자리로 돌아옵니다.</p>
                 </li>
               </ol>
             </div>
@@ -44,38 +60,10 @@
 
   export default {
     components: { DocumentModal },
-    setup(props) {
+    setup() {
       const documentModal = ref(true)
-      const tipList = ref([
-        {
-          id: 1,
-          number: '1.',
-          text: '의자에 바르게 앉습니다.'
-        },
-        {
-          id: 2,
-          number: '2.',
-          text: '한쪽 다리는 바닥에 지지하고 양손은 의자를 잡습니다.'
-        },
-        {
-          id: 3,
-          number: '3.',
-          text: '천천히 한쪽 다리를 들어올리며 무릎을 최대한 폅니다.'
-        },
-        {
-          id: 4,
-          number: '4.',
-          text: '무릎을 편 상태에서 허벅지에 힘을 주며 10초간 버팁니다.'
-        },
-        {
-          id: 5,
-          number: '5.',
-          text: '천천히 제자리로 돌아옵니다.'
-        }
-      ])
 
       return { 
-        tipList,
         documentModal
       }
     }

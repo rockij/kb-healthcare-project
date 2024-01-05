@@ -1,6 +1,9 @@
 <template>
   <div class="contents">
-    <div class="section-page py-8 bg-2 section-bg">
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
+    </div>
+    <div class="section-page section-bg pt-4 brt-0">
       <ReportResult
         :bnShow="'self'"
         :videBox="false"
@@ -23,7 +26,7 @@
         <div class="mt-9 relative">
           <div class="ruler-wrap">
             <img
-              src="@/assets/images/img-water-ruler.svg"
+              src="/assets/images/img-water-ruler.svg"
               alt=""
               class="ruler-img"
             />
@@ -74,14 +77,16 @@
         <div class="numcount-area mt-10 px-3">
           <v-btn
             variant="text"
-            class="handle decrease"
+            class="handle decrease type-yellow"
+            :class="{ disabled: numcount === 0 }"
             title="감소"
+            :disabled="numcount === 0"
             @click="numcount > 0 ? numcount-- : ''"
           ></v-btn>
           <strong class="number">{{ numcount }}</strong>
           <v-btn
             variant="text"
-            class="handle increase"
+            class="handle increase type-yellow"
             title="증가"
             @click="numcount++"
           ></v-btn>
@@ -91,7 +96,7 @@
             variant="flat"
             height="32"
             color="#F2F4F6"
-            class="text-blue fs-13"
+            class="text-blue fs-13 unit-text"
             rounded="lg"
             @click="modal = true"
             aria-selected="true"
@@ -102,12 +107,67 @@
       </v-card>
     </div>
 
-    <!--수분 기록 -->
+    <!-- 또래 수분 섭취량 -->
     <div class="py-8">
-      <h2 class="tit-03 tit-link pb-2">
+      <h2 class="tit-03 tit-link">또래 수분 섭취량</h2>
+      <div class="text-info-grey fs-16 mb-8 word-type">
+        지난달 30대 여성 평균 수분 섭취량 보다 500ml 부족하게 마셨어요
+      </div>
+      <div class="water-graph-wrap">
+        <div>
+          <div class="graph-height-wrap" style="height: 168px">
+            <div class="graph-height" style="height: 100%">
+              <div class="text-ml">3,000ml</div>
+            </div>
+          </div>
+          <div class="text-me">또래</div>
+        </div>
+
+        <div>
+          <div class="graph-height-wrap" style="height: 168px">
+            <div class="graph-height active" style="height: 70%">
+              <div class="text-ml type-02">2,500ml</div>
+            </div>
+          </div>
+          <div class="text-me">나</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 수분 분석 -->
+    <div class="section-page">
+      <h2 class="tit-03 tit-link nodata">
+        <v-btn block variant="text">수분 분석</v-btn>
+      </h2>
+      <p class="text-info-grey fs-16">최근 1주일의 수분 분석입니다</p>
+      <div class="tab-line pt-4">
+        <v-tabs align-tabs="start">
+          <v-tab v-for="(item, i) in tabItems" :key="i" :ripple="false">
+            {{ item.titleTab }}
+          </v-tab>
+        </v-tabs>
+        <div class="mt-6">
+          <div class="water-period">23.10.15~23.10.21</div>
+          <div class="water-average pt-1">평균 3,500ml</div>
+          <div class="mt-4">
+            <!-- chart -->
+            <img
+              src="/assets/images/img-graph-bar2.png"
+              alt=""
+              style="max-width: 100%"
+            />
+            <!-- //chart -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--수분 기록 -->
+    <div class="section-page py-8">
+      <h2 class="tit-03 tit-link">
         <v-btn block variant="text">수분 기록</v-btn>
       </h2>
-      <div class="text-info-grey">최근 3개 기록만 표시됩니다</div>
+      <div class="text-info-grey fs-16">최근 3일 기록만 표시됩니다</div>
 
       <!-- 기록 component -->
       <CardReport
@@ -120,10 +180,7 @@
         <template #date>{{ report.date }}</template>
         <!-- card 내용 -->
         <template #content>
-          <v-chip label size="small" class="chip-default">
-            {{ report.device }}
-          </v-chip>
-          <dl class="dl pt-2">
+          <dl class="dl">
             <dt>수분섭취량</dt>
             <dd>
               <strong class="water-record">{{ report.record }}ml</strong>
@@ -131,33 +188,35 @@
           </dl>
         </template>
       </CardReport>
-    </div>
 
-    <div class="section-page">
-      <h2 class="tit-03 tit-link pb-2">또래 수분 섭취량</h2>
-      <div class="text-info-grey fs-16">
-        30대 여성 평균 수분 섭취량 보다 500ml 부족하게 마셨어요
-      </div>
-      <div
-        class="mt-3"
-        style="width: 100%; height: 200px; background-color: #999"
+      <Carousel
+        :items-to-Show="1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper mt-8"
       >
-        개발적용 예정
-      </div>
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName" @update="goPath(item.path)">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+      <!-- //배너 -->
     </div>
 
     <div class="section-page">
-      <h2 class="tit-03 tit-link pb-2">
-        <v-btn block variant="text">수분 분석</v-btn>
-      </h2>
-      <p class="text-info-grey fs-16">기간별 인사이트를 보여드려요</p>
-      <v-tabs align-tabs="start" class="tab-line mt-4">
-        <v-tab :ripple="false" class="fs-20">1주일</v-tab>
-        <v-tab :ripple="false" class="fs-20">1개월</v-tab>
-        <v-tab :ripple="false" class="fs-20">6개월</v-tab>
-      </v-tabs>
-      <img src="@/assets/images/img-graph-bar2.png" alt="" class="graph-bar2" />
+      <LifelogChallenge />
     </div>
+    <!-- //챌린지 -->
+
+    <div class="section-page pb-0">
+      <LifelogHealthnews />
+    </div>
+    <!-- //건강뉴스 -->
   </div>
   <MAJ0202948 v-model="modal" @update="addText" @close="modal = false" />
   <MAJ0202982 v-model="modal3" @update="addText" @close="modal3 = false" />
@@ -171,22 +230,36 @@
 </template>
 
 <script>
+  import router from '@/router'
+  import VCalendar from '@/components/VCalendar.vue'
   import MAJ0202948 from './MAJ0202948.vue'
   import MAJ0202982 from './MAJ0202982.vue'
   import Tooltip from '@/components/Tooltip.vue'
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
   import DialogSetting from '@/components/DialogSetting.vue'
-  import { ref, onMounted, onUnmounted } from 'vue'
+  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
+  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
+  import { ref, onMounted } from 'vue'
+  import { Carousel, Slide, Pagination } from 'vue3-carousel'
+  import 'vue3-carousel/dist/carousel.css'
 
   export default {
     components: {
+      VCalendar,
       DialogSetting,
       Tooltip,
       ReportResult,
       CardReport,
+      BanerSimple,
       MAJ0202948,
-      MAJ0202982
+      MAJ0202982,
+      LifelogChallenge,
+      LifelogHealthnews,
+      Carousel,
+      Slide,
+      Pagination
     },
 
     setup() {
@@ -202,37 +275,44 @@
       const result = ref([])
 
       const numcount = ref(0)
+
+      const tabInit = ref(null)
+      const tabItems = ref([
+        { titleTab: '1주일' },
+        { titleTab: '1개월' },
+        { titleTab: '6개월' }
+      ])
       const water = ref()
+      const waterClass = document.querySelector('waterwave')
       const percent = ref(0)
       const waterWave = (e) => {
-        const interval = setInterval(function () {
-          percent.value++
-          water.value.style.transform =
-            'translate(0' + ',' + (100 - percent.value) + '%)'
-          if (percent.value == e || e == 0) {
-            clearInterval(interval)
-          }
-        }, 40)
+        if (waterWave !== null) {
+          const interval = setInterval(function () {
+            percent.value++
+            water.value.style.transform =
+              'translate(0' + ',' + (100 - percent.value) + '%)'
+            if (percent.value == e || e == 0) {
+              clearInterval(interval)
+            }
+          }, 40)
+        }
       }
 
       const isActive = ref(false)
       const reports = ref([
         {
           id: 0,
-          date: '2023.03.23 오전 6시 35분',
-          device: '직접입력',
+          date: '03.23 오전 6시 35분',
           record: '700'
         },
         {
-          id: 0,
-          date: '2023.03.20 오전 4시 35분',
-          device: '직접입력',
+          id: 1,
+          date: '03.20 오전 4시 35분',
           record: '105'
         },
         {
-          id: 0,
-          date: '2023.03.16 오전 8시 35분',
-          device: '직접입력',
+          id: 3,
+          date: '03.16 오전 8시 35분',
           record: '60'
         }
       ])
@@ -271,7 +351,44 @@
         console.log('emit')
       }
 
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 10, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 10)]
+        }
+      ])
+
+      const banerList = ref([
+        {
+          title: '식사 관리해 보러 가기',
+          text: '수분과 함께 관리해보세요',
+          iconName: 'icon-cooking.svg',
+          path: '/MAJ0203410'
+        },
+        {
+          title: '체성분 관리하러 가기',
+          text: '수분과 함께 관리해보세요!',
+          iconName: 'icon-weight.svg',
+          path: '/MAJ0203120'
+        }
+      ])
+      function goPath(val) {
+        router.push(val)
+      }
+
       return {
+        waterClass,
+        tabInit,
+        tabItems,
         waterNum,
         fillWater,
         text1,
@@ -290,7 +407,10 @@
         addText,
         handleClick,
         modifyFunc,
-        delFunc
+        delFunc,
+        calendarAttr,
+        banerList,
+        goPath
       }
     }
   }

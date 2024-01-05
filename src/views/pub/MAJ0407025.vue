@@ -2,7 +2,18 @@
   <div class="contents">
     <div class="challenge-section-spot">
       <div class="title-area">
-        <p class="subTit-01">혈당 개선 전문 <br />챌린지(과식형)</p>
+        <div class="chip-title-area">
+          <p class="subTit-01">혈당 개선 전문 챌린지</p>
+          <!-- 
+            과식형 chip-overeating-type
+            야식형 chip-nightsnack-type
+            잦은음주형 chip-drinking-type
+            고객맞춤형 chip-customized-type
+          -->
+          <v-chip label class="chip-default chip-overeating-type">
+            <span class="text-dot">과식형</span>
+          </v-chip>
+        </div>
         <div class="review-number">총 <span>1,234</span>건</div>
       </div>
     </div>
@@ -15,16 +26,16 @@
           @click="modal = true"
         >
           {{ category }}
-          <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+          <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
         </v-btn>
-          <v-switch
-            class="switch-default"
-            v-model="switchModel"
-            label="내 리뷰만 보기"
-            color="#FFD338"
-            value="on"
-            hide-details
-          ></v-switch>
+        <v-switch
+          class="switch-default"
+          v-model="switchModel"
+          label="내 리뷰만 보기"
+          color="#FFD338"
+          value="on"
+          hide-details
+        ></v-switch>
       </div>
       <DialogSelectList
         :lists="option"
@@ -39,8 +50,8 @@
             <div class="text-tit">
               <span class="name">{{ list.name }}</span>
               <span class="review-point">
-                <!-- 별점 span 태그의 %로 채움 --> 
-                <span style="width:60%"></span>
+                <!-- 별점 span 태그의 %로 채움 -->
+                <span style="width: 60%"></span>
               </span>
             </div>
             <p class="review-txt">
@@ -69,7 +80,7 @@
       const category = ref('최신순')
       const option = reactive([
         { value: 1, text: '최신순' },
-        { value: 2, text: '별점 높은순' },
+        { value: 2, text: '별점 높은순' }
       ])
       function changeCategory(val) {
         modal.value = false
@@ -95,13 +106,13 @@
           date: '09.30 오전 6:35'
         }
       ])
-      return { 
+      return {
         reviewList,
         switchModel,
         modal,
         category,
         option,
-        changeCategory,
+        changeCategory
       }
     }
   }

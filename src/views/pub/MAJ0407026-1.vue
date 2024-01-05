@@ -10,8 +10,20 @@
       <template #modalBody> 
         <div class="challenge-section-spot">
           <div class="title-area">
-            <p class="subTit-01">혈당 개선 전문 <br />챌린지(과식형)[6주]</p>
+            <div class="chip-title-area">
+              <p class="subTit-01">혈당 개선 전문 챌린지</p>
+              <!-- 
+                과식형 chip-overeating-type
+                야식형 chip-nightsnack-type
+                잦은음주형 chip-drinking-type
+                고객맞춤형 chip-customized-type
+              -->
+              <v-chip label class="chip-default chip-overeating-type">
+                <span class="text-dot">과식형</span>
+              </v-chip>
+            </div>
             <div class="info-group">
+              <span class="badge waiting">6주</span>
               <!-- 기본은 본인 / 타인일 경우 others 클래스 추가 -->
               <span class="name ">오건강</span>
               <span class="date">08.18 오전 6:35</span>

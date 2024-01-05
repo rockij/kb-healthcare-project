@@ -4,13 +4,30 @@
     fullscreen
     :scrim="false"
     transition="dialog-bottom-transition"
-    class="modal-full"
+    class="modal-bottom body-direct"
     @click:outside="$emit('close')"
   >
     <v-card>
+      <v-toolbar dark color="white" height="auto">
+        <v-toolbar-title class="modal-title">기록수정</v-toolbar-title>
+        <v-btn
+          icon
+          dark
+          @click="$emit('close')"
+          class="btn-modal-close"
+          title="팝업닫기"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-toolbar>
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container">
-          <CountList v-for="list in lists" :key="list.id" :text="list.text" />
+          <CountList
+            v-for="list in lists"
+            :key="list.id"
+            :text="list.text"
+            class="mb-4"
+          />
           <div class="btn-bottom">
             <div class="btn-area d-flex">
               <v-btn

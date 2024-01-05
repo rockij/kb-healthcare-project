@@ -32,7 +32,7 @@
             <v-text-field
               class="input-basic textfield-default select-field"
               :class="name2 ? 'hasData' : ''"
-              label="운동 시간"
+              label="측정 시간"
               required
               persistent-placeholder
               variant="outlined"
@@ -42,7 +42,7 @@
               @click="event"
             >
               <template v-slot:append-inner
-                ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
               /></template>
             </v-text-field>
 

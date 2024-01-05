@@ -140,9 +140,6 @@
             </v-window>
           </div>
         </div>
-        <!-- [D] 개발시 삭제 -->
-        <v-btn class="btn-sample" @click="$emit('close')">전체팝업닫기</v-btn>
-        <!-- //[D] 개발시 삭제 -->
       </div>
     </v-card>
   </v-dialog>

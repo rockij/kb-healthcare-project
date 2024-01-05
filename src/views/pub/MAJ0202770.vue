@@ -10,7 +10,7 @@
         >
           <div class="text-category">{{ text1.text }}</div>
           <div class="ml-1">{{ text2.text }}</div>
-          <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+          <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
         </v-btn>
       </div>
       <v-btn
@@ -19,7 +19,7 @@
         @click="modal2 = true"
       >
         카테고리
-        <img src="@/assets/images/icon-category.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-category.svg" alt="" class="ml-1" />
       </v-btn>
     </div>
     <!-- 뉴스리스트 -->

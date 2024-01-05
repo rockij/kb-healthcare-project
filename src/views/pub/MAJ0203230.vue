@@ -56,7 +56,7 @@
               >
               </Tooltip>
               <v-spacer></v-spacer>
-              <div class="bar-data">20kg/m2</div>
+              <div class="bar-data">20BMI</div>
             </div>
             <div class="bar-graph pt-7">
               <div class="bar bar-1"></div>
@@ -90,16 +90,16 @@
               <div class="bar-data">200kcal</div>
             </div>
             <div class="bar-graph pt-7">
-              <div class="bar bar-5"></div>
+              <div class="bar bar-5 active"></div>
               <div class="bar bar-2"></div>
             </div>
             <div class="bar-graph pt-2">
               <span class="bar bar-text">낮음</span>
               <span class="bar bar-text">높음</span>
             </div>
-            <div class="pt-6 bar-desc">
+            <!-- <div class="pt-6 bar-desc">
               BMI 지표지수 입니다. 현재 상태를 계속 유지하시기 바랍니다.
-            </div>
+            </div> -->
           </div>
 
           <!-- 허리둘레 -->
@@ -112,7 +112,7 @@
               >
               </Tooltip>
               <v-spacer></v-spacer>
-              <div class="bar-data">102cm</div>
+              <div class="bar-data">102inch</div>
             </div>
             <div class="bar-graph pt-7">
               <div class="bar bar-2"></div>
@@ -139,12 +139,12 @@
               >
               </Tooltip>
               <v-spacer></v-spacer>
-              <div class="bar-data">-%</div>
+              <div class="bar-data">-kg</div>
             </div>
             <div class="bar-graph pt-7">
               <div class="bar bar-1"></div>
               <div class="bar bar-2"></div>
-              <div class="bar bar-3"></div>
+              <div class="bar bar-3 active"></div>
               <div class="bar bar-5"></div>
             </div>
             <div class="bar-graph pt-2">
@@ -165,7 +165,7 @@
               >
               </Tooltip>
               <v-spacer></v-spacer>
-              <div class="bar-data">-%</div>
+              <div class="bar-data">20kg</div>
             </div>
             <div class="bar-graph pt-7">
               <div class="bar bar-1"></div>
@@ -197,7 +197,7 @@
             </div>
             <div class="bar-graph pt-7">
               <div class="bar bar-5"></div>
-              <div class="bar bar-2"></div>
+              <div class="bar bar-2 active"></div>
             </div>
             <div class="bar-graph pt-2">
               <span class="bar bar-text">높음</span>

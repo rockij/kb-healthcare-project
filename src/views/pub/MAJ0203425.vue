@@ -9,7 +9,9 @@
   >
     <v-card>
       <v-toolbar dark color="white" height="auto">
-        <v-toolbar-title class="modal-title">알림삭제</v-toolbar-title>
+        <v-toolbar-title class="modal-title"
+          >정말 삭제 하시겠습니까?
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark class="btn-modal-close" @click="$emit('close')">
           <v-icon>mdi-close</v-icon>
@@ -18,7 +20,7 @@
 
       <div class="modal-body pb-0">
         <div class="flex-shrink-0 modal-body-container pt-14 medi-del">
-          <img src="@/assets/images/icon-medi-delete.svg" alt="" />
+          <img src="/assets/images/icon-medi-delete.svg" alt="" />
           <div>
             일시적인 중단이라면 <br />
             알림 중단 기능을 활용해 보세요
@@ -27,11 +29,7 @@
       </div>
 
       <v-card-actions>
-        <v-btn
-          height="48"
-          class="bdr-8 btn-yellow mt-6"
-          block
-          @click="onClicked"
+        <v-btn height="48" class="bdr-8 btn-yellow" block @click="onClicked"
           >삭제</v-btn
         >
       </v-card-actions>

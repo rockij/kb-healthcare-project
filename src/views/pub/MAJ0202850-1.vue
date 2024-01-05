@@ -1,122 +1,66 @@
 <template>
   <div class="contents">
-    <div class="report-title mb-4">
-      <!-- picker -->
-      <v-btn variant="text" class="fs-24 pa-0">
-        <span class="pr-2">2023.08.03</span>
-        <img src="@/assets/images/icon-arrow-down.svg" alt="" />
-      </v-btn>
-      <v-chip label size="small" class="chip-default"
-        ><span class="text-dot">미연결</span></v-chip
-      >
+    <div class="life-calendar">
+      <VCalendar />
     </div>
-    <v-list lines="1" class="list-simple-description">
-      <v-list-subheader class="fs-20 lh-4 font-weight-bold mb-7"
-        >걸음을 연결하고<br />
-        내게 맞는 분석을 받아보세요</v-list-subheader
+    <h2 class="fs-20 lh-4 font-weight-bold mt-9">
+      걸음을 연결하고<br />
+      내게 맞는 분석을 받아보세요
+    </h2>
+    <v-list lines="1" class="list-simple-description mt-7">
+      <v-list-item
+        class="simple-description-items"
+        v-for="(item, i) in StepList"
+        :key="i"
       >
-      <v-list-item class="simple-description-items">
         <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
+          <v-icon size="40"
+            ><img :src="`/assets/images/${item.iname}`" alt=""
+          /></v-icon>
         </template>
-        <template v-slot:title>시간대별 분석</template>
-        <template v-slot:subtitle
-          >시간대별 로 나의 걸음 정보를 알 수 있어요</template
-        >
-      </v-list-item>
-
-      <v-list-item class="simple-description-items">
-        <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
-        </template>
-        <template v-slot:title>연령별 분석</template>
-        <template v-slot:subtitle
-          >나의 또래 걸음수를 비교 분석 해 드려요
-        </template>
-      </v-list-item>
-
-      <v-list-item class="simple-description-items">
-        <template v-slot:prepend>
-          <v-icon size="40"></v-icon>
-        </template>
-        <template v-slot:title>성별 분석</template>
-        <template v-slot:subtitle
-          >내 성별에 따른 걸음수 비교를 할 수 있어요</template
-        >
+        <template v-slot:title>{{ item.title }}</template>
+        <template v-slot:subtitle>{{ item.text }}</template>
       </v-list-item>
     </v-list>
-
-    <div class="btn-area2">
-      <v-btn
-        variant="flat"
-        height="46px"
-        class="bdr-8 fs-15"
-        color="#FCEBA6"
-        block
-        >건강 플랫폼 연결하기</v-btn
-      >
-    </div>
+    <v-btn
+      variant="flat"
+      height="40"
+      class="bdr-8 fs-15 mt-7 text-grey2"
+      color="#FCEBA6"
+      block
+      >건강 플랫폼 연결하기</v-btn
+    >
   </div>
 </template>
 
 <script>
-  import CardReport from '@/components/CardReport.vue'
-  import ReportResult from '@/components/BanerReport.vue'
-  import MAJ0202862 from './MAJ0202862.vue'
+  import VCalendar from '@/components/VCalendar.vue'
   import { ref } from 'vue'
 
   export default {
-    components: { CardReport, ReportResult, MAJ0202862 },
+    components: {
+      VCalendar
+    },
     setup() {
-      const tab = ref(null)
-      const Analysis = ref(null)
-      const reports = ref([
+      const StepList = ref([
         {
-          id: 0,
-          date: '오전 10시 35분',
-          device: '기기',
-          state: 'success',
-          recordBloodPressure: '100',
-          recordPulse: '120/80',
-          hasMemo: '사용자가 입력한 메모가 노출됩니다'
+          title: '시간대별 분석',
+          text: '시간대별로 나의 걸음 정보를 알 수 있어요',
+          iname: 'icon-noregi-bloodpressure01.svg'
         },
         {
-          id: 1,
-          date: '오전 6시 35분',
-          device: '플랫폼',
-          state: 'error',
-          recordBloodPressure: '100',
-          recordPulse: '132/32'
+          title: '연령별 분석',
+          text: '나의 또래 걸음수를 비교분석해드려요',
+          iname: 'icon-noregi-step01.svg'
         },
         {
-          id: 2,
-          date: '오전 6시 35분',
-          device: '',
-          state: 'error',
-          recordBloodPressure: '100',
-          recordPulse: '132/32'
+          title: '성별 분석',
+          text: '내 성별에 따른 걸음수 비교를 할 수 있어요',
+          iname: 'icon-noregi-step02.svg'
         }
       ])
-      function getText(props) {
-        switch (props) {
-          case 'primary':
-            return '증가'
-          case 'success':
-            return '안정'
-          case 'error':
-            return '위험(고혈압 2단계)'
-        }
-      }
-
-      function handleClick() {
-        console.log('emit')
-      }
       return {
-        reports,
-        getText,
-        Analysis,
-        handleClick,
-        tab
+        StepList
       }
     }
   }

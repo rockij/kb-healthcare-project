@@ -2,7 +2,7 @@
 // format이 다른 경우 사용 예시: .photo {@include bgimg('photo', $format:'jpg', $repeat: repeat);}
 @mixin bgimg(
   $name,
-  $path: '../../assets/images/',
+  $path: '/assets/images/',
   $format: 'svg',
   $repeat: no-repeat
 ) {
@@ -18,7 +18,7 @@
   } @else if $weight == light {
     font-weight: 300;
   } @else {
-    font-weight: normal;
+    font-weight: 400;
   }
 }
 //가로스크롤 @include mediaScroller(), gap:박스간 간격, col:박스 가로사이즈, row:박스 세로사이즈
@@ -29,9 +29,14 @@
   grid-auto-columns: $col;
   grid-auto-rows: $row;
   overflow-x: auto;
-  scroll-snap-type: inline mandatory;
+  //한칸씩 이동하고 싶다면
+  //scroll-snap-type: inline mandatory;
   scroll-padding-inline: $pd;
   align-items: center;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   > * {
     scroll-snap-align: start;
   }
@@ -118,10 +123,35 @@
   }
 }
 
+// @include caution;
+@mixin caution2 {
+  line-height: 1.5;
+  font-size: toRem(13);
+  color: #666;
+  display: flex;
+  &::before {
+    content: '';
+    flex: 0 0 toRem(20);
+    height: toRem(20);
+    @include bgimg('icon-caption2');
+    margin-top: toRem(2);
+  }
+}
+
+// @include blind;
+@mixin blind {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
+
 // @include bgmask('icon-map2', $color: #444);
 @mixin bgmask(
   $name,
-  $path: '../../assets/images/',
+  $path: '/assets/images/',
   $format: 'svg',
   $repeat: no-repeat,
   $color
@@ -137,7 +167,7 @@
 @mixin balloon-box($arrDir, $bg: $black) {
   position: relative;
   line-height: toRem(24);
-  border-radius: toRem(50);
+  border-radius: 50px;
   background-color: $bg;
   padding: toRem(2) toRem(14);
   min-height: toRem(28);
@@ -161,8 +191,44 @@
       transform: translateY(-50%) rotate(-61deg) skewY(30deg);
     }
     background-color: $bg;
-    border-radius: toRem(2);
+    border-radius: 2px;
     z-index: -1;
+  }
+}
+
+// @include puls-anim;
+@keyframes pulse {
+  to {
+    transform: scale(3) translateX(-50%);
+    opacity: 0;
+  }
+}
+@mixin puls-anim($color: #ffd633, $size: toRem(10)) {
+  background-color: $color;
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+  width: $size;
+  height: $size;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $color;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.8;
+    left: 50%;
+    transform: scale(1) translateX(-50%);
+    transform-origin: left;
+  }
+  &::before {
+    animation: pulse 2s ease-out infinite;
+  }
+  &::after {
+    animation: pulse 2s 1s ease-out infinite;
   }
 }
 
@@ -204,39 +270,199 @@
   }
 }
 
+// @include bar-color-emotion;
+@mixin bar-color-emotion {
+  &[data-bar-color='걱정하다'] {
+    background-color: #decc6d;
+  }
+  &[data-bar-color='짜증나다'] {
+    background-color: #ff777d;
+  }
+  &[data-bar-color='슬프다'] {
+    background-color: #5d80d8;
+  }
+  &[data-bar-color='무섭다'] {
+    background-color: #eddd4d;
+  }
+  &[data-bar-color='후회하다'] {
+    background-color: #d4a58b;
+  }
+  &[data-bar-color='우울하다'] {
+    background-color: #ad78bf;
+  }
+  &[data-bar-color='불안하다'] {
+    background-color: #8fc59e;
+  }
+  &[data-bar-color='창피하다'] {
+    background-color: #ee6069;
+  }
+  &[data-bar-color='외롭다'] {
+    background-color: #a5b3d8;
+  }
+  &[data-bar-color='심심하다'] {
+    background-color: #dce9a6;
+  }
+  &[data-bar-color='당황하다'] {
+    background-color: #bbc0c3;
+  }
+  &[data-bar-color='긴장하다'] {
+    background-color: #b6d6d8;
+  }
+  &[data-bar-color='시원섭섭하다'] {
+    background-color: #cfecf8;
+  }
+  &[data-bar-color='싱숭생숭하다'] {
+    background-color: #caecbf;
+  }
+  &[data-bar-color='무덤덤하다'] {
+    background-color: #ebcbd7;
+  }
+  &[data-bar-color='기쁘다'] {
+    background-color: #ffbeca;
+  }
+  &[data-bar-color='즐겁다'] {
+    background-color: #c8fa88;
+  }
+  &[data-bar-color='편하다'] {
+    background-color: #fdcf5b;
+  }
+  &[data-bar-color='만족하다'] {
+    background-color: #dcb9f8;
+  }
+  &[data-bar-color='상쾌하다'] {
+    background-color: #d1f6f4;
+  }
+  &[data-bar-color='자신만만하다'] {
+    background-color: #ffbdb9;
+  }
+}
 // @include icon-emoji-emotion;
 @mixin icon-emoji-emotion {
   display: inline-block;
   width: toRem(32);
   height: toRem(32);
-  &[data-emoji='화남'] {
+  background-size: 100% auto;
+  &[data-emoji='걱정하다'] {
     @include bgimg('icon-emo-emoji01');
   }
-  &[data-emoji='신이남'] {
+  &[data-emoji='짜증나다'] {
     @include bgimg('icon-emo-emoji02');
   }
-  &[data-emoji='슬픔'] {
+  &[data-emoji='슬프다'] {
     @include bgimg('icon-emo-emoji03');
   }
-  &[data-emoji='우울한'] {
+  &[data-emoji='무섭다'] {
     @include bgimg('icon-emo-emoji04');
   }
-  &[data-emoji='짜증난'] {
+  &[data-emoji='후회하다'] {
     @include bgimg('icon-emo-emoji05');
   }
-  &[data-emoji='행복한'] {
+  &[data-emoji='우울하다'] {
     @include bgimg('icon-emo-emoji06');
   }
-  &[data-emoji='감사한'] {
+  &[data-emoji='불안하다'] {
     @include bgimg('icon-emo-emoji07');
   }
-  &[data-emoji='만족한'] {
+  &[data-emoji='창피하다'] {
     @include bgimg('icon-emo-emoji08');
   }
-  &[data-emoji='차분함'] {
+  &[data-emoji='외롭다'] {
     @include bgimg('icon-emo-emoji09');
   }
-  &[data-emoji='개운한'] {
+  &[data-emoji='심심하다'] {
     @include bgimg('icon-emo-emoji10');
+  }
+  &[data-emoji='당황하다'] {
+    @include bgimg('icon-emo-emoji11');
+  }
+  &[data-emoji='긴장하다'] {
+    @include bgimg('icon-emo-emoji12');
+  }
+  &[data-emoji='시원섭섭하다'] {
+    @include bgimg('icon-emo-emoji13');
+  }
+  &[data-emoji='싱숭생숭하다'] {
+    @include bgimg('icon-emo-emoji14');
+  }
+  &[data-emoji='무덤덤하다'] {
+    @include bgimg('icon-emo-emoji15');
+  }
+  &[data-emoji='기쁘다'] {
+    @include bgimg('icon-emo-emoji16');
+  }
+  &[data-emoji='즐겁다'] {
+    @include bgimg('icon-emo-emoji17');
+  }
+  &[data-emoji='편하다'] {
+    @include bgimg('icon-emo-emoji18');
+  }
+  &[data-emoji='만족하다'] {
+    @include bgimg('icon-emo-emoji19');
+  }
+  &[data-emoji='상쾌하다'] {
+    @include bgimg('icon-emo-emoji20');
+  }
+  &[data-emoji='자신만만하다'] {
+    @include bgimg('icon-emo-emoji21');
+  }
+}
+
+// 날씨 아이콘
+@mixin icon-weather {
+  display: inline-block;
+  width: toRem(60);
+  height: toRem(60);
+  background-size: 100% auto;
+  &[data-icon-weather='맑음'] {
+    @include bgimg('icon-insight-weather01');
+  }
+  &[data-icon-weather='흐림'] {
+    @include bgimg('icon-insight-weather02');
+  }
+  &[data-icon-weather='구름'] {
+    @include bgimg('icon-insight-weather03');
+  }
+  &[data-icon-weather='비'] {
+    @include bgimg('icon-insight-weather04');
+  }
+  &[data-icon-weather='눈'] {
+    @include bgimg('icon-insight-weather05');
+  }
+  &[data-icon-weather='소나기'] {
+    @include bgimg('icon-insight-weather06');
+  }
+  &[data-icon-weather='최고기온'] {
+    @include bgimg('icon-insight-weather07');
+  }
+  &[data-icon-weather='최저기온'] {
+    @include bgimg('icon-insight-weather08');
+  }
+  &[data-icon-weather='습도'] {
+    @include bgimg('icon-insight-weather09');
+  }
+  &[data-icon-weather='미세먼지'] {
+    @include bgimg('icon-insight-weather10');
+  }
+
+  &[data-icon-weather='감기가능지수'] {
+    @include bgimg('icon-insight-weather11');
+  }
+  &[data-icon-weather='천식지수'] {
+    @include bgimg('icon-insight-weather12');
+  }
+  &[data-icon-weather='온열질환지수'] {
+    @include bgimg('icon-insight-weather13');
+  }
+  &[data-icon-weather='심혈관질환지수'] {
+    @include bgimg('icon-insight-weather14');
+  }
+  &[data-icon-weather='눈병지수'] {
+    @include bgimg('icon-insight-weather15');
+  }
+  &[data-icon-weather='식중독지수'] {
+    @include bgimg('icon-insight-weather16');
+  }
+  &[data-icon-weather='피부염지수'] {
+    @include bgimg('icon-insight-weather17');
   }
 }

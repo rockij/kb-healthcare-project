@@ -13,7 +13,7 @@
     >
       <span class="text">
         궁금하신 내용을 입력해 주세요
-        <img src="@/assets/images/icon-search.svg" alt="검색" />
+        <img src="/assets/images/icon-search.svg" alt="검색" />
       </span>
     </v-btn>
     <!-- 카테고리 btn -->
@@ -26,9 +26,9 @@
       <div class="sticky">
         <!-- contents -->
         <v-btn variant="text" class="mt-6 pl-0" @click="modal = true">
-          <span class="fs-24">{{ selBtn.text }}</span>
+          <span class="fs-24 font-weight-bold">{{ selBtn.text }}</span>
           <v-icon class="ml-2">
-            <img src="@/assets/images/icon-arrow-down.svg" alt="" />
+            <img src="/assets/images/icon-arrow-down.svg" alt="" />
           </v-icon>
         </v-btn>
         <!-- //contents -->

@@ -14,12 +14,14 @@
       </p>
     </div>
     <!-- 2023-10-23 이미지 있을경우 -->
-    <div class="mt-4 img-box">
-      <img src="@/assets/images/img-food.png" alt="" />
+    <div class="mt-4 img-box pl-10" @click="modal = true">
+      <div class="thumb">
+        <img src="/assets/images/img-food.png" alt="" />
+      </div>
     </div>
     <!-- 답변완료시 -->
     <div class="withanswer" v-if="$route.name === 'MAJ0104660'">
-      <div class="answer-area d-flex mt-4">
+      <div class="answer-area d-flex mt-6">
         <v-avatar color="#FFD338" size="28" class="font-weight-bold"
           >A</v-avatar
         >
@@ -45,15 +47,23 @@
       </div>
     </div>
   </div>
+
+  <imgPopup v-model="modal" @close="modal = false" />
 </template>
 
 <script>
   import router from '@/router'
   import { ref } from 'vue'
+  import imgPopup from './MAJ0104660-2.vue'
   export default {
+    components: {
+      imgPopup
+    },
     setup() {
+      const modal = ref(false)
       const withAnswer = false
       return {
+        modal,
         withAnswer
       }
     }

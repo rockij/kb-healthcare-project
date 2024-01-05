@@ -7,9 +7,12 @@
         v-for="list in nalcoholList"
         :key="list.id"
         class="list-iconlst2 mt-2 mymedi-btn"
+        :ripple="false"
       >
-        <img src="@/assets/images/icon-my-medicine.svg" alt="" />
-        <div class="mymedi-list">
+        <div class="img-wrap">
+          <img :src="`/assets/images/${list.img}`" alt="" />
+        </div>
+        <div class="mymedi-list pl-2">
           <p class="mymedi-text">{{ list.text }}</p>
           <p class="mymedi-category">{{ list.category }}</p>
         </div>
@@ -24,8 +27,8 @@
     </ul>
     <div class="btn-bottom">
       <div class="btn-area d-flex">
-        <v-btn variant="text" height="56" class="btn-cancel">삭제</v-btn>
-        <v-btn variant="text" height="56" class="btn-summit">수정</v-btn>
+        <v-btn variant="text" height="56" class="btn-cancel">삭제하기</v-btn>
+        <v-btn variant="text" height="56" class="btn-summit">수정하기</v-btn>
       </div>
     </div>
   </div>
@@ -39,12 +42,14 @@
       const nalcoholList = ref([
         {
           id: 1,
-          text: '겔비스톤현탁액 20ml/포'
+          text: '겔비스톤현탁액 20ml/포',
+          img: 'icon-my-medicine2.png'
         },
         {
           id: 2,
           text: '겔비스톤현탁액 20ml/포',
-          category: '[02320] 소화성궤양용제'
+          category: '[02320] 소화성궤양용제',
+          img: 'icon-my-medicine3.png'
         }
       ])
       const businessInfo = reactive([

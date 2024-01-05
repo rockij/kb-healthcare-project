@@ -1,5 +1,5 @@
 <template>
-  <div class="contents pt-3">
+  <div class="contents">
     <div class="search-area mb-4">
       <v-text-field
         variant="outlined"

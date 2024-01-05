@@ -35,7 +35,7 @@
       </div>
 
       <v-card-actions>
-        <v-btn height="48px" class="bdr-16 btn-yellow" block>시작하기</v-btn>
+        <v-btn height="48px" class="bdr-16 btn-yellow" block>1주 체험하기</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

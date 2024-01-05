@@ -13,36 +13,38 @@
         </Tooltip>
       </div>
       <v-divider class="my-4" />
-      <div class="child">
+      <div class="child align-center">
         <div class="text-info-1">30일내 소멸예정</div>
         <v-btn variant="text" density="compact" class="btn-point">
           {{ money(1000) }} P
           <img
-            src="@/assets/images/icon-chevron-right.svg"
+            src="/assets/images/icon-chevron-right.svg"
             alt=""
             class="ml-1"
           />
         </v-btn>
       </div>
     </div>
-    <!-- bnts -->
-    <div class="sorting-area type-2 mt-4">
+    <!-- bnts 2차 범위-->
+    <!-- <div class="sorting-area type-2 mt-4">
       <v-btn variant="flat" class="btn-sorting btn-default"
         >포인트 교환하기</v-btn
       >
       <v-btn variant="flat" class="btn-sorting btn-submit">기부하기</v-btn>
+    </div> -->
+    <div class="tab-line mt-8">
+      <v-tabs v-model="selBtn" align-tabs="start">
+        <v-tab
+          v-for="btn in btns"
+          :key="btn.value"
+          :value="btn.value"
+          :ripple="false"
+          class="btn-tab"
+          >{{ btn.text }}</v-tab
+        >
+      </v-tabs>
     </div>
-    <v-tabs v-model="selBtn" class="tabs-sliding mt-10">
-      <v-tab
-        v-for="btn in btns"
-        :key="btn.value"
-        :value="btn.value"
-        :ripple="false"
-        class="btn-tab"
-        >{{ btn.text }}</v-tab
-      >
-    </v-tabs>
-    <div class="sorting-data pt-7">
+    <div class="total sorting-data">
       <v-btn
         variant="text"
         density="compact"
@@ -50,12 +52,13 @@
         @click="dialog = true"
       >
         {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
       </v-btn>
       <div class="text-date">2023.07.29 ~ 2023.08.03</div>
     </div>
     <!-- list -->
-    <ul class="list-faq mt-4" v-if="list.length > 0">
+    <ul class="list-faq" v-if="list.length > 0">
+      <!-- 231228 mt-4삭제 -->
       <li v-for="(item, i) in list" :key="i" class="item">
         <div>
           <div class="text-tit">{{ item.text }}</div>

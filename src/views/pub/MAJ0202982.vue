@@ -16,20 +16,21 @@
         </v-btn>
       </v-toolbar>
 
-      <div class="modal-body">
+      <div class="modal-body pb-0">
         <div class="flex-shrink-0 modal-body-container">
           <div>
             <div class="numcount-area mt-4 px-3">
               <v-btn
                 variant="text"
-                class="handle decrease"
+                class="handle decrease type-yellow"
+                :class="{ disabled: numcount === 0 }"
                 title="감소"
                 @click="numcount > 0 ? numcount-- : ''"
               ></v-btn>
               <strong class="number">{{ numcount }}</strong>
               <v-btn
                 variant="text"
-                class="handle increase"
+                class="handle increase type-yellow"
                 title="증가"
                 @click="numcount++"
               ></v-btn>
@@ -65,12 +66,15 @@
       </v-card-actions>
     </v-card>
     <MAJ0202948 v-model="modal" @update="addText" @close="modal = false" />
+    <v-snackbar v-model="alert" :timeout="1000" class="toast-basic">
+      관심뉴스에 저장</v-snackbar
+    >
   </v-dialog>
 </template>
 
 <script>
   import MAJ0202948 from './MAJ0202948.vue'
-  import { ref, reactive, computed } from 'vue'
+  import { ref, reactive, computed, onBeforeMount, onMounted } from 'vue'
   import Tooltip from '@/components/Tooltip.vue'
 
   export default {
@@ -81,6 +85,7 @@
       MAJ0202948
     },
     setup(props, context) {
+      const alert = ref(false)
       const modal = ref(false)
       const numcount = ref(0)
       const { emit } = context
@@ -125,12 +130,21 @@
         modal.value = false
       }
       function onClicked() {
-        emit('update', selBtn.value.text, name4.value)
-        console.log('selBtn', selBtn.value.text)
-        console.log('name4', name4.value)
+        // emit('update', selBtn.value.text, name4.value)
+        // console.log('selBtn', selBtn.value.text)
+        // console.log('name4', name4.value)
+        alert.value = true
+        setTimeout(() => {
+          alert.value = false
+        }, 1000)
       }
 
+      // onMounted(() => {
+      //   alert.value = false
+      // })
+
       return {
+        alert,
         modal,
         numcount,
         listDesc,

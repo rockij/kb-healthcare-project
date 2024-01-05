@@ -50,20 +50,32 @@
                 <path
                   stroke="url(#spinner-secondHalf)"
                   d="M 4 100 A 96 96 0 0 1 196 100"
-                />
+                >
+                  <animateTransform
+                    from="0 100 100"
+                    to="360 100 100"
+                    attributeName="transform"
+                    attribute-type="XML"
+                    type="rotate"
+                    repeatCount="indefinite"
+                    dur="3000ms"
+                  />
+                </path>
                 <path
                   stroke="url(#spinner-firstHalf)"
                   d="M 196 100 A 96 96 0 0 1 4 100"
-                />
+                >
+                  <animateTransform
+                    from="0 100 100"
+                    to="360 100 100"
+                    attributeName="transform"
+                    attribute-type="XML"
+                    type="rotate"
+                    repeatCount="indefinite"
+                    dur="3000ms"
+                  />
+                </path>
               </g>
-              <animateTransform
-                from="0 0 0"
-                to="360 0 0"
-                attributeName="transform"
-                type="rotate"
-                repeatCount="indefinite"
-                dur="3000ms"
-              />
             </svg>
           </div>
           <div class="timer">
@@ -103,9 +115,11 @@
             <span v-if="minutesCount != '00'">{{ minutesCount }}분</span>
             <span v-if="secondsCount != '00'">{{ secondsCount }}초</span>
           </dd>
-          <dt v-if="report.moving">총 이동거리</dt>
-          <dd v-if="report.moving" class="font-weight-bold">
-            <span>{{ report.moving }}</span>
+          <dt v-if="report.distance">
+            {{ exerciseName.value == 'jumpRope' ? '총 점프수' : '총 이동거리' }}
+          </dt>
+          <dd v-if="report.distance" class="font-weight-bold">
+            <span>{{ report.distance }}</span>
           </dd>
           <dt>총 칼로리</dt>
           <dd class="font-weight-bold">
@@ -188,9 +202,15 @@
                       >{{ secondsCount }}초</span
                     >
                   </dd>
-                  <dt v-if="report.moving">총 이동거리</dt>
-                  <dd v-if="report.moving" class="font-weight-bold">
-                    <span>{{ report.moving }}</span>
+                  <dt v-if="report.distance">
+                    {{
+                      exerciseName.value == 'jumpRope'
+                        ? '총 점프수'
+                        : '총 이동거리'
+                    }}
+                  </dt>
+                  <dd v-if="report.distance" class="font-weight-bold">
+                    <span>{{ report.distance }}</span>
                   </dd>
                   <dt>총 칼로리</dt>
                   <dd class="font-weight-bold">
@@ -270,9 +290,9 @@
         seconds: '00'
       })
       const report = reactive({
-        name: '자전거',
+        name: '줄넘기',
         recordCalorie: '1,600kcal',
-        distance: '1.81km'
+        distance: '300점프'
       })
       const stateName = reactive({ name: '지속 시간' })
       const modeMap = ref(false)
@@ -287,6 +307,87 @@
             break
           case '탁구':
             exerciseName.value = 'ping-pong'
+            break
+          case '골프':
+            exerciseName.value = 'golf'
+            break
+          case '근력운동':
+            exerciseName.value = 'muscular'
+            break
+          case '달리기':
+            exerciseName.value = 'running'
+            break
+          case '하이킹':
+            exerciseName.value = 'hiking'
+            break
+          case '농구':
+            exerciseName.value = 'basketball'
+            break
+          case '당구':
+            exerciseName.value = 'billiards'
+            break
+          case '등산':
+            exerciseName.value = 'climb'
+            break
+          case '런닝머신(걷기)':
+            exerciseName.value = 'runningMachine'
+            break
+          case '런닝머신(달리기)':
+            exerciseName.value = 'runningMachine'
+            break
+          case '배드민턴':
+            exerciseName.value = 'badminton'
+            break
+          case '복싱':
+            exerciseName.value = 'boxing'
+            break
+          case '볼링':
+            exerciseName.value = 'bowling'
+            break
+          case '수영':
+            exerciseName.value = 'swim'
+            break
+          case '스쿼시':
+            exerciseName.value = 'squash'
+            break
+          case '스피닝':
+            exerciseName.value = 'spinning'
+            break
+          case '에어로빅':
+            exerciseName.value = 'aerobic'
+            break
+          case '요가':
+            exerciseName.value = 'yoga'
+            break
+          case '족구':
+            exerciseName.value = 'footVolleyball'
+            break
+          case '줄넘기':
+            exerciseName.value = 'jumpRope'
+            break
+          case '축구':
+            exerciseName.value = 'footVolleyball'
+            break
+          case '테니스':
+            exerciseName.value = 'tennis'
+            break
+          case '필라테스':
+            exerciseName.value = 'yoga'
+            break
+          case '주짓수':
+            exerciseName.value = 'jiuJitsu'
+            break
+          case '태권도':
+            exerciseName.value = 'taekwondo'
+            break
+          case '유도':
+            exerciseName.value = 'judo'
+            break
+          case '배구':
+            exerciseName.value = 'volleyball'
+            break
+          case '클라이밍':
+            exerciseName.value = 'climbing'
             break
         }
       }

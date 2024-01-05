@@ -33,7 +33,7 @@
         density="compact"
         hide-details
         append-inner-icon="mdi-calendar"
-        @click="result = true"
+        @click="modal = true"
         placeholder="시작"
       />
       <div class="text text-center">~</div>
@@ -44,12 +44,12 @@
         density="compact"
         hide-details
         append-inner-icon="mdi-calendar"
-        @click="result = true"
+        @click="modal = true"
         placeholder="종료일"
       />
     </div>
     <!-- 입력 후 버튼 나옴 -->
-    <div class="font-weight-bold mt-4">월경알림</div>
+    <div class="font-weight-bold mt-4" v-if="result">월경알림</div>
     <div class="text-info-grey mt-2" v-if="!result">
       마지막 월경기간을 알려주세요. 현재월경중이라면 이전 기간을 알려주세요
     </div>
@@ -83,14 +83,17 @@
         >
       </div>
     </div>
+    <CalendarBottomSheet v-model="modal" @close="modal = false" />
   </div>
 </template>
 
 <script>
+  import CalendarBottomSheet from '@/components/CalendarBottomSheet.vue'
   import { ref, reactive } from 'vue'
   export default {
+    components: { CalendarBottomSheet },
     setup() {
-      const result = ref(false)
+      const result = ref(true)
       const selBtn = ref()
       const btns = reactive([
         {
@@ -110,10 +113,12 @@
           text: '알림없음'
         }
       ])
+      const modal = ref(false)
       return {
         result,
         selBtn,
-        btns
+        btns,
+        modal
       }
     }
   }

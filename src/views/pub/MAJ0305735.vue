@@ -9,7 +9,7 @@
     <v-card>
       <div class="modal-body pt-4 pb-4">
         <div class="flex-shrink-0 modal-body-container">
-          <div class="search-area mb-4">
+          <div class="search-area">
             <v-text-field
               id="search"
               variant="outlined"
@@ -18,13 +18,13 @@
               placeholder="약국명 입력"
               prepend-inner-icon="mdi-magnify"
               class="textfield-search type fs-16"
-              :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
               @keypress.enter="getText"
               @click:append-inner="getInput"
             ></v-text-field>
             <v-btn variant="text" class="btn">취소</v-btn>
           </div>
-          <h3 class="fs-18 font-weight-bold">최근 검색어</h3>
+          <p class="text-message-error">2자 이상 입력해 주세요</p>
+          <h3 class="fs-18 font-weight-bold mt-4">최근 검색어</h3>
           <div role="tablist" class="sorting-area type-3 mt-4 mb-6">
             <v-btn
               role="tab"
@@ -66,9 +66,6 @@
             </div>
           </Nodata>
         </div>
-        <!-- [D] 개발시 삭제 -->
-        <v-btn class="btn-sample" @click="dialog = false">전체팝업닫기</v-btn>
-        <!-- //[D] 개발시 삭제 -->
       </div>
     </v-card>
   </v-dialog>

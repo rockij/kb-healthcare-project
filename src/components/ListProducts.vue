@@ -4,7 +4,7 @@
       <li v-for="item in productList" :key="item.id">
         <v-btn variant="text" :href="'javsscript:;'">
           <span class="img">
-            <img :src="`/src/assets/images/${item.img}`" alt="" />
+            <img :src="`/assets/images/${item.img}`" alt="" />
           </span>
           <span class="name">{{ item.name }}</span>
           <span class="title">{{ item.title }}</span>

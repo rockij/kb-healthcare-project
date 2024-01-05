@@ -67,7 +67,7 @@
     </v-card>
   </v-dialog>
   <!-- toast 팝업 -->
-  <v-snackbar v-model="snackbar" class="toast-basic"> 최대 2,000자까지 입력 가능합니다. </v-snackbar>
+  <v-snackbar v-model="snackbar" :timeout="2000" class="toast-basic"> 최대 2,000자까지 입력 가능합니다. </v-snackbar>
 </template>
 
 <script>

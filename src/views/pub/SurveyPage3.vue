@@ -68,7 +68,7 @@
               :class="['text-center', selectedClass]"
               @click="toggle"
             >
-              <img src="@/assets/images/dummy-thumb3.jpg" height="200" alt="" />
+              <img src="/assets/images/dummy-thumb3.jpg" height="200" alt="" />
             </v-card>
           </div>
         </v-item>
@@ -86,7 +86,7 @@
               :class="['text-center', selectedClass]"
               @click="toggle"
             >
-              <img src="@/assets/images/dummy-thumb3.jpg" height="150" alt="" />
+              <img src="/assets/images/dummy-thumb3.jpg" height="150" alt="" />
             </v-card>
             <div class="mt-1 text-center">소주 {{ n }}병</div>
           </div>
@@ -105,7 +105,7 @@
               :class="['text-center', selectedClass]"
               @click="toggle"
             >
-              <img src="@/assets/images/dummy-thumb3.jpg" height="150" alt="" />
+              <img src="/assets/images/dummy-thumb3.jpg" height="150" alt="" />
             </v-card>
             <!-- tooltip -->
             <div class="relative">
@@ -133,7 +133,7 @@
               :class="['text-center', selectedClass]"
               @click="toggle"
             >
-              <img src="@/assets/images/dummy-thumb3.jpg" height="150" alt="" />
+              <img src="/assets/images/dummy-thumb3.jpg" height="150" alt="" />
             </v-card>
             <div class="mt-1 text-center relative">
               소주 {{ n }}병

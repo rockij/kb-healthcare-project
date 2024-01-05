@@ -13,7 +13,8 @@
       <span class="title2" :class="title2Class">{{ title2 }}</span>
       <span class="datalst" :class="datalstClass">
         <span v-if="road" class="road">{{ road }}</span>
-        <span class="text">{{ subject }}</span>
+        <span v-if="subject" class="text">{{ subject }}</span>
+        <span v-if="sources" class="text-last">{{ sources }}</span>
       </span>
       <v-divider
         v-if="tagDivider === true"
@@ -31,7 +32,11 @@
       <span class="badge" :class="stateClass">{{ state }}</span>
       <i class="icon-star" />
     </v-btn>
-    <v-snackbar v-model="snackbar" :timeout="2000" class="toast-basic">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="2000"
+      class="toast-basic not-button"
+    >
       {{ snackbarText }}
     </v-snackbar>
   </div>
@@ -48,6 +53,7 @@
       'title2Class',
       'datalstClass',
       'road',
+      'sources',
       'subject',
       'tagDivider',
       'tags',

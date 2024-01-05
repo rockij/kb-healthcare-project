@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <div class="title-area pt-1">
+    <div class="title-area">
       <p class="subTit-01">오건강님의 <br />문의 내역이에요</p>
       <p class="desc pt-4">
         문의가 많을 경우 시간이 걸릴 수 있으니 양해 부탁 드려요
@@ -8,14 +8,13 @@
     </div>
 
     <!-- 2023-10-23 탭 스타일 수정 -->
-    <div class="btn-area mt-6">
-      <v-tabs align-tabs="start" v-model="tab" class="tabs-sliding">
+    <div class="tab-line mt-6">
+      <v-tabs v-model="tab" align-tabs="start">
         <v-tab
           v-for="btn in stateBtn"
           :key="btn.value"
           :value="btn.value"
           :ripple="false"
-          class="btn-tab"
         >
           {{ btn.text }}
         </v-tab>
@@ -42,18 +41,16 @@
           </li>
         </ul>
       </div>
-
-      <div class="btn-bottom">
-        <div class="btn-area d-flex">
-          <v-btn variant="text" height="56px" class="btn-summit"
-            >문의하기</v-btn
-          >
-        </div>
-      </div>
     </div>
 
     <div v-else>
       <nodata>문의 내역이 없어요</nodata>
+    </div>
+
+    <div class="btn-bottom">
+      <div class="btn-area d-flex">
+        <v-btn variant="text" height="56px" class="btn-summit">문의하기</v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -131,6 +128,7 @@
           value: 3
         }
       ])
+
       function filteredList() {
         if (tab.value !== 0) {
           return qnalist.filter((i) => i.value === tab.value)
@@ -161,5 +159,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped></style>

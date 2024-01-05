@@ -19,7 +19,7 @@
       </v-toolbar>
 
       <div class="modal-body">
-        <div class="flex-shrink-0 modal-body-container">
+        <div class="flex-shrink-0 modal-body-container pt-0">
           <div style="width: 100%; height: 200px; background-color: #eee">
             그래프예시
           </div>

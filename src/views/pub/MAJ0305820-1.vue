@@ -1,6 +1,6 @@
 <template>
   <div class="contents pb-0">
-    <div class="pb-10">
+    <div class="pb-10 pt-3">
       <h2 class="fs-24 font-weight-bold">2022.12.30</h2>
       <p class="mt-2">일반검진</p>
       <!-- //title -->
@@ -18,7 +18,7 @@
         class="box-rounded-fill fill-red pa-4 mt-8 d-flex align-start"
       >
         <img
-          src="@/assets/images/icon-caption4.svg"
+          src="/assets/images/icon-caption4.svg"
           alt=""
           width="20"
           class="mr-2"

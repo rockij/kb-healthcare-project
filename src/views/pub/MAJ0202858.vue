@@ -16,7 +16,7 @@
         </v-btn>
       </v-toolbar>
 
-      <div class="modal-body">
+      <div class="modal-body pb-0">
         <div class="flex-shrink-0 modal-body-container px-6">
           <div class="period-title">기간선택</div>
 
@@ -35,11 +35,7 @@
       </div>
 
       <v-card-actions>
-        <v-btn
-          height="48"
-          class="bdr-8 btn-yellow mt-6"
-          block
-          @click="onClicked"
+        <v-btn height="48" class="bdr-8 btn-yellow" block @click="onClicked"
           >확인</v-btn
         >
       </v-card-actions>

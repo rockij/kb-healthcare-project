@@ -17,15 +17,19 @@
           <!-- //내약국 -->
         </span>
       </div>
-      <div class="tabs-simple mt-2">
-        <v-btn
-          v-for="btn in mediTabs"
-          :key="btn.id"
-          variant="text"
-          :class="mediTabBtn === btn.value ? 'active' : ''"
-          @click="mediTabActive(btn.value)"
-          >{{ btn.text }}</v-btn
-        >
+      <div class="tabs-simple2 mt-2">
+        <div class="media-slide">
+          <v-btn
+            v-for="(btn, i) in mediTabs"
+            :key="i"
+            variant="text"
+            :aria-selected="mediTabBtn === i ? 'true' : 'false'"
+            @click="mediTabBtn = i"
+            >{{ btn.text }}</v-btn
+          >
+          <v-divider vertical />
+          <v-btn variant="text">영업중</v-btn>
+        </div>
       </div>
     </header>
     <!-- //header -->
@@ -47,7 +51,7 @@
         class="mt-3"
         @update="goPath('MAJ0305750_02')"
       />
-      <Nodata :icon="true" :iconSize="'big'">
+      <Nodata :icon="true" iconSize="big" iconType="hospital">
         <div class="fs-16">검색결과가 없습니다<br />조건을 변경해주세요</div>
       </Nodata>
     </template>
@@ -63,6 +67,7 @@
           @click="mapViewFuc"
           variant="text"
           class="bottom-fix btn-mapview"
+          height="36"
           >지도보기</v-btn
         >
         <v-btn
@@ -70,6 +75,7 @@
           @click="listViewFuc"
           variant="text"
           class="bottom-fix btn-listview"
+          height="36"
           >목록보기</v-btn
         >
       </div>
@@ -102,13 +108,13 @@
       return {
         mediTabs: [
           {
-            id: 1,
+            text: '전체'
+          },
+          {
             text: '토요일약국'
           },
           {
-            id: 2,
-            text: '공휴일약국',
-            value: 20
+            text: '공휴일약국'
           }
         ]
       }
@@ -174,7 +180,7 @@
       function goPath(val) {
         router.push(val)
       }
-      const mediTabBtn = ref()
+      const mediTabBtn = ref(0)
       function mediTabActive(val) {
         mediTabBtn.value = val
       }

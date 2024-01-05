@@ -15,16 +15,16 @@
           @click="modal = true"
         >
           {{ category }}
-          <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+          <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
         </v-btn>
-          <v-switch
-            class="switch-default"
-            v-model="switchModel"
-            label="내 리뷰만 보기"
-            color="#FFD338"
-            value="on"
-            hide-details
-          ></v-switch>
+        <v-switch
+          class="switch-default"
+          v-model="switchModel"
+          label="내 리뷰만 보기"
+          color="#FFD338"
+          value="on"
+          hide-details
+        ></v-switch>
       </div>
       <DialogSelectList
         :lists="option"
@@ -39,8 +39,8 @@
             <div class="text-tit">
               <span class="name">{{ list.name }}</span>
               <span class="review-point">
-                <!-- 별점 span 태그의 %로 채움 --> 
-                <span style="width:60%"></span>
+                <!-- 별점 span 태그의 %로 채움 -->
+                <span style="width: 60%"></span>
               </span>
             </div>
             <p class="review-txt">
@@ -55,7 +55,9 @@
       </ul>
     </div>
     <!-- toast 팝업 -->
-    <v-snackbar v-model="snackbar" class="toast-basic"> 삭제되었습니다. </v-snackbar>
+    <v-snackbar v-model="snackbar" :timeout="2000" class="toast-basic not-button">
+      삭제되었습니다.
+    </v-snackbar>
   </div>
 </template>
 
@@ -72,7 +74,7 @@
       const category = ref('최신순')
       const option = reactive([
         { value: 1, text: '최신순' },
-        { value: 2, text: '별점 높은순' },
+        { value: 2, text: '별점 높은순' }
       ])
       function changeCategory(val) {
         modal.value = false
@@ -98,7 +100,7 @@
           date: '09.30 오전 6:35'
         }
       ])
-      return { 
+      return {
         reviewList,
         switchModel,
         modal,

@@ -1,6 +1,6 @@
 <template>
   <div class="gps-map">
-    <img :src="`/src/assets/images/` + map" alt="" />
+    <img :src="`/assets/images/` + map" alt="" />
   </div>
 </template>
 <script>

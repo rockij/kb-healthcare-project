@@ -14,7 +14,11 @@
     </v-list>
     <!-- //연결된 기기 -->
     <v-sheet class="pt-8">
-      <h3 class="fs-18 font-weight-bold">혈당 측정기 연결방법</h3>
+      <!-- 아이콘 추가 -->
+      <div class="device-title-wrap">
+        <img src="/assets/images/icon-title-device-01.svg" alt="" />
+        <h3 class="fs-20 font-weight-bold">혈당 측정기 연결방법</h3>
+      </div>
       <v-list class="list-number">
         <v-list-item
           v-for="(item, i) in listNumber"
@@ -22,33 +26,24 @@
           class="list-number-item"
         >
           <v-card class="elevation-0" rounded="0">
-            <v-img
-              height="200"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              cover
-            >
-            </v-img>
-            <v-card-text class="list-number-text">
-              <span class="number">{{ i + 1 }}.</span>
-              <div>
-                {{ item.text }}
+            <v-img height="200" :src="`/assets/images/${item.path}`"> </v-img>
+            <v-card-text class="d-flex pl-0 pt-3 pb-0 align-start lh-2">
+              <v-avatar size="24" color="#3B4A65" class="text-white">{{
+                i + 1
+              }}</v-avatar>
+              <div class="pl-2 device-desc-wrap">
+                <div v-html="item.text" class="text-basic"></div>
+                <div
+                  v-if="item.desc"
+                  v-html="item.desc"
+                  class="pt-2 text-basic"
+                ></div>
               </div>
             </v-card-text>
           </v-card>
         </v-list-item>
       </v-list>
     </v-sheet>
-    <div class="d-flex justify-center pt-3">
-      <v-btn
-        variant="tonal"
-        color="primary"
-        type="submit"
-        class="flex-wrap btn-input-submit"
-        height="32"
-        width="94"
-        >영상으로 보기</v-btn
-      >
-    </div>
 
     <div class="btn-bottom">
       <div class="btn-area d-flex">
@@ -63,36 +58,34 @@
   export default {
     setup() {
       const currentConnection = ref({
-        title: 'Galaxy Watch Active',
-        subtitle: 'Samsung',
-        path: '/src/assets/images/dummy-watch.png'
+        title: 'CareSens N Premier BLE',
+        subtitle: 'i-SENS',
+        path: '/assets/images/img-small-device-01-x3.png'
       }) //연결된 기기 리스트
 
       const listNumber = ref([
         {
-          path: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-          text: '접근 권한은 해당 기능을 사용할 때 허용이 필요하며, 비허용시에도 해당 기능 외 서비스 이용이 가능합니다'
+          path: 'img-device-01-x3.png',
+          text: '혈당계의 <span style="color: #3F86F1; font-weight: 600;">S버튼</span>을 3초간 눌러 설정 모드를 실행합니다.'
         },
         {
-          path: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-          text: '◀ 또는 ▶ 버튼을 눌러 하단에 YES로 변경 후 S버튼을 누릅니다'
+          path: 'img-device-02-x3.png',
+          text: '◀ 또는 ▶ 버튼을 눌러 <span style="color: #3F86F1; font-weight: 600;">하단에 YES로 변경 후 S버튼</span>을 누릅니다.'
         },
         {
-          path: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-          text: '◀ 또는 ▶ 버튼을 눌러 하단 문구를 Palr로 변경 후 S버튼을 누릅니다.'
+          path: 'img-device-03.png',
+          text: '◀ 또는 ▶ 버튼을 눌러 하단 문구를 <span style="color: #3F86F1; font-weight: 600;">Palr로 변경 후 S버튼</span>을 누릅니다.'
         },
         {
-          path: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-          text: '아래 다음 버튼 선택 후 연결가능한 혈강계가 검색되면 혈당계에서 표시되는 Pin넘버 6자리 숫자를 확인합니다'
+          path: 'img-device-04.png',
+          text: '아래 다음 버튼 선택 후 연결가능한 혈강계가 검색되면 혈당계에서 표시되는 <span style="color: #3F86F1; font-weight: 600;">Pin넘버 6자리 숫자</span>를 확인합니다.'
         },
         {
-          path: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg',
-          text: '블루투스 연결 요청화면에서 Pin넘버 6자리를 등록하고 화면에 BT SUCCESS 문구가 뜨면 연결이 완료됩니다'
+          path: 'img-device-05.png',
+          text: '블루투스 연결 요청화면에서 <span style="color: #3F86F1; font-weight: 600;">Pin넘버 6자리를 등록</span>하고 화면에 <span style="color: #3F86F1; font-weight: 600;">BT SUCCESS 문구</span>가 뜨면 연결이 완료됩니다.'
         }
       ])
       return { currentConnection, listNumber }
     }
   }
 </script>
-
-<style lang="scss" scoped></style>

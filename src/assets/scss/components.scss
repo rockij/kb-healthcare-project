@@ -2,6 +2,7 @@
   padding-block: toRem(56);
   font-size: toRem(16);
   text-align: center;
+  color: #666;
   .icon {
     border-radius: 50%;
     background-color: #dde1e4;
@@ -20,16 +21,70 @@
     }
     &-mymedi {
       @include bgimg('icon-medi-nodata');
-      background-size: 20px;
+      background-size: toRem(24);
       background-position: center;
+    }
+    &-mymediList {
+      @include bgimg('icon-mymedi-nodata', $format: 'png');
+      background-size: toRem(60);
+      background-position: center;
+    }
+    &-lifelog-food {
+      @include bgimg('icon-food-nodata', $format: 'png');
+    }
+    &-thumb {
+      &-health {
+        @include bgimg('img-health-check05');
+      }
+      &-test-0 {
+        @include bgimg('img-health-check07');
+      }
+      &-test-1 {
+        @include bgimg('img-health-check08');
+      }
+      &-test-2 {
+        @include bgimg('img-health-check09');
+      }
+      &-test {
+        @include bgimg('img-health-check10');
+      }
+    }
+    &-heart-note {
+      @include bgimg('img-nodata-hnote');
+    }
+    &-hospital {
+      @include bgimg('img-hospital');
+    }
+    &-food-court {
+      @include bgimg('icon-nodata-foodcourt', $format: 'png');
     }
     &.small {
       width: toRem(40);
       height: toRem(40);
     }
-    &.big {
+    &.xl {
+      width: toRem(80);
+      height: toRem(80);
+    }
+    &[class*='thumb-'] {
+      background-color: transparent;
+      border-radius: 0;
+    }
+    &[class*='big'] {
       width: toRem(60);
       height: toRem(60);
+    }
+    &.big-record {
+      @include bgimg('img-nodata-record');
+    }
+    &.big-analysis {
+      @include bgimg('img-nodata-analysis');
+    }
+    &.big-cooking {
+      @include bgimg('img-nodata-cooking');
+    }
+    &.big-gsmail {
+      @include bgimg('img-nodata-gsmile');
     }
     &-news {
       @include bgimg('icon-news-nodata');
@@ -40,6 +95,37 @@
   }
   &.type {
     padding-block: 0;
+  }
+  &.lifelog {
+    padding: 0;
+    color: $black;
+    .text {
+      line-height: 1.45;
+    }
+    .icon {
+      background-color: transparent;
+      border-radius: 0;
+      width: toRem(80);
+      height: toRem(80);
+      &.blood {
+        @include bgimg('img-nodata-blood');
+      }
+      &.moon {
+        @include bgimg('img-nodata-moon');
+      }
+      &.bloodsugar {
+        @include bgimg('img-nodata-bloodsugar');
+      }
+      &.heart {
+        @include bgimg('img-nodata-heart');
+      }
+      &.weight {
+        @include bgimg('img-nodata-weight');
+      }
+      &.medication {
+        @include bgimg('img-nodata-medication');
+      }
+    }
   }
 }
 
@@ -82,16 +168,17 @@
     $r: null,
     $zi: 10
   );
-  border-radius: toRem(8);
-  background-color: #444;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
   font-size: toRem(14);
   color: #f8f8f8;
   letter-spacing: toRem(0.14);
   line-height: toRem(20);
-  padding: toRem(12) toRem(12) toRem(14) toRem(20);
+  padding: toRem(12) toRem(12) toRem(12) toRem(20);
   display: grid;
   grid-template-columns: auto toRem(36);
-  white-space: nowrap;
+  white-space: wrap;
+  margin-top: toRem(8);
   //display: none;
   .v-btn.btn-close {
     position: absolute;
@@ -118,8 +205,9 @@
 
 .v-tooltip {
   > .v-overlay__content {
-    border-radius: toRem(8) !important;
+    border-radius: 8px !important;
     padding: toRem(12) toRem(44) toRem(12) toRem(20) !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
   }
   &-handle {
     &.v-btn {
@@ -176,17 +264,23 @@
   .v-card-title {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 0 toRem(8) 0;
+    align-items: flex-start;
+    // padding: 0 0 toRem(8) 0;
+    padding: 0;
     line-height: toRem(24) !important;
   }
   .text-date {
     @include fontWeight(semibold);
     font-size: toRem(16);
   }
+  .text-state {
+    @include fontWeight(semibold);
+    display: inline-flex;
+    align-items: center;
+  }
   .v-card-item {
     border: 1px solid #e9eff1;
-    border-radius: toRem(16);
+    border-radius: 16px;
     // border-start-start-radius: 0;
     // border-start-end-radius: 0;
     padding: toRem(16);
@@ -197,22 +291,32 @@
     gap: 0 toRem(16);
     .v-btn {
       background-color: transparent;
-      width: toRem(20);
-      height: auto;
-      align-self: center;
-      border-radius: 0;
+      // width: toRem(20);
+      // height: auto;
+      // align-self: center;
+      // border-radius: 0;
+      padding: toRem(2) 0 toRem(18) 0;
+      .v-btn__content {
+        img {
+          width: toRem(24);
+          height: toRem(24);
+        }
+      }
     }
   }
   .icon-state {
     margin-left: toRem(8);
     @include icon-emoji-emotion;
   }
+  .chip-box {
+    display: inline-flex;
+    min-width: toRem(78);
+  }
   .dl {
     display: flex;
     &:not(:first-child) {
       padding-top: toRem(8);
     }
-    align-items: center;
     ~ .dl {
       padding-top: toRem(4);
     }
@@ -228,13 +332,32 @@
     dt {
       min-width: toRem(70);
       font-size: toRem(14);
+      color: #666;
     }
     dd {
-      padding-left: toRem(18);
+      padding-left: toRem(8) !important;
     }
   }
   .point {
     color: $blue;
+  }
+  &.type-horizon {
+    .v-card-item__content {
+      display: flex;
+      align-items: center;
+    }
+    .dl {
+      &:not(:first-child) {
+        padding-top: 0;
+      }
+      margin-left: toRem(43);
+      dt {
+        display: none;
+      }
+    }
+    .text-state {
+      margin-top: 0;
+    }
   }
 }
 
@@ -242,13 +365,16 @@
 .v-btn--icon {
   &.v-btn--density-default {
     &.btn-modal-close {
-      width: toRem(44);
-      height: toRem(44);
-      @include bgimg('icon-x2');
-      background-position: 50% 50%;
+      width: toRem(24);
+      height: toRem(24);
       .mdi-close {
         &::before {
           content: '';
+          width: 100%;
+          height: 100%;
+          @include bgimg('icon-x2', $format: 'png');
+          background-position: center;
+          background-size: cover;
         }
       }
     }
@@ -267,7 +393,7 @@
     justify-content: center;
     align-items: flex-start;
     padding: $box-pd $box-pd $box-pd calc(toRem(16) + toRem(32) + toRem(8));
-    border-radius: toRem(12);
+    border-radius: 16px;
     line-height: 1.4;
     font-size: toRem(16);
     color: #fff;
@@ -285,6 +411,7 @@
       display: block;
       font-size: toRem(18);
       align-self: flex-start;
+      color: #fff;
     }
     background-color: #a3afbf;
     &::before {
@@ -293,7 +420,7 @@
     &[data-case='verybad'] {
       background-color: $red;
       &::before {
-        @include bgimg('icon-state-emoji01');
+        @include bgimg('icon-state-emoji01-1');
       }
     }
     &[data-case='bad'] {
@@ -324,7 +451,7 @@
   }
   .video {
     overflow: hidden;
-    border-radius: toRem(16);
+    border-radius: 16px;
     background-color: #fff;
     box-shadow: toRem(2) toRem(4) toRem(10) 0 rgba(209, 216, 222, 0.25);
     video {
@@ -334,12 +461,12 @@
     .caution {
       position: relative;
       padding: toRem(16) toRem(16) toRem(16) toRem(40);
+      color: #666;
       &::before {
         content: '';
         position: absolute;
-        top: 50%;
+        top: toRem(17);
         left: toRem(16);
-        transform: translateY(-50%);
         width: toRem(20);
         height: toRem(20);
         @include bgimg('icon-caption');
@@ -352,48 +479,125 @@
   .v-btn {
     &.link-banner {
       padding: toRem(16) toRem(24);
-      border-radius: toRem(16);
+      border-radius: 16px;
       grid-template-columns: auto 1fr auto;
       height: auto;
       width: 100%;
+      .v-btn__content {
+        justify-content: flex-start;
+        align-items: flex-start;
+        min-width: 0;
+        text-align: left;
+        white-space: normal;
+      }
+      .v-btn__append {
+        width: toRem(48);
+      }
       .txbox {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        max-width: 100%;
         .title {
           align-self: flex-start;
           font-size: toRem(18);
           @include fontWeight(semibold);
+          + .text {
+            margin-top: toRem(4);
+          }
         }
         .text {
           padding-top: toRem(4);
           color: #444;
           font-size: toRem(14);
+          @include textOverflow;
         }
-      }
-      .v-btn__content {
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-      .v-btn__append {
-        width: toRem(48);
+        .skip {
+          margin-top: toRem(12);
+          @include fontWeight;
+          align-self: flex-start;
+          &::after {
+            content: '';
+            @include arrow(toRem(8), toRem(1.5), #26282c);
+            vertical-align: middle;
+            margin: toRem(-2) 0 0 toRem(4);
+          }
+        }
       }
     }
   }
+  &.type {
+    .v-btn {
+      padding-right: toRem(32);
+      .v-btn__append {
+        width: toRem(60);
+      }
+    }
+  }
+  &[class*='arrow'] {
+    position: relative;
+    z-index: 1;
+    .v-btn {
+      position: relative;
+      &::after {
+        content: '';
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: auto;
+        border-radius: 0;
+        background-color: inherit;
+        border: none;
+        z-index: -1;
+        opacity: 1;
+      }
+    }
+  }
+  &.arrow-bottom {
+    .v-btn {
+      &::after {
+        bottom: toRem(-5);
+        left: 50%;
+        transform: translateX(-50%) rotate(41deg) skewY(7deg);
+      }
+    }
+  }
+  @keyframes anim-bounce {
+    20%,
+    50%,
+    80%,
+    to {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    70% {
+      transform: translateY(-10px);
+    }
+    90% {
+      transform: translateY(-3px);
+    }
+  }
+  &.anim-bounce {
+    animation: anim-bounce 1s linear infinite;
+  }
 }
 
+// 캘린더
 .vc-calendar {
   position: relative;
   .report-title {
     margin-bottom: toRem(7);
   }
+  // 오늘
   .v-btn.calendar-today-go {
     position: absolute;
     right: 0;
     top: toRem(2);
     padding: 0 toRem(12);
     height: toRem(32);
-    border-radius: toRem(8);
+    border-radius: 8px;
     background-color: #f2f4f6;
     font-size: toRem(13);
     color: #06f;
@@ -403,37 +607,60 @@
     .vc-weeks {
       padding: 0;
     }
+    .vc-week {
+      margin-top: toRem(4);
+    }
     .vc-veran-day {
       position: absolute;
-      bottom: 0;
+      bottom: toRem(7);
       height: toRem(4);
       background-color: #bd86e0;
     }
     .vc-highlight {
-      &.vc-veran {
+      //여성건강
+      &.vc-veran,
+      &.vc-bleeding {
         width: 100%;
         background-color: #fff;
       }
       &.vc-menses {
         background-color: #f1638e;
       }
+      &.vc-menses-plan {
+        background-color: #fce0e8;
+      }
     }
     .vc-highlight-bg-light {
       position: absolute;
-      &.vc-menses {
+      //여성건강
+      &.vc-menses,
+      &.vc-menses-plan {
         top: 0;
         background-color: #fce0e8;
       }
       &.vc-veran {
-        bottom: 0;
+        bottom: toRem(7);
         height: toRem(4);
         background-color: #ebdbf6;
         &.vc-highlight-base-start {
-          border-radius: toRem(4) 0 0 toRem(4) !important;
+          border-radius: 4px 0 0 4px !important;
           width: 100% !important;
         }
         &.vc-highlight-base-end {
-          border-radius: 0 toRem(4) toRem(4) 0 !important;
+          border-radius: 0 4px 4px 0 !important;
+          width: 100% !important;
+        }
+      }
+      &.vc-bleeding {
+        bottom: toRem(7);
+        height: toRem(4);
+        background-color: #e188a2;
+        &.vc-highlight-base-start {
+          border-radius: 4px 0 0 4px !important;
+          width: 100% !important;
+        }
+        &.vc-highlight-base-end {
+          border-radius: 0 4px 4px 0 !important;
           width: 100% !important;
         }
       }
@@ -444,6 +671,13 @@
       height: toRem(28);
       @include fontWeight;
       font-size: toRem(14);
+      color: $black;
+      &.vc-disabled {
+        color: #888 !important;
+      }
+      &:focus-within {
+        box-shadow: none;
+      }
       &:hover {
         background-color: transparent;
       }
@@ -451,7 +685,10 @@
         pointer-events: none;
         user-select: none;
       }
-      &[tabindex='0'] {
+      &.vc-select {
+        background-color: #ffcd1e;
+      }
+      &.vc-schedule {
         &::before {
           content: '';
           background-color: #3b4a65;
@@ -466,10 +703,11 @@
       }
       // 여성건강
       &.vc-dots-info,
-      &.vc-veran {
+      &.vc-veran,
+      &.vc-bleeding {
         ~ .vc-day-layer .vc-dots {
           position: absolute;
-          bottom: toRem(9);
+          bottom: toRem(13);
           left: 50%;
           transform: translateX(-50%);
         }
@@ -479,7 +717,25 @@
           }
         }
       }
-      &.vc-veran {
+      //여성건강(임신)
+      &.vc-dots-info2 {
+        ~ .vc-day-layer .vc-dots {
+          position: absolute;
+          bottom: toRem(4);
+          left: 50%;
+          transform: translateX(-50%);
+          .vc-dot {
+            margin-bottom: 0;
+          }
+        }
+        &[tabindex='0'] {
+          &::before {
+            display: none;
+          }
+        }
+      }
+      &.vc-veran,
+      &.vc-bleeding {
         color: #26282c;
         background-color: #fff;
       }
@@ -489,12 +745,53 @@
           background-color: #f1638e;
         }
       }
-      // 기분
+      &.vc-menses-plan {
+        &.vc-content-start,
+        &.vc-content-end {
+          color: $black;
+        }
+      }
+      //임신주차
+      &[class*='vc-pregnancy'] {
+        &::after {
+          position: absolute;
+          top: toRem(20);
+          @include fontWeight(semibold);
+          font-size: toRem(10);
+          color: $blue;
+        }
+      }
+      @for $i from 1 through 40 {
+        &.vc-pregnancy-#{$i} {
+          &::after {
+            content: '#{$i}주';
+          }
+        }
+      }
+      //출산예정
+      &.vc-pregnancy-day {
+        @include fontWeight(semibold);
+        color: $black !important;
+        &[tabindex='0'] {
+          background-color: transparent !important;
+        }
+        &::after {
+          background-color: rgba(255, 205, 30, 0.1);
+          border-radius: 16px;
+          top: 0;
+          width: toRem(46);
+          padding: toRem(24) 0 0;
+          text-align: center;
+          color: #cb9f00;
+          content: '출산예정';
+        }
+      }
+      // 복약
       &.vc-medi-no {
         box-shadow: 0 0 0 2px $red;
       }
       &.vc-medi-end {
-        background-color: #00c378;
+        background-color: #00c378 !important;
       }
       &.vc-medi-part {
         background: linear-gradient(
@@ -505,10 +802,33 @@
           #ffd633 100%
         );
       }
+      &.vc-medi-schedule {
+        background-color: #ccc !important;
+      }
+      &.vc-medi-in0 {
+        box-shadow: inset 0 0 0 2px #fff4ce;
+      }
+      &.vc-medi-in1 {
+        @include bgimg('icon-circle-half');
+        background-size: 100% auto;
+      }
+      &.vc-medi-ina {
+        box-shadow: inset 0 0 0 2px #ffd633;
+      }
+      &.vc-medi-inf {
+        box-shadow: inset 0 0 0 2px #eee;
+      }
+      //오늘
       &.vc-today {
         background-color: #f8f8f8;
         &[tabindex='0'] {
           background-color: #ffcd1e;
+        }
+      }
+      //오늘(여성건강, 복약)
+      &.vc-today-bold {
+        &[tabindex='0'] {
+          @include fontWeight(semibold);
         }
       }
     }
@@ -540,6 +860,13 @@
           @include bgimg('icon-arrow-right');
           background-position: 50% 50%;
         }
+        &[disabled],
+        &:hover {
+          background-color: transparent !important;
+        }
+        &[disabled] {
+          opacity: 0.25 !important;
+        }
       }
       .vc-prev {
         &::before {
@@ -566,6 +893,7 @@
           width: toRem(14);
           height: toRem(14);
           background-color: transparent;
+          border-radius: 0;
           &:not(:first-child) {
             margin-left: toRem(-4);
           }
@@ -592,7 +920,6 @@
           &[class*='emoji-'] {
             width: toRem(20);
             height: toRem(20);
-            margin-bottom: toRem(4);
           }
           &.emoji-verygood {
             @include bgimg('icon-state-emoji05');
@@ -631,7 +958,7 @@
   color: #666;
   .state {
     display: grid;
-    grid-template-columns: toRem(16) auto;
+    grid-template-columns: toRem(12) auto;
     align-items: center;
     .v-avatar {
       margin-inline: auto;
@@ -646,6 +973,9 @@
     height: toRem(8);
     &.circle {
       @include bgimg('icon-circle');
+    }
+    &.circle2 {
+      @include bgmask('icon-circle', $color: #eb5147);
     }
     &.love {
       @include bgimg('icon-love');
@@ -668,12 +998,25 @@
       );
     }
     &.medino {
-      border-radius: 50%;
-      box-shadow: inset 0 0 0 toRem(1.5) #eb5147;
+      //border-radius: 50%;
+      //box-shadow: inset 0 0 0 toRem(1.5) #eb5147;
+      @include bgimg('icon-calendar-red', $format: 'png');
     }
     &.medioff {
       border-radius: 50%;
       background-color: #ccc;
+    }
+    &.veran {
+      border-radius: 3px;
+      width: toRem(8);
+      height: 3px;
+      background-color: #bd86e0;
+    }
+    &.bleeding {
+      border-radius: 3px;
+      width: toRem(8);
+      height: 3px;
+      background-color: #e188a2;
     }
   }
 }

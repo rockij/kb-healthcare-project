@@ -31,7 +31,7 @@
     >
       <span ref="selectBox" class="text fs-16 font-weight-bold">
         <span v-html="modal4ListBtn"></span>
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="검색" />
       </span>
     </v-btn>
   </div>

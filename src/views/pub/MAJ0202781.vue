@@ -67,7 +67,7 @@
                     </div>
                   </div>
                   <img
-                    :src="`/src/assets/images/${item.img}`"
+                    :src="`/assets/images/${item.img}`"
                     alt=""
                     class="news-img"
                     @click="$emit('goPath', 'MAJ0202780')"

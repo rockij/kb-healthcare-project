@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <img src="@/assets/images/icon-member-done.svg" alt="" />
+    <img src="/assets/images/icon-member-done.svg" alt="" />
     <div class="title-area pt-4">
       <p class="subTit-01">회원님의 오케어 탈퇴가 <br />완료되었습니다</p>
       <p class="desc pt-4 desc-done">

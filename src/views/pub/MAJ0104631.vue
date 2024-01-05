@@ -14,8 +14,7 @@
         variant="flat"
         rounded="lg"
         height="32"
-        color="#F2F4F6"
-        class="text-primary mt-7 fs-13"
+        class="btn-grey mt-7 fs-13"
         @click="goPath('MAJ0104670')"
       >
         1:1 문의하기

@@ -6,7 +6,7 @@
     </div>
     <!-- [D] 지도가 나와야하는 영역 -->
     <div class="map-area">
-      <img src="@/assets/images/dummy-map.png" class="dummy" alt="" />
+      <img src="/assets/images/dummy-map.png" class="dummy" alt="" />
       <v-btn
         variant="text"
         class="point"

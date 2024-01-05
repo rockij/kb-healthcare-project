@@ -1,27 +1,24 @@
 <template>
   <div class="contents">
-    <div class="sorting-data">
-      <v-btn
-        variant="text"
-        density="compact"
-        class="fs-16 px-0"
-        @click="modal = true"
-      >
-        {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
-      </v-btn>
+    <div class="sorting-data sorting-news">
+      <div class="news-btn">
+        <v-btn
+          variant="text"
+          density="compact"
+          class="fs-16 px-0"
+          @click="modal = true"
+        >
+          <div class="text-category">{{ date }}</div>
+          <div class="ml-1">{{ category }}</div>
+          <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        </v-btn>
+      </div>
     </div>
-    <DialogSelectList
-      :lists="option"
-      title="조회기간 설정"
-      v-model="modal"
-      @close="modal = false"
-      @update="changeCategory"
-    />
+    <MAJ0203413 v-model="modal" @update="addText" @close="modal = false" />
 
-    <div class="d-flex fs-14 mt-4">
+    <div class="d-flex mt-4 data-section-bg">
       <span>총 25건</span>
-      <span class="ml-auto">2023.07.29 ~ 2023.08.03</span>
+      <span class="ml-auto">23.07.29 ~ 23.08.19</span>
     </div>
 
     <!-- 기록 component -->
@@ -45,22 +42,24 @@
           >
             {{ report.device }}
           </v-chip> -->
-          <img
-            :src="`/src/assets/images/${report.img}`"
-            alt=""
-            class="img-food mb-4"
-          />
-          <div class="category-list" role="list">
+          <div class="img-center">
+            <img
+              :src="`/assets/images/${report.img}`"
+              alt=""
+              class="img-food img"
+            />
+          </div>
+          <div class="category-list pt-2" role="list">
             <div class="chip-category" role="listitem">
               <div class="category pr-2">측정시기</div>
               {{ getText(report.state) }}
             </div>
             <div class="chip-category" role="listitem">
               <div class="category pr-2">섭취음식</div>
-              {{ report.food }}
+              <div class="food-name text-overflow line1">{{ report.food }}</div>
             </div>
             <div class="chip-category" role="listitem">
-              <div class="category pr-2">총 칼로리</div>
+              <div class="category pr-2">칼로리</div>
               <span class="text-blue">{{ report.calories }}</span>
             </div>
           </div>
@@ -79,16 +78,17 @@
 
 <script>
   import { ref, reactive } from 'vue'
-  import DialogSelectList from '@/components/DialogSelectList.vue'
+  import MAJ0203413 from './MAJ0203413.vue'
   import DialogSetting from '@/components/DialogSetting.vue'
   import CardReport from '@/components/CardReport.vue'
   export default {
-    components: { DialogSelectList, CardReport, DialogSetting },
+    components: { MAJ0203413, CardReport, DialogSetting },
     setup() {
       const modal = ref(false)
-      const category = ref('일주일')
+      const date = ref('1주일')
+      const category = ref('전체')
       const option = reactive([
-        { value: 1, text: '일주일' },
+        { value: 1, text: '1주일' },
         { value: 2, text: '1개월' },
         { value: 3, text: '3개월' }
       ])
@@ -99,15 +99,15 @@
       const reports = ref([
         {
           id: 0,
-          date: '2023.08.17 오전 6시 35분',
+          date: '09.09 오전 10:35',
           food: '계란, 사과, 바나나, 귤, 수박화채, 밤, 프렌치 토스트',
           state: 'morning',
-          img: 'img-food.png',
+          img: 'bigfood.jpg',
           calories: '200kcal'
         },
         {
           id: 2,
-          date: '2023.08.17 오전 6시 35분',
+          date: '09.09 오후 2:35',
           food: '마카롱, 반숙란',
           state: 'morningS',
           img: 'img-food.png',
@@ -115,7 +115,7 @@
         },
         {
           id: 3,
-          date: '2023.08.17 오전 6시 35분',
+          date: '22.09.09 오후 2:35 ',
           food: '양념치킨',
           state: 'lunch',
           img: 'img-food.png',
@@ -138,7 +138,12 @@
       const delFunc = () => {
         alert('삭제')
       }
-
+      function addText(val1, val2) {
+        text1.value = val1
+        text2.value = val2
+        modal.value = false
+        console.log('상위페이지', text1.value, text2.value)
+      }
       function getText(props) {
         switch (props) {
           case 'morning':
@@ -152,6 +157,7 @@
         }
       }
       return {
+        date,
         modal,
         category,
         option,
@@ -159,6 +165,7 @@
         modal2,
         modal2Title,
         modal2List,
+        addText,
         changeCategory,
         delFunc,
         getText

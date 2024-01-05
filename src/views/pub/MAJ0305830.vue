@@ -3,12 +3,24 @@
     v-model="dialog"
     fullscreen
     :scrim="false"
-    transition="no-transition"
-    class="modal-full"
+    transition="dialog-bottom-transition"
+    class="modal-bottom body-direct"
   >
     <v-card>
+      <v-toolbar dark color="white" height="auto">
+        <v-toolbar-title class="modal-title">건강검진목록</v-toolbar-title>
+        <v-btn
+          icon
+          dark
+          @click="$emit('close')"
+          class="btn-modal-close"
+          title="팝업닫기"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-toolbar>
       <div class="modal-body">
-        <div class="flex-shrink-0 modal-body-container">
+        <div class="flex-shrink-0 modal-body-container pt-7">
           <div class="d-flex align-center">
             <h2 class="tit-03 pb-0">일반건강검진</h2>
             <v-btn
@@ -18,12 +30,12 @@
               color="#F2F4F6"
               class="ml-auto text-primary px-3"
             >
-              <img src="@/assets/images/icon-refresh.svg" class="mr-1" alt="" />
+              <img src="/assets/images/icon-refresh.svg" class="mr-1" alt="" />
               업데이트</v-btn
             >
           </div>
           <!-- //title -->
-          <ul class="list-circle mt-4 mb-6">
+          <ul class="list-circle mt-4 mb-6 text-black">
             <li v-for="(item, i) in list" :key="i">{{ item }}</li>
           </ul>
           <!-- //list -->
@@ -44,8 +56,12 @@
               <span class="text-grey mt-2">{{ list.date }}</span>
             </v-btn>
           </div>
-          <!-- //검진내역선택 -->
-          <div class="section-page">
+          <Nodata :icon="true" iconType="heart-note">
+            <div class="fs-16">일반건강검진 내역이 없습니다</div>
+          </Nodata>
+          <!-- //일반검진 -->
+
+          <div class="section-page pb-0">
             <h2 class="tit-03">종합건강검진</h2>
             <v-btn
               v-for="(list, i) in checkList2"
@@ -63,19 +79,26 @@
               <span class="text-grey mt-2">{{ list.date }}</span>
             </v-btn>
           </div>
-          <!-- //종합건강검진 -->
+          <Nodata :icon="true" iconType="heart-note">
+            <div class="fs-16">종합건강검진 내역이 없습니다</div>
+          </Nodata>
+          <!-- //종합검진 -->
         </div>
       </div>
     </v-card>
   </v-dialog>
 </template>
 <script>
+  import Nodata from '@/components/nodata/Nodata.vue'
   import { ref } from 'vue'
   export default {
+    components: {
+      Nodata
+    },
     setup() {
       const dialog = ref(true)
       const list = ref([
-        '공단건강검진은 최근 10년 이내 일반건강검진내역을 가져옵니다.',
+        '공단건강검진은 최근 10년 이내 일반건강검진내역을 가져옵니다',
         '최근 건강검진 데이터가 나오지 않는다면 업데이트를 진행해보세요'
       ])
       const checkList = ref([

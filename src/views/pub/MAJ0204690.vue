@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <v-card elevation="0" color="#FC0" class="card-yellow mb-8">
+    <v-card elevation="0" color="#FFD633" class="card-yellow mb-4">
       <v-card-item>
         <v-card-title class="d-flex"
           ><span class="fs-20 font-weight-bold">홍길동님</span>
@@ -25,6 +25,10 @@
         </template>
       </v-btn>
     </v-card>
+    <v-btn variant="flat" class="list-iconlst2 mb-8 bg-lightyellow">
+      <i class="icon-save-rewards"></i>
+      <p>리워드 이렇게 모으고 있어요</p>
+    </v-btn>
 
     <div class="section-block" v-for="item in settingLists" :key="item">
       <div class="login-title">{{ item.title }}</div>
@@ -57,6 +61,10 @@
   export default {
     setup() {
       const settingLists = ref([
+        {
+          title: '나의 챌린지',
+          contents: [{ text: '나의 챌린지', version: '2', path: '#none' }]
+        },
         {
           title: '나의 메디컬 서비스',
           contents: [

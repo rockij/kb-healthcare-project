@@ -8,7 +8,7 @@
         @click="modal = true"
       >
         {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
       </v-btn>
     </div>
 

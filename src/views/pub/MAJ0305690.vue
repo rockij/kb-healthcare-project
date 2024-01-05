@@ -113,12 +113,12 @@
               <div class="check-imgarea" :class="item.text ? 'mt-2' : ''">
                 <img
                   v-if="item.img"
-                  :src="`/src/assets/images/${item.img}`"
+                  :src="`/assets/images/${item.img}`"
                   alt=""
                 />
                 <img
                   v-if="item.img2"
-                  :src="`/src/assets/images/${item.img2}`"
+                  :src="`/assets/images/${item.img2}`"
                   alt=""
                 />
               </div>
@@ -133,7 +133,7 @@
       </div>
       <div class="sentence2 pt-5 pb-5">
         <v-img
-          src="/src/assets/images/dummy-thumb2.jpg"
+          src="/assets/images/dummy-thumb2.jpg"
           :width="'100%'"
           :height="'auto'"
           cover
@@ -163,7 +163,7 @@
   import { ref } from 'vue'
   export default {
     setup() {
-      document.body.style.backgroundColor = '#EFF4F6'
+      document.body.style.backgroundColor = '#E6ECF5'
 
       const qnaBtn = ref()
       const qnaBtns = ref([

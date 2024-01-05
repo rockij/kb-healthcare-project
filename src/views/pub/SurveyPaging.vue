@@ -5,16 +5,23 @@
       <template v-if="type === 'range'">
         <div class="header-info">
           <!-- tooltip -->
-          <div class="relative text-right">
+          <div class="tooltip-box">
+            각 문항을 주의 깊게 읽은 다음, 자신이 일상적으로 느끼고 행동하는데
+            가깝다고 생각되는 것을 선택해 주세요
+          </div>
+
+          <!-- <div class="relative text-right">
             <Tooltip
-              btnText="검사 전 안내사항"
+              :btn="false"
+              :show="true"
               text="각 문항을 주의 깊게 읽은 다음, 자신이 일상적으로 느끼고 행동하는데 가깝다고 생각되는 것을 선택해 주세요"
               class="tooltip-type2 vl-center"
+              v-model="tooltip"
             />
-          </div>
+          </div> -->
           <!-- 진행률 bar -->
           <div class="paging-progress">
-            <v-slider
+            <!-- <v-slider
               :model-value="page"
               :step="1"
               :min="1"
@@ -28,15 +35,27 @@
               <template v-slot:thumb-label="{ modelValue }">
                 Q{{ modelValue }}
               </template>
-            </v-slider>
+            </v-slider> -->
+            <v-progress-linear
+              :model-value="progress()"
+              height="6"
+              class="default-progress"
+            ></v-progress-linear>
             <div class="page-count">
-              <span class="font-weight-bold">{{ page }}</span> / {{ pageLengh }}
+              <span class="font-weight-bold current">{{ page }}</span> /
+              {{ pageLengh }}
             </div>
           </div>
-        </div>
-        <div class="btn-area">
-          <div class="paging-number">Q{{ page }}</div>
-          <v-btn
+
+          <div class="btn-area">
+            <div class="paging-number">Q{{ page }}</div>
+            <button class="btn-page swiper-button-prev">
+              <img src="/assets/images/btn-prev.svg" alt="이전" />
+            </button>
+            <button class="btn-page swiper-button-next">
+              <img src="/assets/images/btn-next.svg" alt="다음" />
+            </button>
+            <!-- <v-btn
             v-if="page > 1"
             variant="outlined"
             density="compact"
@@ -51,7 +70,8 @@
             icon="mdi-chevron-right"
             class="btn-page next"
             @click.stop="$emit('update:next', page)"
-          ></v-btn>
+          ></v-btn> -->
+          </div>
         </div>
       </template>
       <!-- 일반설문 -->
@@ -95,13 +115,29 @@
   import Tooltip from '@/components/Tooltip.vue'
 
   export default {
-    props: ['page', 'pageLengh', 'pageList', 'progress', 'type'],
+    props: [
+      'page',
+      'pageLengh',
+      'pageList',
+      'progress',
+      'type',
+      'setPageSwiper'
+    ],
     components: { Tooltip },
     setup() {
+      function tooltip() {
+        setTimeout(() => {
+          if (show.value) !show.value
+        }, 300)
+      }
       //sticky
       const stickyArea = ref(null)
       const navHeight = ref(null)
       onMounted(() => {
+        const tooltip = document.querySelector('.tooltip-box')
+        setTimeout(() => {
+          tooltip.style.display = 'none'
+        }, 3000)
         const sticky = document.querySelector('.sticky')
         navHeight.value = sticky.offsetHeight + 'px'
         const stickyObserver = new IntersectionObserver(
@@ -119,7 +155,8 @@
       })
       return {
         navHeight,
-        stickyArea
+        stickyArea,
+        tooltip
       }
     }
   }

@@ -1,6 +1,10 @@
 <template>
-  <div class="contents">
-    <div class="sorting-data">
+  <div class="contents pt-type">
+    <v-card
+      variant="flat"
+      color="#F8F8F8"
+      class="section-page brt-0 px-6 py-5 d-flex"
+    >
       <v-btn
         variant="text"
         density="compact"
@@ -8,10 +12,10 @@
         @click="modal = true"
       >
         {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
       </v-btn>
-      <div class="text-date">2023.07.29 ~ 2023.08.03</div>
-    </div>
+      <div class="fs-14 ml-auto">2023.07.29 ~ 2023.08.03</div>
+    </v-card>
     <DialogSelectList
       :lists="option"
       title="조회기간 설정"
@@ -21,8 +25,8 @@
     />
     <!-- //필터선택 -->
 
-    <v-card variant="flat" class="card-report2 mt-4">
-      <v-card-title class="mb-4"> 최고/최저 활동량 </v-card-title>
+    <h2 class="tit-03 mt-6">최고/최저 활동량</h2>
+    <v-card variant="flat" class="card-report2">
       <v-card-item v-for="list in analysisList" :key="list.id">
         <div class="d-flex align-center">
           <div class="d-flex mr-2">
@@ -43,67 +47,55 @@
             >
               {{ list.chip }}
             </v-chip>
-            <p>{{ list.count }}</p>
+            <p v-html="list.count" class="fs-14"></p>
           </div>
         </div>
       </v-card-item>
     </v-card>
     <!-- //최고/최저 활동량 -->
 
-    <div class="mt-6">
-      <h2 class="tit-03">흡연량 추이</h2>
+    <h2 class="tit-03 mt-8">흡연량 추이</h2>
+    <v-btn
+      block
+      variant="outlined"
+      rounded="lg"
+      :ripple="false"
+      class="btn-select-arrow py-0 mt-2"
+      color="#26282C"
+      height="48"
+      @click="modal4 = true"
+    >
+      <span ref="selectBox" class="text fs-16 font-weight-bold">
+        {{ modal4ListBtn }}
+        <img src="/assets/images/icon-arrow-down2.svg" alt="검색" />
+      </span>
+    </v-btn>
+    <DialogSelectList
+      :lists="modal4List"
+      :title="modal4Title"
+      v-model="modal4"
+      @close="modal4 = false"
+      @update="smokeCategory"
+    />
 
-      <v-btn
-        block
-        variant="outlined"
-        rounded="lg"
-        :ripple="false"
-        class="btn-select-arrow py-0 mt-2"
-        color="#26282C"
-        height="48"
-        @click="modal4 = true"
-      >
-        <span ref="selectBox" class="text fs-16 font-weight-bold">
-          {{ modal4ListBtn }}
-          <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
-        </span>
-      </v-btn>
-      <DialogSelectList
-        :lists="modal4List"
-        :title="modal4Title"
-        v-model="modal4"
-        @close="modal4 = false"
-        @update="smokeCategory"
-      />
-
-      <!-- 데이터(O) -->
-      <div class="mt-5">
-        <img
-          src="@/assets/images/img-graph-bar2.png"
-          style="width: 100%"
-          alt=""
-        />
-      </div>
-      <ul class="list-circle type mt-6">
-        <li v-for="list in activityList" :key="list.id">
-          <p v-html="list.text"></p>
-        </li>
-      </ul>
-      <!-- //데이터(O) -->
-
-      <!-- 데이터(X) -->
-      <Nodata
-        :icon="true"
-        :iconSize="'big'"
-        :optionClass="'type'"
-        class="mt-13"
-      >
-        <div class="fs-16">
-          걸음 데이터가 없으시군요<br />가벼운 산책을 해보세요
-        </div>
-      </Nodata>
-      <!-- 데이터(X) -->
+    <!-- 데이터(O) -->
+    <div class="mt-5">
+      <img src="/assets/images/img-graph-bar2.png" style="width: 100%" alt="" />
     </div>
+    <ul class="list-circle type mt-6">
+      <li v-for="list in activityList" :key="list.id">
+        <p v-html="list.text"></p>
+      </li>
+    </ul>
+    <!-- //데이터(O) -->
+
+    <!-- 데이터(X) -->
+    <Nodata :icon="true" :iconSize="'big'" :optionClass="'type'" class="mt-13">
+      <div class="fs-16">
+        걸음 데이터가 없으시군요<br />가벼운 산책을 해보세요
+      </div>
+    </Nodata>
+    <!-- 데이터(X) -->
     <!-- //활동량 추이 -->
   </div>
 </template>
@@ -138,8 +130,7 @@
           title:
             '<strong class="font-weight-bold mr-1">최저</strong> 수면 시간',
           count: '부족 5시 50분',
-          dot: 'warning',
-          dot: 'caution'
+          dot: 'warning'
         },
         {
           id: 3,
@@ -159,7 +150,7 @@
         {
           id: 5,
           title: '<strong class="font-weight-bold mr-1">수축기</strong>평균',
-          count: '132mmHg'
+          count: '일반담배 109 개비<br/>액상형 전자담배 101 ml'
         }
       ])
       const activityList = ref([

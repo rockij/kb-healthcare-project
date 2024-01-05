@@ -4,12 +4,18 @@
     fullscreen
     :scrim="false"
     transition="dialog-bottom-transition"
-    class="modal-full"
+    class="modal-bottom body-direct"
   >
     <v-card>
+      <v-toolbar dark color="white" height="auto">
+        <v-toolbar-title class="modal-title">등급 기준</v-toolbar-title>
+        <v-btn icon dark @click="$emit('close')" class="btn-modal-close">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-toolbar>
       <div class="modal-body">
-        <div class="flex-shrink-0 modal-body-container">
-          <div class="section-page bg pa-4">
+        <div class="flex-shrink-0 modal-body-container pt-0">
+          <div class="section-page bg2 brt-0 pa-4">
             <v-card
               rounded="xl"
               class="px-4 py-6 overflow-visible"
@@ -19,13 +25,13 @@
                 <p class="fs-20 font-weight-bold">
                   점수를 합산하여 등급을 산정해요
                 </p>
-                <p class="fs-16">
+                <p class="fs-13 mt-1 text-grey">
                   * 최고 걸음점수 + 누적 걸음점수 + 목표 달성일
                 </p>
               </v-card-title>
               <div class="d-flex justify-center mt-7">
                 <img
-                  src="@/assets/images/img-graph-ybar.svg"
+                  src="/assets/images/img-graph-ybar.svg"
                   width="220"
                   alt="입문자-중급-고급-선수급 순서 그래프"
                 />
@@ -33,14 +39,14 @@
               <div class="list-bside mt-6 d-flex justify-center">
                 <ul class="list rating">
                   <li v-for="list in graphList" :key="list.id">
-                    <span class="fs-14 ws-92 mr-3">{{ list.title }}</span>
+                    <span class="fs-14 mr-3">{{ list.title }}</span>
                     <span class="font-weight-bold">{{ list.text }}</span>
                   </li>
                 </ul>
               </div>
             </v-card>
           </div>
-          <div class="py-9">
+          <div class="pt-9">
             <h2 class="tit-02">최고 걸음수 점수</h2>
             <div class="table-flex">
               <ul class="table">
@@ -83,17 +89,6 @@
               </ul>
             </div>
             <!-- //목표걸음수점수 -->
-          </div>
-          <div class="btn-bottom">
-            <div class="btn-area d-flex">
-              <v-btn
-                variant="text"
-                height="48"
-                class="bdr-8 btn-summit"
-                @click="$emit('close')"
-                >확인</v-btn
-              >
-            </div>
           </div>
         </div>
       </div>

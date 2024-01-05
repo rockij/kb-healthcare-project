@@ -13,79 +13,80 @@
           {{ item.title }}
         </v-tab>
       </v-tabs>
-      <v-window v-model="tabInit" class="mt-7">
-        <!-- 포인트리 가져오기 -->
-        <v-window-item value="1">
-          <div class="tit-03 lh-4">
-            홍길동님의 포인트리를<br />
-            리워드포인트로 가져올게요
-          </div>
-          <v-checkbox
-            v-model="selected"
-            :value="checkbox"
-            class="checked-agree"
-            @change="text = selected"
-          >
-            <template v-slot:label>{{ checkbox }} 모두입력</template>
-          </v-checkbox>
-          <div class="textfield-area pt-0">
-            <v-text-field
-              class="input-basic textfield-default"
-              v-model="text"
-              label="교환할 포인트리"
-              placeholder="교환할 포인트리를 입력해주세요"
-              required
-              clearable
-              persistent-placeholder
-              variant="outlined"
-              @click:clear="onClear"
-            >
-            </v-text-field>
-          </div>
-          <v-card variant="flat" rounded="lg" color="#F8F8F8" class="pa-4 mt-7">
-            <div class="tit-01 color pb-4">이용안내</div>
-            <ul class="list-circle type-2">
-              <li v-for="(item, i) in list1" :key="i">{{ item }}</li>
-            </ul>
-          </v-card>
-        </v-window-item>
-        <!-- 포인트리로 보내기 -->
-        <v-window-item value="2">
-          <div class="tit-03 lh-4">
-            홍길동님의 리워드포인트를<br />
-            포인트리로 내보낼게요
-          </div>
-          <v-checkbox
-            v-model="selected"
-            :value="checkbox"
-            class="checked-agree"
-            @change="text = selected"
-          >
-            <template v-slot:label>{{ checkbox }} 모두입력</template>
-          </v-checkbox>
-          <div class="textfield-area pt-0">
-            <v-text-field
-              class="input-basic textfield-default"
-              v-model="text"
-              label="교환할 리워드포인트"
-              placeholder="교환할 리워드포인트를 입력해주세요"
-              required
-              clearable
-              persistent-placeholder
-              variant="outlined"
-              @click:clear="onClear"
-            >
-            </v-text-field>
-          </div>
-          <v-card variant="flat" rounded="lg" color="#F8F8F8" class="pa-4 mt-7">
-            <div class="tit-01 color pb-4">이용안내</div>
-            <ul class="list-circle type-2">
-              <li v-for="(item, i) in list2" :key="i">{{ item }}</li>
-            </ul>
-          </v-card>
-        </v-window-item>
-      </v-window>
     </div>
+    <v-window v-model="tabInit" class="mt-7">
+      <!-- 포인트리 가져오기 -->
+      <v-window-item value="1">
+        <div class="tit-03 lh-4">
+          홍길동님의 포인트리를<br />
+          리워드포인트로 가져올게요
+        </div>
+        <v-checkbox
+          v-model="selected"
+          :value="checkbox"
+          class="checked-agree"
+          @change="text = selected"
+        >
+          <template v-slot:label>{{ checkbox }} 모두입력</template>
+        </v-checkbox>
+        <div class="textfield-area pt-0">
+          <v-text-field
+            class="input-basic textfield-default"
+            v-model="text"
+            label="교환할 포인트리"
+            placeholder="교환할 포인트리를 입력해주세요"
+            required
+            clearable
+            persistent-placeholder
+            variant="outlined"
+            @click:clear="onClear"
+          >
+          </v-text-field>
+        </div>
+        <v-card variant="flat" rounded="lg" color="#F8F8F8" class="pa-4 mt-7">
+          <div class="tit-01 color pb-4">이용안내</div>
+          <ul class="list-circle type-2">
+            <li v-for="(item, i) in list1" :key="i">{{ item }}</li>
+          </ul>
+        </v-card>
+      </v-window-item>
+      <!-- 포인트리로 보내기 -->
+      <v-window-item value="2">
+        <div class="tit-03 lh-4">
+          홍길동님의 리워드포인트를<br />
+          포인트리로 내보낼게요
+        </div>
+        <v-checkbox
+          v-model="selected"
+          :value="checkbox"
+          class="checked-agree"
+          @change="text = selected"
+        >
+          <template v-slot:label>{{ checkbox }} 모두입력</template>
+        </v-checkbox>
+        <div class="textfield-area pt-0">
+          <v-text-field
+            class="input-basic textfield-default"
+            v-model="text"
+            label="교환할 리워드포인트"
+            placeholder="교환할 리워드포인트를 입력해주세요"
+            required
+            clearable
+            persistent-placeholder
+            variant="outlined"
+            @click:clear="onClear"
+          >
+          </v-text-field>
+        </div>
+        <v-card variant="flat" rounded="lg" color="#F8F8F8" class="pa-4 mt-7">
+          <div class="tit-01 color pb-4">이용안내</div>
+          <ul class="list-circle type-2">
+            <li v-for="(item, i) in list2" :key="i">{{ item }}</li>
+          </ul>
+        </v-card>
+      </v-window-item>
+    </v-window>
+
     <div class="btn-bottom">
       <div class="btn-area d-flex">
         <!-- <v-btn variant="text" height="56px" class="btn-cancel">삭제하기</v-btn> -->

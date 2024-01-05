@@ -22,7 +22,7 @@
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container text-center">
           <v-img
-            src="/src/assets/images/icon-success.svg"
+            src="/assets/images/icon-success.svg"
             width="60"
             height="60"
             alt=""

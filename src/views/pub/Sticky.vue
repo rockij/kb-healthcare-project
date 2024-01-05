@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <div style="height: 200px; background-color: red"></div>
+    <div style="height: 700px; background-color: red"></div>
     <!-- stickyArea -->
     <div ref="stickyArea" :style="{ height: navHeight }">
       <div class="sticky">
@@ -10,7 +10,7 @@
       </div>
     </div>
     <!-- //stickyArea -->
-    <div style="height: calc(100% + 200px); background-color: yellow"></div>
+    <div style="height: 2000px; background-color: yellow"></div>
   </div>
 </template>
 
@@ -19,23 +19,33 @@
   export default {
     setup() {
       //sticky
-      const stickyArea = ref(null)
+
+      const stickyArea = ref()
       const navHeight = ref(null)
       onMounted(() => {
-        const sticky = document.querySelector('.sticky')
-        navHeight.value = sticky.offsetHeight + 'px'
-        const stickyObserver = new IntersectionObserver(
-          ([e]) => {
-            if (!e.isIntersecting && sticky !== null)
-              sticky.classList.add('isFixed')
-            else sticky.classList.remove('isFixed')
-          },
-          {
-            root: null,
-            threshold: [1]
-          }
-        )
-        stickyObserver.observe(stickyArea.value)
+        if (stickyArea.value) {
+          const sticky = document.querySelector('.sticky')
+          navHeight.value = sticky.offsetHeight + 'px'
+          const stickyObserver = new IntersectionObserver(
+            ([e]) => {
+              if (
+                !e.isIntersecting &&
+                sticky !== null &&
+                stickyArea.value.getBoundingClientRect().bottom <
+                  window.outerHeight
+              ) {
+                sticky.classList.add('isFixed')
+              } else {
+                sticky.classList.remove('isFixed')
+              }
+            },
+            {
+              root: null,
+              threshold: [0]
+            }
+          )
+          stickyObserver.observe(stickyArea.value)
+        }
       })
       return { navHeight, stickyArea }
     }

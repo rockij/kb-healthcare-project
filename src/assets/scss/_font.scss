@@ -4,15 +4,8 @@
 // }
 
 $weightPretendard: (
-  'Thin': 100,
-  'ExtraLight': 200,
-  'Light': 300,
   'Regular': 400,
-  'Medium': 500,
-  'SemiBold': 600,
-  'Bold': 700,
-  'ExtraBold': 800,
-  'Black': 900
+  'SemiBold': 600
 );
 
 @each $fontName, $fontWeight in $weightPretendard {
@@ -29,12 +22,6 @@ $weightPretendard: (
   font-family: 'KBFG';
   src: url('../../assets/font/KBFGTextL.woff2') format('woff2');
   font-weight: 400;
-}
-
-@font-face {
-  font-family: 'KBFG';
-  src: url('../../assets/font/KBFGTextM.woff2') format('woff2');
-  font-weight: 500;
 }
 
 @font-face {

@@ -7,7 +7,7 @@
       @click="modal = true"
     >
       {{ modalListBtn }}
-      <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+      <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
     </v-btn>
     <v-btn
       block
@@ -22,7 +22,7 @@
       <span ref="selectBox" class="text text-info-grey type-3">
         <span class="placeholder" v-if="!modalListBtn">선택해주세요.</span>
         {{ modalListBtn }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="검색" />
       </span>
     </v-btn>
     <DialogSelectList

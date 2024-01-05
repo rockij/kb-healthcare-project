@@ -42,7 +42,7 @@
         >
           <span class="text text-info-grey type-3">
             시간 선택
-            <img src="@/assets/images/icon-arrow-down2.svg" alt="검색" />
+            <img src="/assets/images/icon-arrow-down2.svg" alt="검색" />
           </span>
         </v-btn>
         <!-- tooltip -->

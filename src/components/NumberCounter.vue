@@ -11,11 +11,11 @@
     easing="Power4.easeOut"
     @complete="completed"
   />
-  <div>
+  <!-- <div>
     <button class="btn green" @click="playNumberCount">Start</button>
     <button class="btn" @click="loadNumberCounter.pause()">Pause</button>
     <button class="btn blue" @click="restartNumberCount()">Restart</button>
-  </div>
+  </div> -->
 </template>
 <script>
   import { onMounted, ref } from 'vue'
@@ -28,7 +28,10 @@
       const end = ref(false)
       const loadNumberCounter = ref()
       const theFormat = (number) => {
-        return number.toFixed(0)
+        return number
+          .toFixed(0)
+          .toString()
+          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
       }
 
       const completed = () => {
@@ -48,6 +51,9 @@
           loadNumberCounter.value.restart()
         }, 200)
       }
+      onMounted(() => {
+        playNumberCount()
+      })
 
       return {
         numberFrom,

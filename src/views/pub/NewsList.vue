@@ -25,19 +25,20 @@
               </span>
             </div>
           </div>
-          <img
-            :src="`/src/assets/images/${item.img}`"
-            alt=""
-            class="news-img"
-            @click="$emit('goPath', 'MAJ0202780')"
-          />
+          <div class="news-img">
+            <img
+              :src="`/assets/images/${item.img}`"
+              alt=""
+              @click="$emit('goPath', 'MAJ0202780')"
+            />
+          </div>
         </li>
       </ul>
     </div>
   </template>
   <!-- no data -->
   <Nodata :icon="true" iconSize="big" iconType="news" v-else>
-    검색 결과가 없습니다.
+    찜한 뉴스에 등록한 뉴스가 없습니다
   </Nodata>
 </template>
 

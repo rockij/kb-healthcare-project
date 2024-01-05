@@ -6,50 +6,68 @@
     :scrim="true"
     transition="dialog-bottom-transition"
     class="modal-bottom"
+    @click:outside="$emit('close')"
   >
     <v-card>
       <v-toolbar dark color="white" height="auto">
-        <v-toolbar-title>
-          <div class="tit-emotion fs-20 font-weight-bold" :class="classOption">
-            {{ message }}을 선택하셨네요
-          </div>
-        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn
+          icon
+          dark
+          @click="$emit('close')"
+          class="btn-modal-close"
+          title="팝업닫기"
+        />
       </v-toolbar>
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container">
-          <h2 class="tit-02 mt-4">어떤 감정을 느끼셨나요?</h2>
+          <div class="tit-emotion fs-20 font-weight-bold" :class="classOption">
+            {{ message }}을 선택하셨네요
+          </div>
+          <h2 class="tit-02 mt-6">어떤 감정을 느끼셨나요?</h2>
           <div class="tabs-roundbox mt-1">
-            <v-tabs v-model="tabInit" align-tabs="start" slider-color="#fff">
-              <v-tab
-                v-for="(item, i) in tabItems"
-                :key="item"
-                :value="i"
-                :ripple="false"
+            <div v-if="tabInit === 0" class="d-grid g-tcol-3 g-gap-16">
+              <v-btn
+                variant="text"
+                height="auto"
+                class="emoji-box"
+                v-for="(item, i) in goodList"
+                :key="i"
+                :aria-selected="selBtn === item"
+                @click="selBtn = item"
               >
-                {{ item.title }}
-              </v-tab>
-            </v-tabs>
-            <v-window v-model="tabInit" class="mt-4">
-              <v-window-item>
-                <div class="d-flex flex-wrap gap-23">
-                  <div class="emoji-box"><i data-emoji="행복한"></i>행복한</div>
-                  <div class="emoji-box"><i data-emoji="신이남"></i>신이남</div>
-                  <div class="emoji-box"><i data-emoji="감사한"></i>감사한</div>
-                  <div class="emoji-box"><i data-emoji="차분함"></i>차분함</div>
-                  <div class="emoji-box"><i data-emoji="개운한"></i>개운한</div>
-                </div>
-              </v-window-item>
-              <v-window-item>
-                <div class="list-emoji-box">
-                  <div class="emoji-box"><i data-emoji="만족한"></i>만족한</div>
-                </div>
-              </v-window-item>
-              <v-window-item
-                ><div class="list-emoji-box">
-                  <div class="emoji-box"><i data-emoji="화남"></i>화남</div>
-                </div></v-window-item
+                <i :data-emoji="item.text"></i>{{ item.text }}
+              </v-btn>
+            </div>
+            <!-- //긍정 -->
+            <div v-if="tabInit === 1" class="d-grid g-tcol-3 g-gap-16">
+              <v-btn
+                variant="text"
+                height="auto"
+                class="emoji-box"
+                v-for="(item, i) in normalList"
+                :key="i"
+                :aria-selected="selBtn === item"
+                @click="selBtn = item"
               >
-            </v-window>
+                <i :data-emoji="item.text"></i>{{ item.text }}
+              </v-btn>
+            </div>
+            <!-- //보통 -->
+            <div v-if="tabInit === 2" class="d-grid g-tcol-3 g-gap-16">
+              <v-btn
+                variant="text"
+                height="auto"
+                class="emoji-box"
+                v-for="(item, i) in badList"
+                :key="i"
+                :aria-selected="selBtn === item"
+                @click="selBtn = item"
+              >
+                <i :data-emoji="item.text"></i>{{ item.text }}
+              </v-btn>
+            </div>
+            <!-- //부정 -->
           </div>
 
           <h2 class="tit-01 mt-6">
@@ -66,7 +84,12 @@
             variant="outlined"
             no-resize
             v-model="textareaValue"
-          ></v-textarea>
+          >
+            <template v-slot:counter="{ value, max }">
+              <span class="current-value">{{ value }}</span> /
+              <span class="max-length">{{ max }}</span>
+            </template>
+          </v-textarea>
 
           <div class="btn-bottom">
             <div class="btn-area d-flex">
@@ -97,6 +120,34 @@
         { title: '보통' },
         { title: '부정' }
       ])
+      const goodList = ref([
+        { text: '자신만만하다' },
+        { text: '상쾌하다' },
+        { text: '만족하다' },
+        { text: '편하다' },
+        { text: '즐겁다' },
+        { text: '기쁘다' }
+      ])
+      const normalList = ref([
+        { text: '무덤덤하다' },
+        { text: '싱숭생숭하다' },
+        { text: '시원섭섭하다' },
+        { text: '긴장하다' },
+        { text: '당황하다' },
+        { text: '심심하다' }
+      ])
+      const badList = ref([
+        { text: '외롭다' },
+        { text: '창피하다' },
+        { text: '불안하다' },
+        { text: '우울하다' },
+        { text: '후회하다' },
+        { text: '무섭다' },
+        { text: '슬프다' },
+        { text: '짜증나다' },
+        { text: '걱정하다' }
+      ])
+      const selBtn = ref({})
       const tabInit = ref(0)
       const textareaValue = ref('')
       onUpdated(() => {
@@ -106,7 +157,11 @@
         dialog,
         tabInit,
         tabItems,
-        textareaValue
+        textareaValue,
+        goodList,
+        normalList,
+        badList,
+        selBtn
       }
     }
   }

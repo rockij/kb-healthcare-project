@@ -76,6 +76,7 @@ width: toRem(275);
       <prism language="markup">
         {{ `
         <span class="badge waiting">대기중</span>
+        <span class="badge ing">진행중</span>
         <span class="badge">완료</span>
         ` }}
       </prism>
@@ -268,6 +269,24 @@ width: toRem(275);
       </prism>
     </div>
 
+    <h3 class="tit-pub-guide">바텀시트 하단 버튼(백그라운드 있음)</h3>
+    <v-card-actions>
+      <v-btn height="48" class="bdr-8 btn-yellow" block @click="onClicked"
+        >확인</v-btn
+      >
+    </v-card-actions>
+    <div class="pub-guide">
+      <prism language="markup">
+        {{ `
+        <v-card-actions>
+          <v-btn height="48" class="bdr-8 btn-yellow" block @click="onClicked"
+            >확인</v-btn
+          >
+        </v-card-actions>
+        ` }}
+      </prism>
+    </div>
+
     <h3 class="tit-pub-guide">section 구분선</h3>
     <div class="pub-guide-sample elevation-2">
       <div class="section-page">섹션</div>
@@ -329,6 +348,12 @@ width: toRem(275);
           hint="안내문구 영역입니다."
         ></v-text-field>
       </div>
+      <div class="smDesc pt-2 pb-0 gap-4">
+        <v-icon class="icon-caption" />
+        <span class="text">
+          의료진에게 묻기 서비스를 이용하기 위해 닉네임 설정이 필요합니다
+        </span>
+      </div>
     </div>
     <div class="pub-guide">
       <prism language="markup">
@@ -344,6 +369,14 @@ width: toRem(275);
           clearable
           hint="안내문구 영역입니다."
         ></v-text-field>
+        <div class="smDesc d-flex pt-2 pb-0">
+          <v-avatar color="#ccc" size="16"
+            ><span class="text-white" style="font-size: 8px">!</span></v-avatar
+          >
+          <span class="text">
+            의료진에게 묻기 서비스를 이용하기 위해 닉네임 설정이 필요합니다
+          </span>
+        </div>
         ` }}
       </prism>
     </div>
@@ -583,7 +616,7 @@ width: toRem(275);
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">textarea</h3>
+    <h3 class="tit-pub-guide">textarea default + focused</h3>
     <div class="pub-guide-sample elevation-2">
       <v-textarea
         class="textarea-basic textfield-default pt-4"
@@ -592,7 +625,12 @@ width: toRem(275);
         counter
         variant="outlined"
         no-resize
-      ></v-textarea>
+      >
+        <template v-slot:counter="{ value, max }">
+          <span class="current-value">{{ value }}</span> /
+          <span class="max-length">{{ max }}</span>
+        </template>
+      </v-textarea>
     </div>
     <div class="pub-guide">
       <prism language="markup"
@@ -604,7 +642,52 @@ width: toRem(275);
           counter
           variant="outlined"
           no-resize
-        ></v-textarea>
+        >
+          <template v-slot:counter="{ value, max }">
+            <span class="current-value">\{\{ value \}\}</span> /
+            <span class="max-length">\{\{ max \}\}</span>
+          </template>
+        </v-textarea>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">textarea readonly</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-textarea
+        class="textarea-basic textfield-default pt-4"
+        persistent-counter
+        :maxlength="1000"
+        :model-value="textareaValue"
+        counter
+        variant="outlined"
+        no-resize
+        readonly
+      >
+        <template v-slot:counter="{ value, max }">
+          <span class="current-value">{{ value }}</span> /
+          <span class="max-length">{{ max }}</span>
+        </template>
+      </v-textarea>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <v-textarea
+          class="textarea-basic textfield-default pt-4"
+          persistent-counter
+          :maxlength="1000"
+          :model-value="textareaValue"
+          counter
+          variant="outlined"
+          no-resize
+          readonly
+        >
+          <template v-slot:counter="{ value, max }">
+            <span class="current-value">\{\{ value \}\}</span> /
+            <span class="max-length">\{\{ max \}\}</span>
+          </template>
+        </v-textarea>
         ` }}
       </prism>
     </div>
@@ -672,6 +755,62 @@ width: toRem(275);
           color="#FFD338"
           value="on"
           hide-details
+        ></v-switch>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">switch on/disabled</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-switch
+        class="switch-default"
+        v-model="switchModel"
+        label="on disabled"
+        color="#FFD338"
+        :model-value="true"
+        hide-details
+        disabled
+      ></v-switch>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <v-switch
+          class="switch-default"
+          v-model="switchModel"
+          label="on disabled"
+          color="#FFD338"
+          :model-value="true"
+          hide-details
+          disabled
+        ></v-switch>
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">switch off/disabled</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-switch
+        class="switch-default"
+        v-model="switchModel"
+        label="off disabled"
+        color="#FFD338"
+        :model-value="false"
+        hide-details
+        disabled
+      ></v-switch>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <v-switch
+          class="switch-default"
+          v-model="switchModel"
+          label="off disabled"
+          color="#FFD338"
+          :model-value="false"
+          hide-details
+          disabled
         ></v-switch>
         ` }}
       </prism>
@@ -984,7 +1123,7 @@ width: toRem(275);
         <ul>
           <li>
             <v-btn variant="text" :href="'javsscript:;'">
-              <img src="/src/assets/images/dummy-thumb.jpg" alt="" />
+              <img src="/assets/images/dummy-thumb.jpg" alt="" />
               <p class="text">
                 눈 건강 가이드 연령별 매일 실천하면 지킬 수 있어요.눈 건강
                 가이드 연령별 매일 실천하면 지킬 수 있어요.눈 건강 가이드 연령별
@@ -995,7 +1134,7 @@ width: toRem(275);
           </li>
           <li>
             <v-btn variant="text" :href="'javsscript:;'">
-              <img src="/src/assets/images/dummy-thumb.jpg" alt="" />
+              <img src="/assets/images/dummy-thumb.jpg" alt="" />
               <p class="text">
                 눈 건강 가이드 연령별 매일 실천하면 지킬 수 있어요.눈 건강
                 가이드 연령별 매일 실천하면 지킬 수 있어요.
@@ -1012,7 +1151,7 @@ width: toRem(275);
           <ul>
             <li>
               <v-btn variant="text" :href="">
-                <img src="/src/assets/images/dummy-thumb.jpg" alt="" />
+                <img src="/assets/images/dummy-thumb.jpg" alt="" />
                 <p class="text">
                   눈 건강 가이드 연령별 매일 실천하면 지킬 수 있어요.눈 건강
                   가이드 연령별 매일 실천하면 지킬 수 있어요.
@@ -1032,7 +1171,7 @@ width: toRem(275);
           <li>
             <v-btn variant="text" class="play" :href="'javsscript:;'">
               <span class="img"
-                ><img src="/src/assets/images/dummy-thumb2.jpg" alt=""
+                ><img src="/assets/images/dummy-thumb2.jpg" alt=""
               /></span>
               <p class="text">
                 실명까지 올수 있다?! 여름철 눈관리 중요한 이유!
@@ -1042,7 +1181,7 @@ width: toRem(275);
           <li>
             <v-btn variant="text" class="play" :href="'javsscript:;'">
               <span class="img"
-                ><img src="/src/assets/images/dummy-thumb2.jpg" alt=""
+                ><img src="/assets/images/dummy-thumb2.jpg" alt=""
               /></span>
               <p class="text">
                 실명까지 올수 있다?! 여름철 눈관리 중요한 이유!
@@ -1052,7 +1191,7 @@ width: toRem(275);
           <li>
             <v-btn variant="text" class="play" :href="'javsscript:;'">
               <span class="img"
-                ><img src="/src/assets/images/dummy-thumb2.jpg" alt=""
+                ><img src="/assets/images/dummy-thumb2.jpg" alt=""
               /></span>
               <p class="text">
                 실명까지 올수 있다?! 여름철 눈관리 중요한 이유!
@@ -1070,7 +1209,7 @@ width: toRem(275);
             <li>
               <v-btn variant="text" class="play" :href="">
                 <span class="img"
-                  ><img src="/src/assets/images/dummy-thumb2.jpg" alt=""
+                  ><img src="/assets/images/dummy-thumb2.jpg" alt=""
                 /></span>
                 <p class="text">
                   실명까지 올수 있다?! 여름철 눈관리 중요한 이유!
@@ -1101,7 +1240,7 @@ width: toRem(275);
               <figure class="icon-time" />
               <span class="text"
                 >건강관리를 위해 작은 목표를 시작해 보아요!
-                <strong>루틴 시작하기</strong></span
+                <strong>챌린지 시작하기</strong></span
               >
             </v-btn>
           </li>
@@ -1248,26 +1387,28 @@ width: toRem(275);
             {{ item.titleTab }}
           </v-tab>
         </v-tabs>
-        <v-window v-model="tabInit" class="mt-7">
-          <v-window-item> 컨텐츠1 </v-window-item>
-          <v-window-item> 컨텐츠2 </v-window-item>
-        </v-window>
       </div>
+      <v-window v-model="tabInit" class="mt-7">
+        <v-window-item> 컨텐츠1 </v-window-item>
+        <v-window-item> 컨텐츠2 </v-window-item>
+      </v-window>
     </div>
     <div class="pub-guide">
       <prism language="markup"
         >{{ `
-        <v-tabs v-model="tabInit" align-tabs="start">
-          <v-tab
-            v-for="(item, i) in tabItems"
-            :key="item.id"
-            :value="i"
-            :ripple="false"
-            :data-count="item.tabCount"
-          >
-            \{\{\ item.titleTab \}\}\
-          </v-tab>
-        </v-tabs>
+        <div class="tab-line">
+          <v-tabs v-model="tabInit" align-tabs="start">
+            <v-tab
+              v-for="(item, i) in tabItems"
+              :key="item.id"
+              :value="i"
+              :ripple="false"
+              :data-count="item.tabCount"
+            >
+              \{\{\ item.titleTab \}\}\
+            </v-tab>
+          </v-tabs>
+        </div>
         <v-window v-model="tabInit" class="mt-7">
           <v-window-item> 컨텐츠1 </v-window-item>
           <v-window-item> 컨텐츠2 </v-window-item>
@@ -1349,6 +1490,8 @@ width: toRem(275);
       <br />
       <div class="box-rounded-fill">라운드 박스 배경</div>
       <br />
+      <div class="box-rounded-shadow py-6 px-4">라운드 박스 그림자</div>
+      <br />
       <v-card variant="flat" rounded="xl" class="box-rounded-fill pa-6"
         >라운드 박스 배경</v-card
       >
@@ -1359,6 +1502,8 @@ width: toRem(275);
         <div class="box-rounded">라운드 박스</div>
 
         <div class="box-rounded-fill">라운드 박스 배경</div>
+
+        <div class="box-rounded-shadow py-6 px-4">라운드 박스 그림자</div>
 
         <v-card variant="flat" rounded="xl" class="box-rounded-fill pa-6"
           >라운드 박스 배경</v-card
@@ -1480,36 +1625,6 @@ width: toRem(275);
       </prism>
     </div>
 
-    <h3 class="tit-pub-guide">감정 아이콘</h3>
-    <div class="pub-guide-sample elevation-2">
-      <div class="list-emoji-box">
-        <div class="emoji-box"><i data-emoji="화남"></i>화남</div>
-        <div class="emoji-box"><i data-emoji="신이남"></i>신이남</div>
-        <div class="emoji-box"><i data-emoji="슬픔"></i>슬픔</div>
-        <div class="emoji-box"><i data-emoji="우울한"></i>우울한</div>
-        <div class="emoji-box"><i data-emoji="짜증난"></i>짜증난</div>
-        <div class="emoji-box"><i data-emoji="행복한"></i>행복한</div>
-        <div class="emoji-box"><i data-emoji="감사한"></i>감사한</div>
-        <div class="emoji-box"><i data-emoji="만족한"></i>만족한</div>
-      </div>
-    </div>
-    <div class="pub-guide">
-      <prism language="markup"
-        >{{ `
-        <div class="list-emoji-box">
-          <div class="emoji-box"><i data-emoji="화남"></i>화남</div>
-          <div class="emoji-box"><i data-emoji="신이남"></i>신이남</div>
-          <div class="emoji-box"><i data-emoji="슬픔"></i>슬픔</div>
-          <div class="emoji-box"><i data-emoji="우울한"></i>우울한</div>
-          <div class="emoji-box"><i data-emoji="짜증난"></i>짜증난</div>
-          <div class="emoji-box"><i data-emoji="행복한"></i>행복한</div>
-          <div class="emoji-box"><i data-emoji="감사한"></i>감사한</div>
-          <div class="emoji-box"><i data-emoji="만족한"></i>만족한</div>
-        </div>
-        ` }}
-      </prism>
-    </div>
-
     <h3 class="tit-pub-guide">테이블</h3>
     <div class="pub-guide-sample elevation-2">
       <div class="table-flex">
@@ -1596,7 +1711,7 @@ width: toRem(275);
         @click="event"
       >
         <template v-slot:append-inner
-          ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+          ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
         /></template>
       </v-text-field>
     </div>
@@ -1616,7 +1731,7 @@ width: toRem(275);
           @click="event"
         >
           <template v-slot:append-inner
-            ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+            ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
           /></template>
         </v-text-field>
         ` }}
@@ -1627,7 +1742,7 @@ width: toRem(275);
     <div class="pub-guide-sample elevation-2">
       <v-btn variant="outlined" rounded="lg" class="btn-share">
         <template v-slot:prepend>
-          <img src="@/assets/images/icon-share.svg" alt="" />
+          <img src="/assets/images/icon-share.svg" alt="" />
         </template>
         공유하기
       </v-btn>
@@ -1658,7 +1773,7 @@ width: toRem(275);
         >{{ `
         <v-btn variant="outlined" rounded="lg" class="btn-share">
           <template v-slot:prepend>
-            <img src="@/assets/images/icon-share.svg" alt="" />
+            <img src="/assets/images/icon-share.svg" alt="" />
           </template>
           공유하기
         </v-btn>
@@ -1691,7 +1806,7 @@ width: toRem(275);
     <div class="pub-guide-sample elevation-2">
       <v-btn variant="outlined" rounded="lg" class="btn-share">
         <template v-slot:prepend>
-          <img src="@/assets/images/icon-share.svg" alt="" />
+          <img src="/assets/images/icon-share.svg" alt="" />
         </template>
         공유하기
       </v-btn>
@@ -1701,7 +1816,7 @@ width: toRem(275);
         >{{ `
         <v-btn variant="outlined" rounded="lg" class="btn-share">
           <template v-slot:prepend>
-            <img src="@/assets/images/icon-share.svg" alt="" />
+            <img src="/assets/images/icon-share.svg" alt="" />
           </template>
           공유하기
         </v-btn>
@@ -1744,6 +1859,315 @@ width: toRem(275);
         ` }}
       </prism>
     </div>
+
+    <h3 class="tit-pub-guide">
+      운동 아이콘(56X56), 24X24 size는 addClass small, 아이콘만 단독 사용가능
+      (record-card-name X)
+    </h3>
+    <div class="pub-guide-sample elevation-2">
+      <span class="record-card-name"
+        ><i class="icon-sports bicycle"></i
+        ><span class="text">자전거</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports ping-pong"></i
+        ><span class="text">탁구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports baseball"></i
+        ><span class="text">야구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports golf"></i><span class="text">골프</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports muscular"></i
+        ><span class="text">근력운동</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports running"></i
+        ><span class="text">달리기</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports hiking"></i
+        ><span class="text">하이킹</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports stairs"></i
+        ><span class="text">계단오르기</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports basketball"></i
+        ><span class="text">농구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports billiards"></i
+        ><span class="text">당구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports climb"></i><span class="text">등산</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports runningMachine"></i
+        ><span class="text">런닝머신(걷기)</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports runningMachine"></i
+        ><span class="text">런닝머신(달리기)</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports badminton"></i
+        ><span class="text">배드민턴</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports boxing"></i><span class="text">복싱</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports bowling"></i><span class="text">볼링</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports swim"></i><span class="text">수영</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports squash"></i
+        ><span class="text">스쿼시</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports spinning"></i
+        ><span class="text">스피닝</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports aerobic"></i
+        ><span class="text">에어로빅</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports yoga"></i><span class="text">요가</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports footVolleyball"></i
+        ><span class="text">족구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports jumpRope"></i
+        ><span class="text">줄넘기</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports footVolleyball"></i
+        ><span class="text">축구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports tennis"></i
+        ><span class="text">테니스</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports yoga"></i
+        ><span class="text">필라테스</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports jiuJitsu"></i
+        ><span class="text">주짓수</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports taekwondo"></i
+        ><span class="text">태권도</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports judo"></i><span class="text">유도</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports volleyball"></i
+        ><span class="text">배구</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports climbing"></i
+        ><span class="text">클라이밍</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports dance"></i><span class="text">댄스</span></span
+      >
+      <span class="record-card-name"
+        ><i class="icon-sports jump-rope"></i
+        ><span class="text">줄넘기</span></span
+      >
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+        <span class="record-card-name"
+          ><i class="icon-sports bicycle"></i
+          ><span class="text">자전거</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports ping-pong"></i
+          ><span class="text">탁구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports baseball"></i
+          ><span class="text">야구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports golf"></i><span class="text">골프</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports muscular"></i
+          ><span class="text">근력운동</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports running"></i
+          ><span class="text">달리기</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports hiking"></i
+          ><span class="text">하이킹</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports stairs"></i
+          ><span class="text">계단오르기</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports basketball"></i
+          ><span class="text">농구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports billiards"></i
+          ><span class="text">당구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports climb"></i><span class="text">등산</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports runningMachine"></i
+          ><span class="text">런닝머신(걷기)</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports runningMachine"></i
+          ><span class="text">런닝머신(달리기)</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports badminton"></i
+          ><span class="text">배드민턴</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports boxing"></i
+          ><span class="text">복싱</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports bowling"></i
+          ><span class="text">볼링</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports swim"></i><span class="text">수영</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports squash"></i
+          ><span class="text">스쿼시</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports spinning"></i
+          ><span class="text">스피닝</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports aerobic"></i
+          ><span class="text">에어로빅</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports yoga"></i><span class="text">요가</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports footVolleyball"></i
+          ><span class="text">족구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports jumpRope"></i
+          ><span class="text">줄넘기</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports footVolleyball"></i
+          ><span class="text">축구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports tennis"></i
+          ><span class="text">테니스</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports yoga"></i
+          ><span class="text">필라테스</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports jiuJitsu"></i
+          ><span class="text">주짓수</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports taekwondo"></i
+          ><span class="text">태권도</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports judo"></i><span class="text">유도</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports volleyball"></i
+          ><span class="text">배구</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports climbing"></i
+          ><span class="text">클라이밍</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports dance"></i><span class="text">댄스</span></span
+        >
+        <span class="record-card-name"
+          ><i class="icon-sports jump-rope"></i
+          ><span class="text">줄넘기</span></span
+        >
+        ` }}
+      </prism>
+    </div>
+
+    <h3 class="tit-pub-guide">tab container 100%</h3>
+    <div class="pub-guide-sample elevation-2">
+      <v-tabs v-model="tabInit" fixed-tabs align-tabs="center" class="tab-line">
+        <v-tab
+          v-for="(item, i) in tabItems"
+          :key="i"
+          :value="i"
+          :ripple="false"
+        >
+          {{ item.titleTab }}
+        </v-tab>
+      </v-tabs>
+
+      <v-window v-model="tabInit" class="mt-7">
+        <v-window-item> 컨텐츠1 </v-window-item>
+        <v-window-item> 컨텐츠2 </v-window-item>
+      </v-window>
+    </div>
+    <div class="pub-guide">
+      <prism language="markup"
+        >{{ `
+
+        <v-tabs
+          v-model="tabInit"
+          fixed-tabs
+          align-tabs="center"
+          class="tab-line"
+        >
+          <v-tab
+            v-for="(item, i) in tabItems"
+            :key="i"
+            :value="i"
+            :ripple="false"
+          >
+            \{\{\ item.titleTab \}\}\
+          </v-tab>
+        </v-tabs>
+
+        <v-window v-model="tabInit" class="mt-7">
+          <v-window-item> 컨텐츠1 </v-window-item>
+          <v-window-item> 컨텐츠2 </v-window-item>
+        </v-window>
+        ` }}
+      </prism>
+    </div>
   </div>
 </template>
 
@@ -1764,6 +2188,7 @@ width: toRem(275);
       }
     },
     setup() {
+      const textareaValue = ref('입력텍스트')
       const news = ref(false)
       const name2 = ref('오전 9시 30분')
       const isActive = ref(false)
@@ -1986,6 +2411,7 @@ width: toRem(275);
       ])
 
       return {
+        textareaValue,
         news,
         event,
         name2,
@@ -2050,5 +2476,8 @@ width: toRem(275);
   .pub-guide-sample {
     padding: 25px;
     margin: 20px 0;
+    .record-card-name {
+      display: flex;
+    }
   }
 </style>

@@ -1,0 +1,16 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="24" rx="4.8" fill="#F8F8F8"/>
+<path d="M6 7.80195C6 6.80784 6.80589 6.00195 7.8 6.00195H16.2C17.1941 6.00195 18 6.80784 18 7.80195V16.802C18 17.7961 17.1941 18.602 16.2 18.602H7.8C6.80589 18.602 6 17.7961 6 16.802V7.80195Z" fill="url(#paint0_linear_2853_8816)"/>
+<rect x="8.3999" y="10.2031" width="7.2" height="1.5" rx="0.6" fill="white"/>
+<rect x="8.3999" y="13.2031" width="4.2" height="1.5" rx="0.6" fill="white"/>
+<rect x="8.3999" y="4.80273" width="1.2" height="3" rx="0.6" fill="#CBCBFF"/>
+<rect x="11.3999" y="4.80273" width="1.2" height="3" rx="0.6" fill="#CBCBFF"/>
+<rect x="14.3999" y="4.80273" width="1.2" height="3" rx="0.6" fill="#CBCBFF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M19.856 11.2789C20.0903 11.5132 20.0903 11.8931 19.856 12.1274L15.7075 16.2759C15.6343 16.3491 15.5433 16.4022 15.4435 16.4298L13.9057 16.856C13.6809 16.9182 13.4742 16.7115 13.5365 16.4867L13.9626 14.9489C13.9902 14.8491 14.0433 14.7581 14.1165 14.6849L18.265 10.5364C18.4993 10.3021 18.8792 10.3021 19.1135 10.5364L19.856 11.2789Z" fill="#5553B6"/>
+<defs>
+<linearGradient id="paint0_linear_2853_8816" x1="12" y1="6.00195" x2="12" y2="18.602" gradientUnits="userSpaceOnUse">
+<stop stop-color="#918EF8"/>
+<stop offset="1" stop-color="#7370F0"/>
+</linearGradient>
+</defs>
+</svg>

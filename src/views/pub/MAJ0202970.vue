@@ -1,21 +1,14 @@
 <template>
   <div class="contents">
-    <div class="report-title mb-4">
-      <!-- picker -->
-      <v-btn variant="text" class="fs-24 pa-0">
-        <span class="pr-2">2023.08.03</span>
-        <img src="@/assets/images/icon-arrow-down.svg" alt="" />
-      </v-btn>
-      <v-chip label size="small" class="chip-default"
-        ><span class="text-dot">미연결</span></v-chip
-      >
+    <div class="life-calendar">
+      <VCalendar :attributesValue="calendarAttr" />
     </div>
-    <div class="section-page bg py-8">
+    <div class="section-page bg pa-4">
       <ReportResult :bnShow="'now'" :videBox="false" class="mb-4">
         휴레이 메시지는 아직 확정되지 않았다
       </ReportResult>
 
-      <v-card variant="flat" rounded="xl" class="pa-4">
+      <v-card variant="flat" rounded="xl" class="px-4 py-6">
         <v-card-title class="pa-0">
           <p class="d-flex align-center">
             <span class="blood-pressure-shrink"
@@ -30,59 +23,56 @@
             <span class="ml-2">30-32mmHg</span>
           </p>
         </v-card-title>
-
-        <!-- chart -->
-        <div class="pt-8">
-          <v-sheet>
-            <v-tabs v-model="tab" hide-slider class="tabs-round navy">
-              <v-tab value="bloodPressure" class="btn-tab" :ripple="false"
-                >혈압</v-tab
-              >
-              <v-tab value="pulse" class="btn-tab" :ripple="false">맥박</v-tab>
-            </v-tabs>
-            <v-sheet>
-              <v-window v-model="tab">
-                <v-window-item value="bloodPressure">
-                  <v-sheet class="container-chart"
-                    ><img src="/src/assets/images/graph.svg" alt=""
-                  /></v-sheet>
-                </v-window-item>
-
-                <v-window-item value="pulse"
-                  ><v-sheet class="container-chart"
-                    >맥박</v-sheet
-                  ></v-window-item
-                >
-              </v-window>
-            </v-sheet>
-          </v-sheet>
-          <div class="btn-area2">
-            <v-btn
-              variant="flat"
-              height="46px"
-              class="bdr-8 fs-16 font-weight-bold"
-              color="#FCEBA6"
-              block
-              >직접 입력</v-btn
-            >
-            <v-btn
-              variant="text"
-              height="46px"
-              class="bdr-8 fs-16 font-weight-bold skip"
-              block
-              >기기 측정</v-btn
-            >
-          </div>
+        <v-tabs align-tabs="start" class="tab-line mt-4">
+          <v-tab class="btn-tab" :ripple="false">혈압</v-tab>
+          <v-tab class="btn-tab" :ripple="false">맥박</v-tab>
+        </v-tabs>
+        <v-tabs align-tabs="start" hide-slider class="tabs-round navy mt-6">
+          <v-tab class="btn-tab" :ripple="false"
+            ><v-icon class="i-cal" />일별 조회</v-tab
+          >
+          <v-tab class="btn-tab" :ripple="false"
+            ><v-icon class="i-time" />시간별 조회</v-tab
+          >
+        </v-tabs>
+        <div class="mt-4">
+          <!-- chart -->
+          <img src="/assets/images/graph.svg" alt="" />
+          <!-- //chart -->
         </div>
+        <div class="btn-area2 mt-12">
+          <v-btn
+            variant="flat"
+            height="46px"
+            class="bdr-8 fs-14 font-weight-bold"
+            color="#FCEBA6"
+            block
+            ><span class="c-darkGray">직접 입력하기</span></v-btn
+          >
+          <v-btn
+            variant="text"
+            height="46px"
+            class="bdr-8 fs-14 font-weight-bold skip"
+            block
+          >
+            <div class="tooltip-balloon arrow-bottom right green">
+              측정 가능
+            </div>
+            <span class="c-darkGray">기기 측정하기</span>
+          </v-btn>
+        </div>
+        <p class="mt-4 text-right text-grey3 fs-13">
+          마지막 기록 23.11.01 오후 11:20
+        </p>
       </v-card>
     </div>
 
     <!-- 혈압기록 -->
     <div class="py-8">
-      <h2 class="tit-03 tit-link pb-2">
+      <h2 class="tit-03 tit-link">
         <v-btn block variant="text">혈압 기록</v-btn>
       </h2>
-      <div class="text-info-grey">최근 3개 기록만 표시됩니다</div>
+      <div class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</div>
 
       <!-- 기록 component -->
       <CardReport
@@ -128,47 +118,34 @@
     </div>
 
     <!-- 혈압 분석 -->
-    <div class="section-page pt-8">
-      <h2 class="tit-03 tit-link pb-2">
+    <div class="section-page">
+      <h2 class="tit-03 tit-link">
         <v-btn block variant="text">혈압 분석</v-btn>
       </h2>
-      <div class="text-info-grey">기간별 인사이트를 보여드려요</div>
-      <v-sheet class="pt-4">
-        <v-tabs v-model="Analysis" class="tabs-sliding">
-          <v-tab value="one" :ripple="false" class="btn-tab">혈압</v-tab>
-          <v-tab value="two" :ripple="false" class="btn-tab">맥박</v-tab>
-        </v-tabs>
-        <v-sheet>
-          <v-window v-model="Analysis">
-            <v-window-item value="one"
-              ><v-sheet class="container-chart reverse custom-padding">
-                <div class="d-flex fs-14 graph-date">2023.08.14~2023.08.24</div>
-                <p class="fs-16 font-weight-bold pb-4">평균 20,500걸음</p>
-                <div class="chart">
-                  <img
-                    src="@/assets/images/img-graph-bar2.png"
-                    alt=""
-                    class="graph-bar2"
-                  />
-                </div>
-              </v-sheet>
-            </v-window-item>
-
-            <v-window-item value="two"
-              ><v-sheet class="container-chart reverse"
-                >맥박</v-sheet
-              ></v-window-item
-            >
-          </v-window>
-        </v-sheet>
-      </v-sheet>
+      <div class="text-info-grey fs-16">최근 일주일의 혈압 분석입니다</div>
+      <v-tabs align-tabs="start" class="tab-line mt-4">
+        <v-tab :ripple="false" class="btn-tab">혈압</v-tab>
+        <v-tab :ripple="false" class="btn-tab">맥박</v-tab>
+      </v-tabs>
+      <p class="fs-16 font-weight-bold mt-6">혈압 평균</p>
+      <div class="d-flex fs-14 gap-13">
+        <span>수축기 120mmHg</span><span>이완기 120mmHg</span>
+      </div>
+      <div class="mt-4">
+        <!-- chart -->
+        <img
+          src="/assets/images/img-graph-bar2.png"
+          alt=""
+          style="max-width: 100%"
+        />
+        <!-- //chart -->
+      </div>
       <div class="banner-area">
         <v-btn
           variant="flat"
           color="transparent"
           class="btn-banner"
           append-icon="mdi-chevron-right"
-          href="#none"
           height="auto"
           block
           :ripple="false"
@@ -183,74 +160,66 @@
         </v-btn>
       </div>
 
-      <div class="box-banner">
-        <v-btn
-          variant="flat"
-          href="#none"
-          data-case="medical"
-          class="link-banner"
-          color="#F8F8F8"
-        >
-          <span class="txbox">
-            <strong class="title">식사관리해보러 가기</strong>
-            <span class="text">혈압과 함께 관리해보세요</span>
-          </span>
-          <template #append>
-            <img src="/src/assets/images/icon-meal.svg" alt="" />
-          </template>
-        </v-btn>
-      </div>
+      <Carousel
+        :items-to-Show="1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper"
+      >
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName" @update="goPath(item.path)">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+      <!-- //배너 -->
     </div>
-    <!-- 챌린지 영역 -->
-    <div class="section-page pt-8">
-      <h2 class="tit-03 tit-link pb-2">
-        <v-btn block variant="text">챌린지 영역</v-btn>
-      </h2>
-      <div class="text-info-grey">서브텍스트가 노출됩니다</div>
-      <swiper :slides-per-view="1.7" :space-between="16" class="swiper-card">
-        <swiper-slide v-for="swiperCard in swiperCard" :key="swiperCard">
-          <v-card :line="2" class="swiperCard" elevation="0" color="#F8F8F8">
-            <v-img
-              :src="`/src/assets/images/` + swiperCard.src"
-              cover
-              min-height="1"
-            >
-            </v-img>
+    <!-- //협압분석 -->
 
-            <v-card-text>{{ swiperCard.title }}</v-card-text>
-          </v-card>
-        </swiper-slide>
-      </swiper>
+    <div class="section-page">
+      <LifelogChallenge />
     </div>
+    <!-- //챌린지 -->
 
-    <!-- 함께 볼만한 뉴스 -->
-    <div class="section-page pt-8 pb-0">
-      <div class="tit-03">함께 볼만한 뉴스</div>
-      <ul class="news-list type-2">
-        <li class="news-item pt-4" v-for="item in news" :key="item.id">
-          <div class="news-left">
-            <p class="news-title text-overflow line3">{{ item.text }}</p>
-          </div>
-          <img
-            :src="`/src/assets/images/${item.img}`"
-            alt=""
-            class="news-img type-2"
-          />
-        </li>
-      </ul>
+    <div class="section-page pb-0">
+      <LifelogHealthnews />
     </div>
+    <!-- //건강뉴스 -->
   </div>
 </template>
 
 <script>
+  import router from '@/router'
+  import VCalendar from '@/components/VCalendar.vue'
   import CardReport from '@/components/CardReport.vue'
   import ReportResult from '@/components/BanerReport.vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
+  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
+  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
   import { Swiper, SwiperSlide } from 'swiper/vue'
   import { ref } from 'vue'
+  import { Carousel, Slide, Pagination } from 'vue3-carousel'
+  import 'vue3-carousel/dist/carousel.css'
   import 'swiper/css'
 
   export default {
-    components: { CardReport, ReportResult, Swiper, SwiperSlide },
+    components: {
+      VCalendar,
+      CardReport,
+      ReportResult,
+      BanerSimple,
+      Swiper,
+      SwiperSlide,
+      LifelogChallenge,
+      LifelogHealthnews,
+      Carousel,
+      Slide,
+      Pagination
+    },
 
     setup() {
       const tab = ref(null)
@@ -282,12 +251,6 @@
           recordPulse: '132/32'
         }
       ])
-
-      const swiperCard = ref([
-        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' },
-        { title: '챌린지영역이 노출될 예정입니다.', src: 'exercise.png' },
-        { title: '챌린지영역이 노출될 예정입니다.', src: 'img-challenge.png' }
-      ])
       function getText(props) {
         switch (props) {
           case 'primary':
@@ -298,41 +261,52 @@
             return '위험(고혈압 2단계)'
         }
       }
-
-      const news = ref([
-        {
-          text: '면연력이 떨어지면 찾아오는 불청객 독감면연력이 떨어지면 찾아오는 불청객 독감면연력이 떨어지면 찾아오는',
-          img: 'img-news-thumb.png'
-        },
-        {
-          text: '면연력이 떨어지면 찾아오는 불청객 독감',
-          img: 'exercise.png'
-        },
-        {
-          text: '"나 안 건강해요” 한국인 비율이 가장 높다',
-          img: 'exercise.png'
-        },
-        {
-          text: '운동이 정신건강에 미치는 5가지 장점은?',
-          img: 'exercise.png'
-        },
-        {
-          text: '당뇨있는데 근육 없으면 안되',
-          img: 'exercise.png'
-        }
-      ])
-
       function handleClick() {
         console.log('emit')
       }
+
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 10, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 10)]
+        }
+      ])
+      const banerList = ref([
+        {
+          title: '혈당 관리하러 가기',
+          text: '혈압과 함께 관리해보세요!',
+          iconName: 'icon-blood-sugar.svg',
+          path: '/MAJ0203020'
+        },
+        {
+          title: '심박 관리하러 가기',
+          text: '혈압과 함께 관리해보세요!',
+          iconName: 'icon-heart-03.svg',
+          path: '/MAJ0203390'
+        }
+      ])
+      function goPath(val) {
+        router.push(val)
+      }
+
       return {
         reports,
         getText,
         Analysis,
         handleClick,
-        news,
-        swiperCard,
-        tab
+        tab,
+        calendarAttr,
+        banerList,
+        goPath
       }
     }
   }

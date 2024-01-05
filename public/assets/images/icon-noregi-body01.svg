@@ -1,0 +1,11 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" rx="8" fill="#F8F8F8"/>
+<rect x="7.63281" y="10" width="4" height="4" rx="2" fill="#56B8F1"/>
+<rect x="13.6328" y="10.5" width="16" height="3.01824" rx="1.50912" fill="#56B8F1"/>
+<rect x="7.63281" y="16.5" width="4" height="4" rx="2" fill="#56B8F1"/>
+<rect x="13.6328" y="17" width="16" height="3.01824" rx="1.50912" fill="#56B8F1"/>
+<rect x="7.63281" y="23" width="4" height="4" rx="2" fill="#56B8F1"/>
+<rect x="13.6328" y="23.5" width="16" height="3.01824" rx="1.50912" fill="#56B8F1"/>
+<path d="M32.3948 30.6051C32.7296 30.9399 33.2723 30.9399 33.6071 30.6051C33.9418 30.2704 33.9418 29.7276 33.6071 29.3929L32.3948 30.6051ZM28.9662 27.1764L32.3948 30.6051L33.6071 29.3929L30.1784 25.9642L28.9662 27.1764Z" fill="#3C6F9F"/>
+<circle cx="26.143" cy="23.143" r="5.14304" fill="#E7FCFF" fill-opacity="0.5" stroke="#3C6F9F" stroke-width="1.71435" stroke-miterlimit="10" stroke-linecap="round"/>
+</svg>

@@ -15,7 +15,13 @@
           <dialogMyhospital v-model="modal3" @close="modal3 = false" />
           <!-- //내병원 -->
 
-          <v-btn variant="text" class="btn-siren">응급실</v-btn>
+          <v-btn
+            variant="text"
+            class="btn-siren"
+            :class="isActive ? 'on' : ''"
+            @click="isActive = !isActive"
+            >응급실</v-btn
+          >
         </span>
       </div>
       <div class="tabs-simple2 gap mt-2">
@@ -31,10 +37,7 @@
 
         <div class="media-slide">
           <v-btn variant="text" @click="goPath('MAJ0305720')">전체</v-btn>
-          <v-btn
-            variant="text"
-            @click="goPath('MAJ0305720')"
-            aria-selected="true"
+          <v-btn variant="text" @click="modal5 = true" aria-selected="true"
             >이비인후과</v-btn
           >
           <v-btn
@@ -43,6 +46,7 @@
             aria-selected="true"
             >감기</v-btn
           >
+          <dialogDefaultSearch v-model="modal5" @close="modal5 = false" />
           <v-divider vertical />
           <v-btn variant="text">진료중</v-btn>
         </div>
@@ -74,7 +78,7 @@
         class="mt-3"
         @update="goPath"
       />
-      <Nodata :icon="true" :iconSize="'big'">
+      <Nodata :icon="true" iconSize="big" iconType="hospital">
         <div class="fs-16">검색결과가 없습니다<br />조건을 변경해주세요</div>
       </Nodata>
     </template>
@@ -90,6 +94,7 @@
           @click="mapViewFuc"
           variant="text"
           class="bottom-fix btn-mapview"
+          height="36"
           >지도보기</v-btn
         >
         <v-btn
@@ -97,6 +102,7 @@
           @click="listViewFuc"
           variant="text"
           class="bottom-fix btn-listview"
+          height="36"
           >목록보기</v-btn
         >
       </div>
@@ -115,9 +121,9 @@
   import dialogFilter from '@/views/pub/MAJ0305732.vue'
   import dialogAddress from '@/views/pub/MAJ0305736.vue'
   import dialogMyhospital from '@/views/pub/MAJ0305737.vue'
-  import dialogHospital from '@/views/pub/MAJ0305738.vue'
+  import dialogDefaultSearch from '@/views/pub/MAJ0305739.vue'
   import Nodata from '@/components/nodata/Nodata.vue'
-  import { ref, computed, onUnmounted } from 'vue'
+  import { ref, onUnmounted } from 'vue'
   export default {
     components: {
       HospitalCard,
@@ -126,7 +132,7 @@
       dialogFilter,
       dialogAddress,
       dialogMyhospital,
-      dialogHospital,
+      dialogDefaultSearch,
       Nodata
     },
     setup() {
@@ -134,6 +140,7 @@
       const modal2 = ref(false)
       const modal3 = ref(false)
       const modal4 = ref(false)
+      const modal5 = ref(false)
       const visibleList = ref(true)
       const visibleMap = ref(false)
       const hospitalList = ref([
@@ -216,18 +223,21 @@
       onUnmounted(() => {
         document.querySelector('.v-layout').classList.remove('overflow-hidden')
       })
+      const isActive = ref(false)
       return {
         modal,
         modal2,
         modal3,
         modal4,
+        modal5,
         visibleList,
         visibleMap,
         hospitalList,
         mapViewFuc,
         listViewFuc,
         mapList,
-        goPath
+        goPath,
+        isActive
       }
     }
   }

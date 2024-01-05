@@ -21,7 +21,12 @@
             :counter="2"
             variant="outlined"
             no-resize
-          ></v-textarea>
+          >
+            <template v-slot:counter="{ value, max }">
+              <span class="current-value">{{ value }}</span> /
+              <span class="max-length">{{ max }}</span>
+            </template>
+          </v-textarea>
         </div>
       </v-expand-transition>
 

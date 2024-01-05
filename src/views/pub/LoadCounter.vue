@@ -15,6 +15,7 @@
   export default {
     components: { NumberCounter },
     setup() {
+      const test1 = ref()
       const listNumberCount = ref([
         {
           numberStart: '200',

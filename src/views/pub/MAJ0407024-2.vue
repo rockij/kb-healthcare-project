@@ -66,7 +66,7 @@
     </v-card>
   </v-dialog>
   <!-- toast 팝업 -->
-  <v-snackbar v-model="snackbar" class="toast-basic">정상적으로 등록 되었습니다.</v-snackbar>
+  <v-snackbar v-model="snackbar" :timeout="2000" class="toast-basic">정상적으로 등록 되었습니다.</v-snackbar>
 </template>
 
 <script>

@@ -49,7 +49,7 @@
           id: 5,
           text: '앱 정보',
           version: 'V2.0.0',
-          state: true
+          state: false
         },
         {
           id: 6,

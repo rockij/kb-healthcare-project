@@ -1,5 +1,5 @@
 <template>
-  <div class="numcount-area2 flex-1-1">
+  <div class="numcount-area4">
     <v-btn
       variant="text"
       class="handle decrease"

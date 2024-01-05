@@ -1,6 +1,6 @@
 <template>
-  <div class="contents">
-    <div class="layout-half-col">
+  <div class="contents pb-0">
+    <div class="layout-half-col pt-3">
       <div class="half-top">
         <div class="title-area">
           <p class="subTit-01">증상 검색 대상을 선택하세요</p>

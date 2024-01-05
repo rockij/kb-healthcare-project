@@ -29,7 +29,7 @@
             <div style="width: 100%; height: 200px; background-color: #eee">
               그래프예시
             </div>
-            <ul class="pt-4 body-text d-flex">
+            <ul class="pt-4 body-text d-flex list-circle">
               <li class="item">
                 그래프는 체성분 항목의 평균 또는 정상 범위 대비 내 상태를 한
                 눈에 볼 수 있도록 표현한 차트입니다
@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <v-card-actions>
+        <!-- <v-card-actions>
           <v-btn
             height="48px"
             class="bdr-8 btn-yellow"
@@ -57,7 +57,7 @@
             @click="dialog = false"
             >확인</v-btn
           >
-        </v-card-actions>
+        </v-card-actions> -->
       </v-card>
     </v-dialog>
   </div>

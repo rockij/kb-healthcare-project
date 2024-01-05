@@ -1,7 +1,7 @@
 <template>
   <div class="contents pt-3">
     <template v-if="visibleList">
-      <div class="search-area mb-4">
+      <div class="search-area">
         <v-text-field
           id="search"
           variant="outlined"
@@ -10,13 +10,13 @@
           placeholder="병원명 및 진료과목 검색"
           prepend-inner-icon="mdi-magnify"
           class="textfield-search type fs-16"
-          :rules="[(v) => (v && v.length >= 2) || '2자 이상 입력해 주세요']"
           @keyup="getText"
         ></v-text-field>
         <v-btn variant="text" @click="goPath('MAJ0305720')" class="btn"
           >취소</v-btn
         >
       </div>
+      <p class="text-message-error">2자 이상 입력해 주세요</p>
       <!-- //검색입력 -->
       <div v-if="text" class="list-keyword mt-8">
         <span class="fs-18">진료과목</span>
@@ -40,11 +40,11 @@
       </div>
       <!-- //키워드 -->
       <div class="section-page brt-0 pa-0 mt-4 mb-5">
-        <div class="bside-area type px-6">
+        <div class="bside-area type2 px-6">
           <v-btn variant="text" class="btn-map" @click="modal2 = true"
             >강남구 삼성동</v-btn
           >
-          <v-btn
+          <!--<v-btn
             variant="text"
             density="compact"
             class="fs-16 px-0"
@@ -52,11 +52,11 @@
           >
             {{ modalListBtn }}
             <img
-              src="@/assets/images/icon-arrow-down2.svg"
+              src="/assets/images/icon-arrow-down2.svg"
               alt=""
               class="ml-1"
             />
-          </v-btn>
+          </v-btn>-->
           <span class="fs-14">총 25건</span>
           <dialogAddress v-model="modal2" @close="modal2 = false" />
           <DialogSelectList
@@ -89,7 +89,7 @@
         :hightlight="hightlight"
         @update="goPath(item.path)"
       />
-      <Nodata :icon="true">
+      <Nodata :icon="true" iconSize="big" iconType="hospital">
         <div class="fs-16">
           검색 결과가 없습니다.<br />다른 검색어를 입력해주세요.
         </div>
@@ -107,6 +107,7 @@
           @click="mapViewFuc"
           variant="text"
           class="bottom-fix btn-mapview"
+          height="36"
           >지도보기</v-btn
         >
         <v-btn
@@ -114,6 +115,7 @@
           @click="listViewFuc"
           variant="text"
           class="bottom-fix btn-listview"
+          height="36"
           >목록보기</v-btn
         >
       </div>

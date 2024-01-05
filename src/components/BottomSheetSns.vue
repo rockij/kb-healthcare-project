@@ -24,7 +24,7 @@
       </v-toolbar>
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container">
-          <div class="d-flex gap-21">
+          <div class="d-grid g-tcol-3 gap-21">
             <v-btn
               variant="text"
               @click="$emit('kakao')"

@@ -1,177 +1,645 @@
 <template>
-  <div class="contents pt-0">
+  <div class="contents">
     <div class="life-calendar">
-      <VCalendar />
+      <VCalendar :attributesValue="calendarAttr" />
     </div>
-    <div class="section-page bg px-4 pt-4 pb-2">
-      <BanerReport :videBox="false" class="mb-4">
-        아직 음주 기록이 없어요<br />음주 기록을 입력하면 확인할 수 있어요
+    <div class="section-page bg pa-4">
+      <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
+        휴레이 메시지는 아직 확정되지 않았다
       </BanerReport>
       <v-card variant="flat" rounded="xl" class="px-4 py-6">
-        <div class="d-flex">
-          <v-card-title class="pa-0 fs-20 font-weight-bold"
+        <div class="d-flex align-center">
+          <v-card-title
+            v-if="drinkMode === false"
+            class="pa-0 fs-20 font-weight-bold"
             >오늘의 기록
           </v-card-title>
           <v-switch
             class="switch-default switch-title flex-0-0 align-self-start ml-auto"
-            label="음주모드"
+            v-model="drinkMode"
+            label="금주모드"
             color="#FFD338"
             hide-details
+            @click="drinkModeCheck"
           ></v-switch>
         </div>
-        <div class="tabs-target media-slide alcohols mt-6">
-          <v-btn
-            variant="text"
-            v-for="btn in alcoholTypeBtns"
-            :key="btn.value"
-            :class="`target${btn.value} ${
-              alcoholTypeBtn === btn.value ? 'selected' : ''
-            }`"
-            @click="alcoholTypeSelected(btn.value)"
-            ><span v-html="btn.text"></span
-          ></v-btn>
-        </div>
-        <div class="text-center mt-6">
-          <v-btn
-            variant="flat"
-            height="32"
-            color="#F2F4F6"
-            class="text-blue fs-13"
-            rounded="lg"
-            >단위 : 잔 (500ml)</v-btn
+        <p
+          v-if="drinkMode === false"
+          class="d-flex align-center fs-13 text-grey mt-1"
+        >
+          <v-icon class="icon-dsc mr-1" />이미지 선택 시 잔/캔/병 단위 변경 가능
+        </p>
+        <template v-if="drinkMode === false">
+          <Carousel
+            :items-to-show="2.1"
+            :wrap-around="true"
+            class="life-count-swiper type mt-7"
           >
-        </div>
-        <div class="numcount-area mt-4 px-3">
-          <v-btn
-            variant="text"
-            class="handle decrease"
-            title="감소"
-            @click="numcount > 0 ? numcount-- : ''"
-          ></v-btn>
-          <strong class="number">{{ numcount }}</strong>
-          <v-btn
-            variant="text"
-            class="handle increase"
-            title="증가"
-            @click="numcount++"
-          ></v-btn>
+            <Slide v-for="item in alcoholTypeList" :key="item.value">
+              <AlcholAmount
+                :iconName="alcoholTypeIcon"
+                :iconNum="item.value"
+                :text="item.text"
+                :numcount="item.cup"
+                @update:minus="item.cup > 0 ? item.cup-- : 0"
+                @update:plus="item.cup++"
+              />
+            </Slide>
+          </Carousel>
+        </template>
+        <div v-if="drinkMode === true" class="countdown-flip mt-6">
+          <div class="clock">
+            <div class="digit">
+              <div ref="day" class="card">
+                <div class="face face-front"></div>
+                <div class="face face-back"></div>
+              </div>
+              <div class="num">{{ d }}</div>
+            </div>
+            일
+          </div>
+          <div class="clock">
+            <div class="digit">
+              <div ref="hour" class="card">
+                <div class="face face-front"></div>
+                <div class="face face-back"></div>
+              </div>
+              <div class="num">{{ h }}</div>
+            </div>
+            시
+          </div>
+          <div class="clock">
+            <div class="digit">
+              <div ref="minute" class="card">
+                <div class="face face-front"></div>
+                <div class="face face-back"></div>
+              </div>
+              <div class="num">{{ m }}</div>
+            </div>
+            분
+          </div>
+          <div class="clock">
+            <div class="digit">
+              <div ref="second" class="card">
+                <div class="face face-front"></div>
+                <div class="face face-back"></div>
+              </div>
+              <div class="num">{{ s }}</div>
+            </div>
+            초
+          </div>
         </div>
         <div class="btn-area2 mt-6">
           <v-btn
+            v-if="drinkMode === false"
             variant="text"
             height="46px"
-            class="bdr-8 fs-16 font-weight-bold skip"
+            class="bdr-8 fs-14 font-weight-bold skip"
             block
             :disabled="disabledCheck"
-            >저장하기</v-btn
+            ><span class="c-darkGray">저장하기</span></v-btn
+          >
+          <v-btn
+            v-if="drinkMode === true && !drinkBtn"
+            variant="text"
+            height="46px"
+            class="bdr-8 fs-14 font-weight-bold skip"
+            block
+            @click="watchHandle('start')"
+            ><span class="c-darkGray">금주 시작</span></v-btn
+          >
+          <v-btn
+            v-if="drinkBtn"
+            variant="text"
+            height="46px"
+            class="bdr-8 fs-14 font-weight-bold skip"
+            block
+            @click="watchHandle('end')"
+            ><span class="c-darkGray">금주 종료</span></v-btn
           >
         </div>
       </v-card>
     </div>
     <!-- //금주모드선택 -->
 
-    <div class="section-page">
-      <h2 class="tit-03 tit-link">
-        <v-btn block variant="text">음주 기록</v-btn>
-      </h2>
-      <p class="text-info-grey fs-16 mb-6">최근 3개 기록만 표시됩니다</p>
-      <Nodata
-        :icon="true"
-        :iconSize="'big'"
-        :optionClass="'type'"
-        class="mt-13"
+    <div v-if="drinkMode === true" class="section-page brt-0">
+      <h2 class="tit-03">금주하면 생기는 긍정적인 변화</h2>
+      <div
+        v-for="(list, i) in nalcoholList"
+        :key="i"
+        class="list-iconlst2 mt-2"
       >
-        <div class="fs-16">
-          아직 음주 기록이 없어요<br />음주 기록을 하면 확인할 수 있어요
-        </div>
-      </Nodata>
+        <v-img class="icon" :src="`/assets/images/${list.icon}`" alt="" />
+        <p>{{ list.text }}</p>
+      </div>
     </div>
-    <!-- //음주기록 -->
+    <!-- //금주긍정변화(3개만 노출) -->
 
-    <div class="section-page">
+    <div v-if="drinkMode === false" class="section-page brt-0">
       <h2 class="tit-03 tit-link">
         <v-btn block variant="text">음주 분석</v-btn>
       </h2>
-      <p class="text-info-grey fs-16">기간별 인사이트를 보여드려요</p>
+      <p class="text-info-grey fs-16">최근 1주일의 음주를 분석입니다</p>
       <Nodata
         :icon="true"
-        :iconSize="'big'"
+        :iconSize="'big-analysis'"
         :optionClass="'type'"
         class="mt-13"
       >
         <div class="fs-16">
-          아직 음주 기록이 없어요<br />음주 기록을 하면 확인할 수 있어요
+          1주일째 음주기록이 없네요<br />
+          예전보다 숙면을 취할 수 있어요
         </div>
       </Nodata>
     </div>
     <!-- //음주분석 -->
+
+    <div class="section-page">
+      <template v-if="drinkMode === false">
+        <h2 class="tit-03 tit-link">
+          <v-btn block variant="text">음주 기록</v-btn>
+        </h2>
+        <p class="text-info-grey fs-16 mb-6">최근 3개 기록만 표시됩니다</p>
+        <Nodata
+          :icon="true"
+          :iconSize="'big-record'"
+          :optionClass="'type'"
+          class="mt-13"
+        >
+          <div class="fs-16">건강한 음주 생활을 위한<br />기록을 해보세요</div>
+        </Nodata>
+      </template>
+      <!-- //음주기록 -->
+
+      <template v-if="drinkMode === true">
+        <h2 class="tit-03 tit-link">
+          <v-btn block variant="text">금주 기록</v-btn>
+        </h2>
+        <p class="text-info-grey fs-16 mb-6">최근 3개 기록만 표시됩니다</p>
+        <Nodata
+          :icon="true"
+          :iconSize="'big-record'"
+          :optionClass="'type'"
+          class="mt-13"
+        >
+          <div class="fs-16">건강한 음주 생활을 위한<br />기록을 해보세요</div>
+        </Nodata>
+      </template>
+      <!-- //금주시간 -->
+
+      <Carousel
+        :items-to-Show="1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper mt-8"
+      >
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName" @update="goPath(item.path)">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+      <!-- //배너 -->
+    </div>
+
+    <div class="section-page">
+      <LifelogChallenge />
+    </div>
+    <!-- //챌린지 -->
+
+    <div class="section-page pb-0">
+      <LifelogHealthnews />
+    </div>
+    <!-- //건강뉴스 -->
+
+    <DialogSetting
+      :lists="modalList"
+      v-model="modal"
+      @close="modal = false"
+      @modifyClick="modifyFunc"
+      @deleteClick="delFunc"
+    />
+    <RecordDrinking
+      v-model="modal2"
+      @close="modal2 = false"
+      @update="modal2 = false"
+    />
+    <DialogDrinkSuccess
+      v-model="modal3"
+      @close="modal3 = false"
+      @update="modal3 = false"
+    />
   </div>
 </template>
 <script>
+  import router from '@/router'
   import Nodata from '@/components/nodata/Nodata.vue'
+  import Tooltip from '@/components/Tooltip2.vue'
   import VCalendar from '@/components/VCalendar.vue'
   import BanerReport from '@/components/BanerReport.vue'
-  import { ref, computed } from 'vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
+  import CardReport from '@/components/CardReport.vue'
+  import DialogSetting from '@/components/DialogSetting.vue' // 설정
+  import DialogUnitSelect from '@/components/DialogSelectList.vue' // 조회기간
+  import RecordDrinking from '@/views/pub/MAJ0202986.vue' // 단위
+  import DialogDrinkSuccess from '@/views/pub/MAJ0202988.vue'
+  import AlcholAmount from '@/views/pub/MAJ0202950-2.vue'
+  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
+  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
+  import { ref, computed, reactive } from 'vue'
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Carousel, Slide, Pagination } from 'vue3-carousel'
+  import 'swiper/css'
+  import 'vue3-carousel/dist/carousel.css'
   export default {
     components: {
       Nodata,
+      Tooltip,
       VCalendar,
-      BanerReport
+      BanerReport,
+      BanerSimple,
+      CardReport,
+      DialogSetting,
+      DialogUnitSelect,
+      RecordDrinking,
+      DialogDrinkSuccess,
+      AlcholAmount,
+      LifelogChallenge,
+      LifelogHealthnews,
+      Swiper,
+      SwiperSlide,
+      Carousel,
+      Slide,
+      Pagination
     },
     setup() {
+      const toolTip1 = ref(false)
+      const drinkMode = ref(false)
+
+      const alcoholTypeIcon = ref('alcup')
       const alcoholTypeBtn = ref()
-      const alcoholTypeBtns = ref([
+      const alcoholTypeList = reactive([
         {
           value: 1,
-          text: '맥주'
+          text: '맥주',
+          cup: 0
         },
         {
           value: 2,
-          text: '소주'
+          text: '소주',
+          cup: 0
         },
         {
           value: 3,
-          text: '청주'
+          text: '청주',
+          cup: 0
         },
         {
           value: 4,
-          text: '막걸리'
+          text: '양주',
+          cup: 0
         },
         {
           value: 5,
-          text: '와인'
+          text: '막걸리',
+          cup: 0
         },
         {
           value: 6,
-          text: '양주'
+          text: '와인',
+          cup: 0
         },
         {
           value: 7,
-          text: '샴페인'
+          text: '샴페인',
+          cup: 0
+        },
+        {
+          value: 8,
+          text: '고량주',
+          cup: 0
         },
         {
           value: 0,
-          text: '기타'
+          text: '기타',
+          cup: 0
         }
       ])
       function alcoholTypeSelected(val) {
         alcoholTypeBtn.value = val
       }
 
+      const newArr = alcoholTypeList.map((item, index) => {
+        return item.cup
+      })
+      const newArrResult = newArr.reduce(function add(sum, currValue) {
+        return sum + currValue
+      }, 0)
       const numcount = ref(0)
-
       const disabledCheck = computed(() => {
-        return numcount.value > 0 ? false : true
+        return newArrResult > 0 ? false : true
       })
 
+      const alcoholValList = ref([
+        {
+          text: '맥주',
+          count: '99잔 99캔 99병'
+        },
+        {
+          text: '막걸리',
+          count: '1잔 1병'
+        },
+        {
+          text: '소주',
+          count: '1잔 1병'
+        },
+        {
+          text: '샴페인',
+          count: '1잔 1병'
+        },
+        {
+          text: '청주',
+          count: '1잔 1병'
+        },
+        {
+          text: '와인',
+          count: '1잔 1병'
+        },
+        {
+          text: '양주',
+          count: '1잔 1병'
+        },
+        {
+          text: '고량주',
+          count: '1잔 1병'
+        },
+        {
+          text: '기타',
+          count: '1잔'
+        }
+      ])
+
+      const drinkBtn = ref(false)
+      const nalcoholList = ref([
+        {
+          text: '지방간 수치가 떨어저요',
+          icon: 'icon-heart-04.svg'
+        },
+        {
+          text: '피부 혈색이 좋아져요',
+          icon: 'icon-face.svg'
+        },
+        {
+          text: '몸무게가 줄어요',
+          icon: 'icon-weight2.svg'
+        },
+        {
+          text: '암 발병률이 떨어져요',
+          icon: 'icon-cancer.svg'
+        },
+        {
+          text: '일의 효율성이 증가하고 있어요',
+          icon: 'icon-chart.svg'
+        },
+        {
+          text: '깊은 수면이 가능해요',
+          icon: 'icon-moon2.svg'
+        }
+      ])
+
+      const reports = ref([
+        {
+          id: 1,
+          date: '2023.03. 23 ~ 2023.03. 24',
+          title: '주종',
+          count: '맥주, 소주',
+          title2: '음주섭취량',
+          ml: '360g'
+        },
+        {
+          id: 2,
+          date: '2023.03. 23 ~ 2023.03. 24',
+          title: '주종',
+          count: '맥주, 소주, 청주',
+          title2: '음주섭취량',
+          ml: '10g'
+        },
+        {
+          id: 3,
+          date: '2023.03. 23 ~ 2023.03. 24',
+          title: '주종',
+          count: '맥주, 소주, 청주, 기타',
+          title2: '음주섭취량',
+          ml: '460g'
+        }
+      ])
+      const reports2 = ref([
+        {
+          id: 1,
+          date: '2023.03. 23 ~ 2023.03. 24',
+          title: '금주시간',
+          count: '<span class="text-blue">00:06:12:30</span>'
+        },
+        {
+          id: 2,
+          date: '2023.03. 23 ~ 2023.03. 24',
+          title2: '금주시간',
+          ml: '<span class="text-blue">10:20:30:00</span>'
+        }
+      ])
+
+      const modal = ref(false)
+      const modalTitle = ref('설정')
+      const modalList = ref([
+        {
+          value: 0,
+          text: '수정'
+        },
+        {
+          value: 1,
+          text: '삭제'
+        }
+      ])
+      const modalListBtn = ref('')
+      const modal2 = ref(false)
+      const modal3 = ref(false)
+
+      const modifyFunc = () => {
+        modal.value = false
+        modal2.value = true
+      }
+      const delFunc = () => {
+        alert('삭제')
+      }
+
+      const drinkModeCheck = () => {
+        if (drinkMode.value === true) {
+          watchHandle('end')
+        }
+      }
+
+      const d = ref('00')
+      const h = ref('00')
+      const m = ref('00')
+      const s = ref('00')
+      const second = ref()
+      const minute = ref()
+      const hour = ref()
+      const day = ref()
+
+      function watch() {
+        s.value++
+        second.value.classList.add('flipped')
+        if (s.value < 10) {
+          s.value = '0' + s.value
+        }
+        if (s.value === 61) {
+          m.value++
+          minute.value.classList.add('flipped')
+          if (m.value < 10) {
+            m.value = '0' + m.value
+          }
+          s.value = 0
+        } else if (m.value === 61) {
+          h.value++
+          hour.value.classList.add('flipped')
+          if (h.value < 10) {
+            h.value = '0' + h.value
+          }
+          m.value = 0
+        } else if (h.value === 25) {
+          d.value++
+          day.value.classList.add('flipped')
+          if (d.value < 10) {
+            d.value = '0' + d.value
+          }
+          h.value = 0
+        }
+
+        second.value.addEventListener(
+          'transitionend',
+          function () {
+            second.value.classList.remove('flipped')
+            minute.value.classList.remove('flipped')
+            hour.value.classList.remove('flipped')
+            day.value.classList.remove('flipped')
+          },
+          { once: true }
+        )
+      }
+      let watchStart = ref('')
+      const watchHandle = (handle) => {
+        d.value = '00'
+        h.value = '00'
+        m.value = '00'
+        s.value = '00'
+        if (handle == 'start') {
+          drinkBtn.value = true
+          watchStart = setInterval(watch, 1000)
+          console.log('시간시작')
+        } else if (handle == 'end') {
+          clearTimeout(watchStart)
+          drinkBtn.value = false
+          modal3.value = true
+          console.log('시간종료')
+        }
+      }
+
+      const calendarAttr = ref([
+        {
+          key: 'today',
+          dates: [new Date()],
+          content: { class: 'vc-today' }
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 10, 1)]
+        },
+        {
+          content: { class: 'vc-schedule' },
+          dates: [new Date(2023, 9, 10)]
+        }
+      ])
+
+      const banerList = ref([
+        {
+          title: '흡연 관리하러 가기',
+          text: '음주와 함께 관리해보세요!',
+          iconName: 'icon-cigapack.svg',
+          path: '/MAJ0202960'
+        },
+        {
+          title: '기분 관리하러 가기',
+          text: '음주와 함께 관리해보세요!',
+          iconName: 'icon-circle-count3.svg',
+          path: '/MAJ0202920'
+        },
+        {
+          title: '혈압 관리하러 가기',
+          text: '음주와 함께 관리해보세요!',
+          iconName: 'icon-blood.svg',
+          path: '/MAJ0202970'
+        },
+        {
+          title: '혈당 관리하러 가기',
+          text: '음주와 함께 관리해보세요!',
+          iconName: 'icon-blood-sugar.svg',
+          path: '/MAJ0203020'
+        }
+      ])
+      function goPath(val) {
+        router.push(val)
+      }
+
       return {
+        toolTip1,
+        drinkMode,
+        drinkModeCheck,
+
         alcoholTypeBtn,
-        alcoholTypeBtns,
+        alcoholTypeList,
+        alcoholTypeIcon,
         alcoholTypeSelected,
 
         numcount,
 
-        disabledCheck
+        disabledCheck,
+
+        alcoholValList,
+
+        drinkBtn,
+        nalcoholList,
+        reports,
+        reports2,
+
+        modal,
+        modalTitle,
+        modalList,
+        modalListBtn,
+        modal2,
+        modal3,
+
+        modifyFunc,
+        delFunc,
+
+        watchHandle,
+        d,
+        h,
+        m,
+        s,
+        second,
+        minute,
+        hour,
+        day,
+
+        calendarAttr,
+        newArrResult,
+        banerList,
+        goPath
       }
     }
   }

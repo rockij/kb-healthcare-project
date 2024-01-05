@@ -16,10 +16,10 @@
         </v-btn>
       </v-toolbar>
 
-      <div class="modal-body">
+      <div class="modal-body pb-0">
         <div class="flex-shrink-0 modal-body-container px-6">
           <div class="device-nodata">
-            <img src="@/assets/images/icon-nodata-lifelog.svg" alt="" />
+            <img src="/assets/images/icon-nodata-lifelog.svg" alt="" />
             <div class="device-title pt-4">기기 등록이 필요합니다</div>
             <div class="device-desc pt-1">
               바로 연결해서 간편하게 측정하세요
@@ -31,7 +31,7 @@
       <v-card-actions>
         <v-btn
           height="48"
-          class="bdr-8 btn-yellow mt-6"
+          class="bdr-8 btn-yellow"
           block
           @click="$emit('close')"
           >연결하기</v-btn

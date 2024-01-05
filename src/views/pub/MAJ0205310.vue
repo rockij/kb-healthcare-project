@@ -131,14 +131,9 @@
           </v-list>
 
           <v-sheet class="text-container bdr-8" color="#F8F8F8">
-            <v-list class="list-reference">
-              <v-list-item
-                v-for="item in listReference"
-                :key="item"
-                class="list-reference-item"
-                >{{ item.text }}</v-list-item
-              >
-            </v-list>
+            <ul class="list-circle">
+              <li v-for="item in listReference" :key="item">{{ item.text }}</li>
+            </ul>
           </v-sheet>
         </div>
       </div>
@@ -181,17 +176,21 @@
             <p v-else-if="data == true">
               기기가 검색되었습니다 원하는 기기를 선택해 주세요
             </p>
-            <Nodata v-else>
-              <div>
-                검색된 기기가 없습니다 <br />기기의 전원이 켜져 있는지
-                확인주세요
+
+            <div class="no-data" v-else>
+              <div class="icon regular icon-info device"></div>
+              <div class="text">
+                <div>
+                  <strong>검색된 기기가 없습니다</strong> <br />기기의 전원이
+                  켜져 있는지 확인주세요
+                </div>
               </div>
-            </Nodata>
+            </div>
           </v-sheet>
           <v-sheet>
             <v-sheet v-if="data == null" class="pb-10"
-              >로딩화면 추후작업예정</v-sheet
-            >
+              ><Vue3Lottie animationLink="/assets/images/DeviceConnection.json"
+            /></v-sheet>
             <v-list class="list-select-button pb-10" v-else-if="data == true">
               <v-list-item
                 variant="text"
@@ -237,13 +236,13 @@
     setup() {
       const dialog = ref(false)
       const dialogSearchList = ref(false)
-      const data = ref(true) //null: 로딩, true:목록, false:기기없음
+      const data = ref(null) //null: 로딩, true:목록, false:기기없음
 
       const currentConnection = ref({
         name: '연결된 기기',
         title: 'Galaxy Watch Active',
         subtitle: 'Samsung',
-        path: '/src/assets/images/dummy-watch.png'
+        path: '/assets/images/dummy-watch.png'
       }) //연결된 기기 리스트
 
       const connectionList = ref([
@@ -253,13 +252,13 @@
             {
               title: 'Galaxy Watch4',
               subtitle: 'Samsung',
-              path: '/src/assets/images/dummy-watch.png',
+              path: '/assets/images/dummy-watch.png',
               authority: true
             },
             {
               title: 'Apple Watch SE',
               subtitle: 'apple',
-              path: '/src/assets/images/dummy-watch.png',
+              path: '/assets/images/dummy-watch.png',
               authority: false
             }
           ]
@@ -273,7 +272,7 @@
             {
               title: 'CareSens N Premier BLE',
               subtitle: 'i-SENS',
-              path: '/src/assets/images/dummy-watch.png',
+              path: '/assets/images/dummy-watch.png',
               link: '#none'
             }
           ]
@@ -284,7 +283,7 @@
             {
               title: 'HEM-7142T2',
               subtitle: 'Omron',
-              path: '/src/assets/images/dummy-watch.png',
+              path: '/assets/images/dummy-watch.png',
               link: '#none'
             }
           ]
@@ -295,7 +294,7 @@
             {
               title: 'SOLFIT Scale',
               subtitle: 'SOLFIT',
-              path: '/src/assets/images/dummy-watch.png',
+              path: '/assets/images/dummy-watch.png',
               link: '#none'
             }
           ]
@@ -311,12 +310,12 @@
           title: '블루투스',
           contents:
             '앱 주변 블루투스 기기로 송신하거나 이에 대한 정보를 수집하기위해 사용',
-          path: '/src/assets/images/icon-bluetooth.svg'
+          path: '/assets/images/icon-bluetooth.svg'
         },
         {
           title: '위치',
           contents: '기기 탐색을 위해 사용',
-          path: '/src/assets/images/icon-location.svg'
+          path: '/assets/images/icon-location.svg'
         }
       ])
 

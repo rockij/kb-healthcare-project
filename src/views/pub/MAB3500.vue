@@ -1,7 +1,7 @@
 <template>
-  <div class="contents pt-0">
+  <div class="contents">
     <div class="life-calendar">
-      <VCalendar :attributesValue="calendarAttr" />
+      <VCalendar :attributesValue="calendarAttr" class="today-case" />
       <div class="vc-dots-info">
         <div class="state" v-for="(state, i) in calendarStates" :key="i">
           <i class="icon" :class="state.icon" />
@@ -17,86 +17,153 @@
       <!-- 배란상태 -->
       <v-card rounded="xl" class="card-rounded">
         <div class="tit-02 pb-0">월경체크</div>
+        <!-- 20231103 버튼스타일 수정 -->
         <div class="btn-double type-2 mt-4">
           <v-btn
-            v-for="(item, i) in condition"
-            :key="i"
-            v-model="selected"
+            v-for="item in condition"
+            :key="item.value"
             variant="text"
             height="46"
-            class="btn-default"
-            :class="{ selected: selected.includes(item.value) }"
-            @click="getCondition(item.value)"
-            >{{ item.text }}</v-btn
-          >
-        </div>
-      </v-card>
-      <v-card rounded="xl" class="card-rounded">
-        <div class="d-flex justify-space-between">
-          <div class="tit-02 pb-4">사랑일</div>
-          <v-btn icon variant="flat" density="compact" @click="modal = true">
-            <img src="@/assets/images/icon-more.svg" alt="삭제" />
-          </v-btn>
-        </div>
-        <!-- 결과 -->
-        <div class="tabs-simple2 gap" v-if="text1">
-          <v-btn variant="text" class="fs-16" aria-selected="true">
-            {{ text1 }}
-          </v-btn>
-          <v-btn v-if="text2" variant="text" class="fs-16" aria-selected="true">
-            {{ text2 }}
+            :value="item.value"
+            :class="[item.value === 2 ? 'btn-summit' : 'medicard-btn pause']"
+            :disabled="selected === item.value"
+            @click="selected = item.value"
+            >{{ item.text }}
           </v-btn>
         </div>
       </v-card>
-      <!-- 몸 상태 -->
-      <v-card rounded="xl" class="card-rounded">
-        <div class="d-flex justify-space-between">
-          <div class="tit-02 pb-4">몸 상태</div>
-          <v-btn icon variant="flat" density="compact" @click="modal2 = true">
-            <img src="@/assets/images/icon-more.svg" alt="삭제" />
-          </v-btn>
+      <v-card rounded="xl" class="card-rounded py-0">
+        <div class="card-item">
+          <div class="d-flex justify-space-between">
+            <div class="tit-02 pb-0">사랑일</div>
+            <v-btn
+              v-if="!text1"
+              icon
+              variant="flat"
+              density="compact"
+              @click="modal = true"
+              class="btn-icon-plus"
+            >
+              <img src="/assets/images/icon-plus.svg" alt="사랑일 선택" />
+            </v-btn>
+            <v-btn icon variant="flat" density="compact" v-else>
+              <img src="/assets/images/icon-more.svg" alt="" />
+            </v-btn>
+          </div>
+          <!-- 결과 -->
+          <div class="tabs-simple2 gap mt-2" v-if="text1">
+            <v-btn variant="text" class="fs-16" aria-selected="true">
+              {{ text1 }}
+            </v-btn>
+            <v-btn
+              v-if="text2"
+              variant="text"
+              class="fs-16"
+              aria-selected="true"
+            >
+              {{ text2 }}
+            </v-btn>
+          </div>
         </div>
-        <!-- 결과 -->
-        <div class="tabs-simple2 gap">
-          <v-btn
-            variant="text"
-            class="fs-16"
-            v-for="item in result"
-            :key="item"
-            aria-selected="true"
-          >
-            {{ item }}
-          </v-btn>
+        <div class="card-item">
+          <div class="d-flex justify-space-between">
+            <div class="tit-02 pb-0">몸 상태</div>
+            <v-btn
+              v-if="result.length === 0"
+              icon
+              variant="flat"
+              density="compact"
+              @click="modal2 = true"
+              class="btn-icon-plus"
+            >
+              <img src="/assets/images/icon-plus.svg" alt="몸 상태 선택" />
+            </v-btn>
+            <v-btn icon variant="flat" density="compact" v-else>
+              <img src="/assets/images/icon-more.svg" alt="" />
+            </v-btn>
+          </div>
+          <!-- 결과 -->
+          <!-- 2023-12-20 class수정 -->
+          <div class="tabs-simple2 gap mt-2">
+            <v-btn
+              variant="text"
+              class="fs-16"
+              v-for="item in result"
+              :key="item"
+              aria-selected="true"
+            >
+              {{ item }}
+            </v-btn>
+          </div>
         </div>
-      </v-card>
-      <v-card rounded="xl" class="card-rounded">
-        <div class="d-flex justify-space-between">
-          <div class="tit-02 pb-4">피임약 복용 여부</div>
-          <v-btn icon variant="flat" density="compact" @click="modal3 = true">
-            <img src="@/assets/images/icon-more.svg" alt="삭제" />
-          </v-btn>
-        </div>
-        <!-- 결과 -->
-        <div class="tabs-simple2 gap" v-if="text3">
-          <v-btn variant="text" class="fs-16" aria-selected="true">
-            {{ text3 }}
-          </v-btn>
-          <v-btn v-if="text4" variant="text" class="fs-16" aria-selected="true">
-            {{ text4 }}
-          </v-btn>
+        <div class="card-item">
+          <div class="d-flex justify-space-between">
+            <div class="tit-02 pb-0">피임약 복용 여부</div>
+            <v-btn
+              v-if="!text3"
+              icon
+              variant="flat"
+              density="compact"
+              @click="modal3 = true"
+              class="btn-icon-plus"
+            >
+              <img
+                src="/assets/images/icon-plus.svg"
+                alt="피임약 복용 여부 선택"
+              />
+            </v-btn>
+            <v-btn icon variant="flat" density="compact" v-else>
+              <img src="/assets/images/icon-more.svg" alt="" />
+            </v-btn>
+          </div>
+          <!-- 결과 -->
+          <!-- 2023-12-20 class수정 -->
+          <div class="tabs-simple2 gap mt-2" v-if="text3">
+            <v-btn variant="text" class="fs-16" aria-selected="true">
+              {{ text3 }}
+            </v-btn>
+            <v-btn
+              v-if="text4"
+              variant="text"
+              class="fs-16"
+              aria-selected="true"
+            >
+              {{ text4 }}
+            </v-btn>
+          </div>
         </div>
       </v-card>
     </div>
-    <div class="py-8">
-      <div class="tit-03">챌린지</div>
-      <div class="fs-16 text-info-grey">서브 텍스트 노출</div>
-      <div style="height: 170px; background-color: #d9d9d9" class="mt-6"></div>
+
+    <div class="section-page brt-0">
+      <Carousel
+        :items-to-Show="1"
+        :wrap-around="true"
+        :autoplay="3000"
+        class="baner-simple-swiper"
+      >
+        <Slide v-for="(item, i) in banerList" :key="i">
+          <BanerSimple :iconName="item.iconName" @update="goPath(item.path)">
+            <strong class="title">{{ item.title }}</strong>
+            <p class="text">{{ item.text }}</p>
+          </BanerSimple>
+        </Slide>
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+      <!-- //배너 -->
     </div>
-    <div class="section-page pt-10">
-      <div class="tit-03">추천영역</div>
-      <div class="fs-16 text-info-grey">서브 텍스트 노출</div>
-      <div style="height: 170px; background-color: #d9d9d9" class="mt-6"></div>
+
+    <div class="section-page">
+      <LifelogChallenge />
     </div>
+    <!-- //챌린지 -->
+
+    <div class="section-page pb-0">
+      <LifelogHealthnews />
+    </div>
+    <!-- //건강뉴스 -->
   </div>
 
   <!-- 사랑일 팝업 -->
@@ -108,20 +175,32 @@
 </template>
 
 <script>
+  import router from '@/router'
   import ReportResult from '@/components/BanerReport.vue'
   import MAJ0202944 from './MAJ0202944.vue'
   import MAJ0202945 from './MAJ0202945.vue'
   import MAJ0202946 from './MAJ0202946.vue'
   import VCalendar from '@/components/VCalendar.vue'
+  import BanerSimple from '@/components/BanerSimple.vue'
+  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
+  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
 
   import { ref, reactive } from 'vue'
+  import { Carousel, Slide, Pagination } from 'vue3-carousel'
+  import 'vue3-carousel/dist/carousel.css'
   export default {
     components: {
       MAJ0202944,
       MAJ0202945,
       MAJ0202946,
       ReportResult,
-      VCalendar
+      VCalendar,
+      BanerSimple,
+      Carousel,
+      Slide,
+      Pagination,
+      LifelogChallenge,
+      LifelogHealthnews
     },
     setup() {
       const text1 = ref()
@@ -130,7 +209,7 @@
       const text4 = ref()
       const result = ref([])
       const list = ref([])
-      const selected = reactive([1])
+      const selected = ref()
       const modal = ref(false)
       const modal2 = ref(false)
       const modal3 = ref(false)
@@ -178,56 +257,304 @@
         list.value = result.value
       }
       // 여성건강
+      //const calendarAttr = ref([
+      //  {
+      //    key: 'today',
+      //    dates: [new Date()],
+      //    content: { class: 'vc-today-bold' }
+      //  },
+      //  {
+      //    highlight: {
+      //      class: 'vc-menses-plan'
+      //    },
+      //    content: {
+      //      class: 'vc-menses-plan'
+      //    },
+      //    dates: [
+      //      {
+      //        start: '2023-12-10T00:00:00.000Z',
+      //        span: 5
+      //      }
+      //    ]
+      //  },
+      //  {
+      //    highlight: {
+      //      class: 'vc-menses-plan'
+      //    },
+      //    content: {
+      //      class: 'vc-menses-plan'
+      //    },
+      //    dates: [
+      //      {
+      //        start: '2023-12-05T00:00:00.000Z',
+      //        span: 5
+      //      }
+      //    ]
+      //  },
+      //  {
+      //    highlight: {
+      //      class: 'vc-menses'
+      //    },
+      //    content: {
+      //      class: 'vc-menses'
+      //    },
+      //    dates: [
+      //      {
+      //        start: '2024-01-07T00:00:00.000Z',
+      //        span: 5
+      //      }
+      //    ]
+      //  },
+      //  {
+      //    highlight: {
+      //      class: 'vc-veran'
+      //    },
+      //    content: {
+      //      class: 'vc-veran'
+      //    },
+      //    dates: [
+      //      {
+      //        start: '2023-12-19T00:00:00.000Z',
+      //        span: 9
+      //      }
+      //    ]
+      //  },
+      //  {
+      //    highlight: {
+      //      class: 'vc-veran-day'
+      //    },
+      //    dates: ['2023-12-24T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-11-06T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-11-06T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-11-07T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-11-07T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-04T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-05T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-06T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-06T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-07T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-08T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-11T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-11T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-12T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-12T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-love'
+      //    },
+      //    dates: ['2023-12-14T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-circle'
+      //    },
+      //    dates: ['2023-12-14T00:00:00.000Z']
+      //  },
+      //  {
+      //    content: {
+      //      class: 'vc-dots-info'
+      //    },
+      //    dot: {
+      //      class: 'icon-medicine'
+      //    },
+      //    dates: ['2023-12-14T00:00:00.000Z']
+      //  }
+      //])
       const calendarAttr = ref([
         {
           key: 'today',
           dates: [new Date()],
-          content: { class: 'vc-today' }
-        },
-        {
-          content: { class: 'vc-dots-info' },
-          dot: { class: 'icon-love' },
-          dates: [new Date(2023, 9, 27)]
+          content: { class: 'vc-today-bold vc-dots-info' },
+          dot: { class: 'icon-love' }
         },
         {
           content: { class: 'vc-dots-info' },
           dot: { class: 'icon-circle' },
-          dates: [new Date(2023, 9, 2)]
+          dates: [new Date(2023, 11, 2)]
         },
         {
           content: { class: 'vc-dots-info' },
           dot: { class: 'icon-medicine' },
-          dates: [new Date(2023, 9, 12)]
+          dates: [new Date(2023, 11, 12)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-medicine' },
+          dates: [new Date(2023, 11, 30)]
+        },
+        {
+          content: { class: 'vc-dots-info' },
+          dot: { class: 'icon-medicine' },
+          dates: [new Date(2023, 11, 3)]
         },
         {
           content: { class: 'vc-dots-info' },
           dot: { class: 'icon-circle' },
-          dates: [new Date(2023, 9, 12)]
+          dates: [new Date(2023, 11, 12)]
         },
         {
           content: { class: 'vc-dots-info' },
           dot: { class: 'icon-love' },
-          dates: [new Date(2023, 9, 12)]
+          dates: [new Date(2023, 11, 12)]
         },
         // 베란기간
         {
           highlight: { class: 'vc-veran' },
           content: { class: 'vc-veran' },
-          dates: [{ start: new Date(2023, 9, 1), span: 6 }]
+          dates: [{ start: new Date(2023, 11, 1), span: 6 }]
         },
         // 베란예정일
         {
           highlight: { class: 'vc-veran-day' },
-          dates: [new Date(2023, 9, 4)]
+          dates: [new Date(2023, 11, 4)]
         },
         // 월경기간
         {
           highlight: { class: 'vc-menses' },
           content: { class: 'vc-menses' },
-          dates: [{ start: new Date(2023, 9, 18), span: 7 }]
+          dates: [{ start: new Date(2023, 11, 18), span: 7 }]
+        },
+        // 월경예정
+        {
+          highlight: { class: 'vc-menses-plan' },
+          content: { class: 'vc-menses-plan' },
+          dates: [{ start: new Date(2023, 11, 9), span: 3 }]
+        },
+        // 부정출혈
+        {
+          highlight: { class: 'vc-bleeding' },
+          content: { class: 'vc-bleeding' },
+          dates: [{ start: new Date(2023, 11, 29), span: 2 }]
         }
       ])
       const calendarStates = reactive([
+        {
+          icon: 'veran',
+          text: '베란일'
+        },
+        {
+          icon: 'bleeding',
+          text: '부정출혈'
+        },
         {
           icon: 'circle',
           text: '몸상태'
@@ -241,6 +568,41 @@
           text: '피임약'
         }
       ])
+      const banerList = ref([
+        {
+          title: '기분 관리하러 가기',
+          text: '여성건강과 함께 관리해보세요!',
+          iconName: 'icon-circle-count3.svg',
+          path: '/MAJ0202920'
+        },
+        {
+          title: '식사 관리하러 가기',
+          text: '여성건강과 함께 관리해보세요!',
+          iconName: 'icon-cooking.svg',
+          path: '/MAJ0203410'
+        },
+        {
+          title: '걸음 관리하러 가기',
+          text: '여성건강과 함께 관리해보세요!',
+          iconName: 'icon-shoes.svg',
+          path: '/MAJ0202850'
+        },
+        {
+          title: '운동 관리하러 가기',
+          text: '여성건강과 함께 관리해보세요!',
+          iconName: 'icon-dumbbell.svg',
+          path: '/MAJ0202856'
+        },
+        {
+          title: '체성분 관리하러 가기',
+          text: '여성건강과 함께 관리해보세요!',
+          iconName: 'icon-weight.svg',
+          path: '/MAJ0203120'
+        }
+      ])
+      function goPath(val) {
+        router.push(val)
+      }
       return {
         text1,
         text2,
@@ -260,7 +622,9 @@
         moreText,
         getCondition,
         calendarAttr,
-        calendarStates
+        calendarStates,
+        banerList,
+        goPath
       }
     }
   }

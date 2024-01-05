@@ -23,7 +23,7 @@
         ]"
       >
         <div class="text">
-          <img src="@/assets/images/icon-q.svg" alt="" class="mr-1" />
+          <img src="/assets/images/icon-q.svg" alt="" class="mr-1" />
           정답 맞추고 포인트 받아요!
         </div>
       </div>
@@ -76,8 +76,8 @@
     <v-fade-transition>
       <div class="overlay-container" v-if="overlay">
         <div class="body">
-          <img src="@/assets/images/icon-correct.svg" alt="" v-if="answer" />
-          <img src="@/assets/images/icon-wrong.svg" v-else />
+          <img src="/assets/images/icon-correct.svg" alt="" v-if="answer" />
+          <img src="/assets/images/icon-wrong.svg" v-else />
         </div>
         <div class="scrim"></div>
       </div>

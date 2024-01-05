@@ -18,9 +18,10 @@
     <buttonSns
       :phoneNumber="'02-554-5547'"
       @share="funcSns"
-      @favorit="funcFavorit"
       @map="funcMap"
       class="mt-4"
+      :toastMsgOn="'내 병원에서 등록 되었습니다'"
+      :toastMsgOff="'내 병원에서 해제 되었습니다'"
     />
     <DialogSns
       v-model="modal"
@@ -30,6 +31,12 @@
       @Instagram="insFnc"
       @url="urlFnc"
       @more="moreFnc"
+    />
+    <DialogRoad
+      v-model="modal2"
+      @close="modal2 = false"
+      @kakao="kaoRoadFnc"
+      @naver="nvRoadFnc"
     />
     <div class="section-page mt-8">
       <h3 class="tit-03 pb-0">진료시간</h3>
@@ -66,7 +73,10 @@
       <div class="list-iconlst mt-2">
         <ul class="list">
           <li data-icon="map">
-            서울시 강남구 대치동 669-13
+            <p class="text-map">
+              서울시 강남구 대치동 669-13서울시 강남구 대치동 669-13서울시
+              강남구 대치동 669-13
+            </p>
             <v-btn
               variant="flat"
               rounded="lg"
@@ -82,7 +92,7 @@
         </ul>
         <div class="mapview">
           <!-- 지도영역 -->
-          <img src="@/assets/images/dummy-map2.png" class="img" alt="" />
+          <img src="/assets/images/dummy-map2.png" class="img" alt="" />
           <!-- //지도영역 -->
         </div>
       </div>
@@ -100,12 +110,14 @@
   import buttonSns from '@/components/ButtonSns.vue'
   import HospitalCard from '@/components/CardHospital.vue'
   import DialogSns from '@/components/BottomSheetSns.vue'
+  import DialogRoad from '@/components/BottomSheetRoad.vue'
   import { reactive } from 'vue'
   export default {
     components: {
       buttonSns,
       HospitalCard,
-      DialogSns
+      DialogSns,
+      DialogRoad
     },
     data() {
       return {
@@ -170,18 +182,20 @@
     },
     setup() {
       const modal = ref(false)
+      const modal2 = ref(false)
       const hospitalList = reactive([
         {
           id: 1,
           articleClass: 'type',
           titleBisde: true,
-          title: '강남초이스영상의학과의원',
-          titleClass: 'fs-26 font-weight-bold me-auto',
+          title: '강남초이스영상의학과의원강남초이스영상의학과의원',
+          titleClass: 'fs-26 font-weight-bold me-auto text-full',
           title2: '서울특별시 강남구 테헤란로 401 0층 0호',
           title2Class: 'mt-5',
-          datalstClass: 'mt-4',
+          datalstClass: 'mt-4 text-full',
           road: '5m',
-          subject: '이비인후과 전문의 1명, 내과전문의 1명',
+          subject:
+            '이비인후과 전문의 1명, 내과전문의 1명, 이비인후과 전문의 1명, 내과전문의 1명',
           tags: '<span>여의사</span><span>야간진료</span>',
           state: '진료종료',
           stateClass: 'waiting',
@@ -195,7 +209,7 @@
         alert('즐겨찾기')
       }
       function funcMap() {
-        alert('길찾기')
+        modal2.value = true
       }
       function kakaoFnc() {
         alert('공유하기 카카오톡')
@@ -212,8 +226,15 @@
       function moreFnc() {
         alert('공유하기 더보기')
       }
+      function kaoRoadFnc() {
+        alert('카카오 길찾기')
+      }
+      function nvRoadFnc() {
+        alert('네이버 길찾기')
+      }
       return {
         modal,
+        modal2,
         hospitalList,
         funcSns,
         funcFavorit,
@@ -222,7 +243,9 @@
         fbFnc,
         insFnc,
         urlFnc,
-        moreFnc
+        moreFnc,
+        kaoRoadFnc,
+        nvRoadFnc
       }
     }
   }

@@ -8,7 +8,7 @@
         @click="modal = true"
       >
         {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
       </v-btn>
     </div>
     <DialogSelectList
@@ -20,10 +20,14 @@
     />
     <!-- //필터선택 -->
 
-    <div class="d-flex fs-14 mt-4">
+    <v-card
+      variant="flat"
+      color="#F8F8F8"
+      class="section-page brt-0 px-6 py-5 d-flex mt-4 fs-14"
+    >
       <span>총 25건</span>
       <span class="ml-auto">2023.07.29 ~ 2023.08.03</span>
-    </div>
+    </v-card>
     <!-- //검색기간 -->
 
     <CardReport v-for="report in reports" :key="report.id">
@@ -80,26 +84,28 @@
       v-for="report in reports3"
       :key="report.id"
       @handleClick="modal2 = true"
+      :class="report.title == '' || report.title == null ? 'type-horizon' : ''"
     >
       <template #date>{{ report.date }}</template>
       <template #content>
-        <v-chip
-          label
-          size="small"
-          :color="report.state"
-          class="chip-default chip-color"
-        >
-          {{ getText(report.state) }}
-        </v-chip>
-        <v-chip label size="small" class="chip-default ml-2">직접입력</v-chip>
+        <span class="chip-box">
+          <v-chip
+            label
+            size="small"
+            :color="report.state"
+            class="chip-default chip-color"
+          >
+            {{ getText(report.state) }}
+          </v-chip>
+        </span>
+        <div class="text-state">
+          {{ report.statetext }}
+          <i class="icon-state" :data-emoji="report.statetext"></i>
+        </div>
         <dl class="dl">
           <dt class="fs-14">{{ report.title }}</dt>
           <dd>
             {{ report.text }}
-            <div class="font-weight-bold d-flex align-center mt-2">
-              {{ report.statetext }}
-              <i class="icon-state" :data-emoji="report.statetext"></i>
-            </div>
           </dd>
         </dl>
       </template>
@@ -266,9 +272,9 @@
           id: 1,
           date: '오전 6시 35분',
           state: 'error',
-          title: '메모',
-          text: '사용자가 입력한 메모가 노출됩니다',
-          statetext: '화남'
+          title: '',
+          text: '',
+          statetext: '짜증나다'
         },
         {
           id: 2,
@@ -276,7 +282,7 @@
           state: 'yellow',
           title: '메모',
           text: '사용자가 입력한 메모가 노출됩니다',
-          statetext: '신이남'
+          statetext: '즐겁다'
         },
         {
           id: 3,
@@ -284,7 +290,7 @@
           state: 'success',
           title: '메모',
           text: '사용자가 입력한 메모가 노출됩니다 사용자가 입력한 메모가 노출됩니다',
-          statetext: '슬픔'
+          statetext: '시원섭섭하다'
         }
       ])
 

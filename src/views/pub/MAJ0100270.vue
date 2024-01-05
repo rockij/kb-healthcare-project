@@ -20,6 +20,10 @@
             <v-icon>mdi-chevron-right</v-icon>
           </a>
         </li>
+        <li class="setting-item">
+          <span class="setting-menu">로그인 대표</span>
+          <span class="setting-text">간편비밀번호</span>
+        </li>
       </ul>
     </div>
     <div class="login-section pt-8">

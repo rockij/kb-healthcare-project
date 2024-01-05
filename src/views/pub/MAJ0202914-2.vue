@@ -1,70 +1,80 @@
 <template>
-  <div class="contents pt-0">
+  <div class="contents">
     <div class="life-calendar">
       <VCalendar />
     </div>
     <div class="section-page bg pa-4">
-      <BanerReport :bnShow="'good'" :videBox="false" class="mb-4">
-        휴레이 메시지 영역
-      </BanerReport>
       <v-card variant="flat" rounded="xl" class="pt-4 pr-6 pb-4 pl-6">
         <Nodata
           :icon="true"
-          :iconSize="'big'"
-          :optionClass="'type'"
-          class="pt-4"
+          :iconSize="'moon'"
+          :optionClass="'lifelog'"
+          class="pt-8"
         >
-          <div class="fs-16">
-            수면을 입력하고<br />내게 맞는 분석을 받아보세요
+          <div class="fs-20">
+            수면을 입력하고<br /><strong
+              >내게 맞는 <span class="text-blue">분석</span>을
+              받아보세요</strong
+            >
           </div>
         </Nodata>
         <div class="btn-area2 mt-8">
           <v-btn
+            variant="flat"
+            height="48px"
+            class="bdr-8 fs-14 font-weight-bold"
+            color="#FCEBA6"
+            block
+            ><span class="c-darkGray">직접 입력</span></v-btn
+          >
+          <v-btn
             variant="text"
             height="48px"
-            class="bdr-8 fs-16 font-weight-bold skip"
+            class="bdr-8 fs-14 font-weight-bold skip"
             block
-            >직접 입력</v-btn
+            ><span class="c-darkGray">건강 플랫폼 연결하기</span></v-btn
           >
         </div>
       </v-card>
     </div>
 
-    <div class="py-8">
-      <h2 class="tit-03 tit-link">
-        <v-btn block variant="text">수면 기록</v-btn>
-      </h2>
-      <p class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</p>
-      <Nodata
-        :icon="true"
-        :iconSize="'big'"
-        :optionClass="'type'"
-        class="mt-13"
-      >
-        <div class="fs-16">
-          오늘 수면 기록이 없어요<br />내 수면을 기록해보세요
-        </div>
-      </Nodata>
-    </div>
-    <!-- //수면기록 -->
-
-    <div class="section-page">
+    <div class="section-page brt-0">
       <h2 class="tit-03 tit-link">
         <v-btn block variant="text">수면 분석</v-btn>
       </h2>
       <p class="text-info-grey fs-16">최근 1주일의 수면 분석입니다</p>
       <Nodata
         :icon="true"
-        :iconSize="'big'"
+        :iconSize="'big-analysis'"
         :optionClass="'type'"
         class="mt-13"
       >
         <div class="fs-16">
-          아직 수면 기록이 없어요<br />수면 인증을 하면 확인할 수 있어요
+          잘 주무셨나요?<br />
+          건강 수면 습관을 위해 기록해 보세요
         </div>
       </Nodata>
     </div>
     <!-- //수면분석 -->
+
+    <div class="section-page pb-0">
+      <h2 class="tit-03 tit-link">
+        <v-btn block variant="text">수면 기록</v-btn>
+      </h2>
+      <p class="text-info-grey fs-16">최근 3개 기록만 표시됩니다</p>
+      <Nodata
+        :icon="true"
+        :iconSize="'big-record'"
+        :optionClass="'type'"
+        class="mt-13"
+      >
+        <div class="fs-16">
+          잘 주무셨나요?<br />
+          건강 수면 습관을 위해 기록해 보세요
+        </div>
+      </Nodata>
+    </div>
+    <!-- //수면기록 -->
   </div>
 </template>
 <script>

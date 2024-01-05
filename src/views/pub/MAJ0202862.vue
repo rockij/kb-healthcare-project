@@ -18,8 +18,7 @@
         <div class="flex-shrink-0 modal-body-container">
           <div class="textfield-area body-calendar pt-4 d-flex">
             <v-text-field
-              class="input-basic textfield-default select-field"
-              :class="name4 ? 'hasData' : ''"
+              class="input-basic textfield-default select-field hasData"
               label="운동 종류"
               required
               persistent-placeholder
@@ -32,7 +31,7 @@
               clearable
             >
               <template v-slot:append-inner
-                ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
               /></template>
             </v-text-field>
 
@@ -45,8 +44,7 @@
             />
 
             <v-text-field
-              class="input-basic textfield-default select-field"
-              :class="name4 ? 'hasData' : ''"
+              class="input-basic textfield-default select-field hasData"
               label="운동 종류"
               required
               persistent-placeholder
@@ -58,13 +56,12 @@
               clearable
             >
               <template v-slot:append-inner
-                ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
               /></template>
             </v-text-field>
 
             <v-text-field
-              class="input-basic textfield-default select-field"
-              :class="name4 ? 'hasData' : ''"
+              class="input-basic textfield-default select-field hasData"
               label="운동 시간"
               required
               persistent-placeholder
@@ -75,7 +72,7 @@
               clearable
             >
               <template v-slot:append-inner
-                ><img src="@/assets/images/icon-arrow-down2.svg" alt="검색"
+                ><img src="/assets/images/icon-arrow-down2.svg" alt="검색"
               /></template>
             </v-text-field>
 
@@ -92,11 +89,25 @@
             >
               <template v-slot:append-inner>km</template>
             </v-text-field>
+
+            <v-text-field
+              class="input-basic textfield-default suffix"
+              :class="name5 ? 'hasData' : ''"
+              label="점프 횟수 (선택)"
+              required
+              persistent-placeholder
+              variant="outlined"
+              placeholder="점프 횟수 입력"
+              v-model="name5"
+              clearable
+              type="tel"
+            >
+            </v-text-field>
             <v-list-item class="consume-calorie">
               <v-list-item-title
                 ><i class="icon-consume-calorie" aria-hidden="true"
                   ><img
-                    src="@/assets/images/icon-consume-calorie.svg"
+                    src="/assets/images/icon-consume-calorie.svg"
                     alt="" /></i
                 ><span>소모 칼로리</span></v-list-item-title
               >
@@ -120,7 +131,12 @@
                   :counter="20"
                   variant="outlined"
                   no-resize
-                ></v-textarea>
+                >
+                  <template v-slot:counter="{ value, max }">
+                    <span class="current-value">{{ value }}</span> /
+                    <span class="max-length">{{ max }}</span>
+                  </template>
+                </v-textarea>
               </v-sheet>
               <div class="attach-area">
                 <v-btn variant="text" height="40" class="attach-btn ws-94" block
@@ -136,7 +152,7 @@
                       <template #append>
                         <v-avatar
                           class="bdr-4"
-                          :image="`/src/assets/images/` + items.src"
+                          :image="`/assets/images/` + items.src"
                         ></v-avatar>
                       </template>
                     </v-chip>
@@ -174,6 +190,7 @@
       const name2 = ref('')
       const name3 = ref('88')
       const name4 = ref('')
+      const name5 = ref('')
 
       const modal = ref(false)
       const modalTitle = ref('운동 종류')
@@ -247,6 +264,7 @@
         name2,
         name3,
         name4,
+        name5,
         modal,
         modalTitle,
         modalList,

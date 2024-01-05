@@ -51,7 +51,7 @@
           questions: {
             text1: '나는',
             text2: '이',
-            text3: '요구되는 일이 편하다'
+            text3: '요구되는 일이 안편하다'
           },
           answer: 5
         }

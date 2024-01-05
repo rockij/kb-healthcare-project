@@ -1,0 +1,16 @@
+<svg width="247" height="247" viewBox="0 0 247 247" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_3302_48182" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="247" height="247">
+<circle cx="123.5" cy="123.5" r="123.5" fill="#A7A7A7"/>
+</mask>
+<g mask="url(#mask0_3302_48182)">
+<rect width="247" height="247" fill="#EEFBEF"/>
+<mask id="mask1_3302_48182" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="247" height="247">
+<rect width="247" height="247" rx="24" fill="#FFF4F6"/>
+</mask>
+<g mask="url(#mask1_3302_48182)">
+<path opacity="0.5" d="M71.0029 168.499C26.0029 168.499 0.99707 143 0.99707 143V250.295H244.497V168.499C244.497 168.499 223.088 133.264 176.753 135.496C124.15 138.031 123.667 168.499 71.0029 168.499Z" fill="#7DF39E"/>
+<path opacity="0.5" d="M50.75 145.995C78.0898 145.995 85.0862 161.745 137.75 161.745C157.425 161.745 175.181 154.859 194 145.996C218.222 134.588 246.834 145.997 246.834 145.997V263.494H7.33398V170.749C7.33398 170.749 23.4102 145.995 50.75 145.995Z" fill="#39DA79"/>
+<path opacity="0.5" d="M190.994 172.713C223.244 172.713 244.494 158 244.494 158V255.5H9.99414V179C9.99414 179 46.355 158 92.7441 158C140.744 158 158.744 172.713 190.994 172.713Z" fill="#0BB44F"/>
+</g>
+</g>
+</svg>

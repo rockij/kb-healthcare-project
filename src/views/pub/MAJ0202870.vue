@@ -1,23 +1,11 @@
 <template>
   <div class="contents">
     <div class="sorting-data">
-      <v-btn
-        variant="text"
-        density="compact"
-        class="fs-16 px-0"
-        @click="modal = true"
-      >
+      <v-btn variant="text" density="compact" class="fs-16 px-0">
         {{ category }}
-        <img src="@/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
+        <img src="/assets/images/icon-arrow-down2.svg" alt="" class="ml-1" />
       </v-btn>
     </div>
-    <DialogSelectList
-      :lists="option"
-      title="조회기간 설정"
-      v-model="modal"
-      @close="modal = false"
-      @update="changeCategory"
-    />
 
     <div class="result-count">
       <span>총 {{ reports.length }}건</span>
@@ -64,7 +52,7 @@
               aspect-ratio="16/9"
               min-height="1"
               cover
-              :src="`/src/assets/images/` + slides"
+              :src="`/assets/images/` + slides"
             ></v-img>
           </swiper-slide>
         </swiper>
@@ -74,7 +62,11 @@
           <dd class="font-weight-bold">
             <span>{{ report.recordTime }}</span>
           </dd>
-          <dt v-if="report.moving">총 운동거리</dt>
+          <dt v-if="report.moving">
+            {{
+              exerciseName[index] == 'jumpRope' ? '총 점프수' : '총 이동거리'
+            }}
+          </dt>
           <dd v-if="report.moving" class="font-weight-bold">
             <span>{{ report.moving }}</span>
           </dd>
@@ -104,12 +96,10 @@
   import 'swiper/css/pagination'
   import { Pagination } from 'swiper/modules'
   import { Virtual } from 'swiper/modules'
-  import DialogSelectList from '@/components/DialogSelectList.vue'
   import DialogSetting from '@/components/DialogSetting.vue'
   import CardReport from '@/components/CardReport.vue'
   export default {
     components: {
-      DialogSelectList,
       CardReport,
       DialogSetting,
       Swiper,
@@ -119,21 +109,17 @@
       const tab = ref(null)
       const Analysis = ref(null)
       const exerciseName = ref([])
-      const modal = ref(false)
-      const category = ref('일주일')
+      const category = ref('1주일')
       const option = reactive([
-        { value: 1, text: '일주일' },
+        { value: 1, text: '1주일' },
         { value: 2, text: '1개월' },
         { value: 3, text: '3개월' }
       ])
-      function changeCategory(val) {
-        modal.value = false
-        return (category.value = val.text)
-      }
+
       const reports = ref([
         {
           id: 0,
-          date: '03.23 오전 6:35',
+          date: '오전 6:35',
           device: '플랫폼',
           state: '야구',
           recordTime: '1시간 13분',
@@ -141,7 +127,7 @@
         },
         {
           id: 1,
-          date: '03.23 오전 6:35',
+          date: '오전 6:35',
           device: '플랫폼',
           state: '자전거',
           recordTime: '1시간 13분',
@@ -150,7 +136,7 @@
         },
         {
           id: 2,
-          date: '03.23 오전 6:35',
+          date: '오전 6:35',
           device: '플랫폼',
           state: '탁구',
           recordTime: '1시간 13분',
@@ -161,7 +147,7 @@
         },
         {
           id: 3,
-          date: '03.23 오전 6:35',
+          date: '오전 6:35',
           device: '플랫폼',
           state: '골프',
           recordTime: '1시간 13분',
@@ -169,6 +155,15 @@
           moving: '1.81km',
           hasMemo: '사용자가 입력한 메모가 노출됩니다',
           picture: ['exercise.png', 'exercise.png', 'exercise.png']
+        },
+        {
+          id: 4,
+          date: '오전 6:35',
+          device: '기기',
+          state: '줄넘기',
+          recordTime: '1시간 13분',
+          recordCalorie: '208kcal',
+          moving: '300점프'
         }
       ])
 
@@ -186,6 +181,84 @@
               break
             case '골프':
               exerciseName.value.push('golf')
+              break
+            case '근력운동':
+              exerciseName.value.push('muscular')
+              break
+            case '달리기':
+              exerciseName.value.push('running')
+              break
+            case '하이킹':
+              exerciseName.value.push('hiking')
+              break
+            case '농구':
+              exerciseName.value.push('basketball')
+              break
+            case '당구':
+              exerciseName.value.push('billiards')
+              break
+            case '등산':
+              exerciseName.value.push('climb')
+              break
+            case '런닝머신(걷기)':
+              exerciseName.value.push('runningMachine')
+              break
+            case '런닝머신(달리기)':
+              exerciseName.value.push('runningMachine')
+              break
+            case '배드민턴':
+              exerciseName.value.push('badminton')
+              break
+            case '복싱':
+              exerciseName.value.push('boxing')
+              break
+            case '볼링':
+              exerciseName.value.push('bowling')
+              break
+            case '수영':
+              exerciseName.value.push('swim')
+              break
+            case '스쿼시':
+              exerciseName.value.push('squash')
+              break
+            case '스피닝':
+              exerciseName.value.push('spinning')
+              break
+            case '에어로빅':
+              exerciseName.value.push('aerobic')
+              break
+            case '요가':
+              exerciseName.value.push('yoga')
+              break
+            case '족구':
+              exerciseName.value.push('footVolleyball')
+              break
+            case '줄넘기':
+              exerciseName.value.push('jumpRope')
+              break
+            case '축구':
+              exerciseName.value.push('footVolleyball')
+              break
+            case '테니스':
+              exerciseName.value.push('tennis')
+              break
+            case '필라테스':
+              exerciseName.value.push('yoga')
+              break
+            case '주짓수':
+              exerciseName.value.push('jiuJitsu')
+              break
+            case '태권도':
+              exerciseName.value.push('taekwondo')
+              break
+            case '유도':
+              exerciseName.value.push('judo')
+              break
+            case '배구':
+              exerciseName.value.push('volleyball')
+              break
+            case '클라이밍':
+              exerciseName.value.push('climbing')
               break
           }
         })
@@ -217,14 +290,12 @@
       return {
         tab,
         Analysis,
-        modal,
         category,
         option,
         reports,
         modal2,
         modal2Title,
         modal2List,
-        changeCategory,
         delFunc,
         handleClick,
         exerciseName,

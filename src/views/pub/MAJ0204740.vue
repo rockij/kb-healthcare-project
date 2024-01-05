@@ -2,13 +2,13 @@
   <!--contents-->
   <div class="contents">
     <div class="section-py32" v-for="items in infomation" :key="items">
-      <h2 class="tit-01">{{ items.title }}</h2>
+      <h2 class="tit-01 fs-20">{{ items.title }}</h2>
       <v-table density="compact" class="table-default">
         <tbody>
           <tr v-for="keys in items.contents" :key="keys">
             <th>{{ keys.name }}</th>
             <td>
-              <div class="flex-middle-xy flex-wrap">
+              <div class="flex-middle-xy">
                 <span class="table-data">{{ keys.value }}</span>
                 <v-btn
                   variant="tonal"

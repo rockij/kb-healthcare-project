@@ -8,35 +8,31 @@
       특히, 항혈전제를 복용 중이시라면 응급실 또는 가까운 병원에서 빠른 진료를
       보세요
     </ReportResult>
-    <h2 class="tit-02 tit-link">
-      <v-btn variant="text" :href="'javsscript:;'">
-        증상관련 진료과 안과
+    <h2 class="tit-03 tit-link">
+      <v-btn variant="text" block @click="goPath('/')">
+        내 주변 응급실 확인하기
       </v-btn>
     </h2>
-    <p class="desc">진료를 위해 가장 가까운 병원을 소개해 드립니다</p>
+    <p class="desc">가장 가까운 응급실을 안내해드립니다</p>
     <div class="list-article mt-6">
       <ul>
         <li v-for="item in connectList" :key="item.id">
-          <v-btn variant="text" class="btn-box" :href="'javsscript:;'">
-            <h3 class="title arrow">{{ item.title }}</h3>
-            <span class="title2">{{ item.title2 }}</span>
-            <span class="datalst">
-              <span class="road">{{ item.road }}</span>
-              <span>{{ item.time }}</span>
-            </span>
-            <span class="text">{{ item.subject }}</span>
-          </v-btn>
+          <div class="btn-box">
+            <div class="v-btn__content">
+              <h3 class="title fs-18">{{ item.title }}</h3>
+              <a :href="`tel:${item.tel}`" class="tel">{{ item.tel }}</a>
+              <p class="title2">{{ item.address }}</p>
+            </div>
+            <v-btn
+              variant="text"
+              class="btn-link-arr"
+              icon="icon-arrow-right"
+              height="44"
+              @click="goPath('/')"
+            ></v-btn>
+          </div>
         </li>
       </ul>
-    </div>
-    <div class="text-center mt-4">
-      <v-btn
-        variant="text"
-        rounded="lg"
-        height="32"
-        class="btn-grey pr-3 pl-3 fs-13"
-        >내 주변 안과 찾기</v-btn
-      >
     </div>
     <div class="btn-bottom">
       <div class="btn-area d-flex">
@@ -48,6 +44,7 @@
   </div>
 </template>
 <script>
+  import router from '@/router'
   import ReportResult from '@/components/BanerReport.vue'
   export default {
     components: { ReportResult },
@@ -57,34 +54,23 @@
           {
             id: 1,
             title: '연세 밝은 세상 안과',
-            title2: '서울특별시 강남구 테헤란로 401 0층 0호',
-            road: '205m',
-            time: '09:00~1900',
-            subject: '안과, 기타 진료과목명1'
+            address: '서울특별시 강남구 테헤란로 401 0층 0호',
+            tel: '02-3410-2114'
           },
           {
             id: 2,
             title: '굿아이 안과',
-            title2: '서울특별시 강남구 테헤란로 401 0층 0호',
-            road: '205m',
-            time: '09:00~1900',
-            subject: '안과, 기타 진료과목명2'
-          },
-          {
-            id: 3,
-            title: '연세 밝은 세상 안과연세 밝은 세상 안과',
-            title2:
-              '서울특별시 강남구 테헤란로 401 0층 0호서울특별시 강남구 테헤란로 401 0층 0호',
-            road: '205m',
-            time: '09:00~1900',
-            subject:
-              '안과, 기타 진료과목명, 안과, 기타 진료과목명, 안과, 기타 진료과목명'
+            address: '서울특별시 강남구 테헤란로 401 0층 0호',
+            tel: '02-3410-2114'
           }
         ]
       }
     },
     setup() {
-      return {}
+      function goPath(val) {
+        router.push(val)
+      }
+      return { goPath }
     }
   }
 </script>

@@ -15,20 +15,8 @@
         </v-btn>
       </v-toolbar>
 
-      <div class="modal-body">
+      <div class="modal-body pb-6">
         <div class="flex-shrink-0 modal-body-container">
-          <!-- <div class="tabs-simple2">
-            <v-btn
-              variant="text"
-              class="fs-16"
-              v-for="btn in btns"
-              :key="btn.value"
-              :aria-selected="selBtn === btn"
-              @click="selBtn = btn"
-              >{{ btn.text }}</v-btn
-            >
-          </div> -->
-
           <v-text-field
             class="input-basic textfield-default suffix"
             :class="name4 ? 'hasData' : ''"

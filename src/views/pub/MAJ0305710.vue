@@ -8,7 +8,7 @@
       오늘이 지나가기 전에 가까운 병원에 가세요
     </ReportResult>
     <div class="section-page">
-      <h2 class="tit-02">의심되는 질환</h2>
+      <h2 class="tit-03">의심되는 질환</h2>
       <p class="desc">증상분석 결과 의심되는 질환을 알려드립니다</p>
       <div class="list-number mt-7">
         <ol>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="section-page">
-      <h2 class="tit-02 tit-link">
+      <h2 class="tit-03 tit-link">
         <v-btn variant="text" :href="'javsscript:;'">
           증상관련 진료과 안과
         </v-btn>
@@ -37,7 +37,7 @@
                 <span class="road">{{ item.road }}</span>
                 <span>{{ item.time }}</span>
               </span>
-              <span class="text">{{ item.subject }}</span>
+              <span class="tags mt-4" v-html="item.subject"></span>
             </v-btn>
           </li>
         </ul>
@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="section-page">
-      <h2 class="tit-02 tit-link">
+      <h2 class="tit-03 tit-link">
         <v-btn variant="text" :href="'javsscript:;'"
           >증상에 도움되는 건강 뉴스</v-btn
         >
@@ -71,7 +71,7 @@
         <ul>
           <li v-for="item in healthNewsList" :key="item.id">
             <v-btn variant="text" :href="'javsscript:;'">
-              <img :src="`/src/assets/images/${item.img}`" alt="" />
+              <img :src="`/assets/images/${item.img}`" alt="" />
               <p class="text">{{ item.text }}</p>
             </v-btn>
           </li>
@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="section-page">
-      <h2 class="tit-02 tit-link">
+      <h2 class="tit-03 tit-link">
         <v-btn variant="text" :href="'javsscript:;'"
           >셀프 케어를 위한 건강 동영상</v-btn
         >
@@ -90,7 +90,7 @@
           <li v-for="item in selfcareList" :key="item.id">
             <v-btn variant="text" class="play" :href="'javsscript:;'">
               <span class="img"
-                ><img :src="`/src/assets/images/${item.img}`" alt=""
+                ><img :src="`/assets/images/${item.img}`" alt=""
               /></span>
               <p class="text">{{ item.text }}</p>
             </v-btn>
@@ -157,7 +157,7 @@
             title2: '서울특별시 강남구 테헤란로 401 0층 0호',
             road: '205m',
             time: '09:00~1900',
-            subject: '안과, 기타 진료과목명1'
+            subject: '<span>안과</span><span>기타 진료과목명1</span>'
           },
           {
             id: 2,
@@ -165,7 +165,7 @@
             title2: '서울특별시 강남구 테헤란로 401 0층 0호',
             road: '205m',
             time: '09:00~1900',
-            subject: '안과, 기타 진료과목명2'
+            subject: '<span>안과</span><span>기타 진료과목명2</span>'
           },
           {
             id: 3,
@@ -175,7 +175,7 @@
             road: '205m',
             time: '09:00~1900',
             subject:
-              '안과, 기타 진료과목명, 안과, 기타 진료과목명, 안과, 기타 진료과목명'
+              '<span>안과</span><span>기타 진료과목명</span><span>안과</span><span>기타 진료과목명</span><span>안과</span><span>기타 진료과목명</span>'
           }
         ],
         healthNewsList: [
@@ -217,7 +217,7 @@
           {
             id: 1,
             text: '건강관리를 위해 작은 목표를 시작해 보아요!',
-            title: '루틴 시작하기',
+            title: '챌린지 시작하기',
             icon: 'time'
           }
         ]

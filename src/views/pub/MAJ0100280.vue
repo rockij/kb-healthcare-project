@@ -3,7 +3,7 @@
     <v-card
       class="msg-link alert-card mb-8 alert-setting type-2"
       variant="flat"
-      color="#E8F9FF"
+      color="#EEF6FF"
       rounded="lg"
       v-if="isAlert"
     >
@@ -14,11 +14,17 @@
           주세요.
         </div>
       </div>
-      <img src="@/assets/images/icon-alert.svg" alt="" class="alert-icon" />
+      <img src="/assets/images/icon-alert.svg" alt="" class="alert-icon" />
     </v-card>
 
     <div class="alarm-title">
       <div class="title">개별 맞춤 알림</div>
+      <!-- 2차 -->
+      <!-- <div class="alarm-desc pt-2">
+        <span class="text-blue font-weight-bold">오건강</span>님이 선택한 알림을
+        보내 드려요!
+      </div> -->
+      <!-- // 2차 -->
     </div>
     <div class="alarm-area">
       <ul>
@@ -32,14 +38,26 @@
             class="switch-default"
             v-model="switchOff1"
             color="#FFD338"
-            value="on"
             hide-details
+            @click=";(snackbar = true), (alarm = !alarm)"
+            :model-value="alarm"
           ></v-switch>
+
+          <v-snackbar
+            v-model="snackbar"
+            :timeout="2000"
+            class="toast-basic not-button"
+            >{{ alarm ? 'on' : 'off' }}
+          </v-snackbar>
         </li>
       </ul>
     </div>
     <div class="alarm-title pt-8">
       <div class="title">이벤트 혜택 알림</div>
+      <div class="desc">
+        특별한 혜택과 이벤트 정보를 실시간으로 받아 볼 수 있는 알림으로 개별
+        맞춤 알림 수신과 무관해요
+      </div>
     </div>
     <div class="alarm-area">
       <ul>
@@ -69,6 +87,8 @@
   import { ref, reactive } from 'vue'
   export default {
     setup() {
+      const alarm = ref(true)
+      const snackbar = ref(false)
       const isAlert = true
       const alarmGuide = true
       const switchOff1 = ref('on')
@@ -123,7 +143,10 @@
           switch: true
         }
       ])
+
       return {
+        alarm,
+        snackbar,
         isAlert,
         switchOff1,
         switchOff2,

@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h2 class="fs-24 font-weight-bold">2022.12.30</h2>
+    <h2 class="fs-24 font-weight-bold pt-3">2022.12.30</h2>
     <p class="mt-2">일반검진</p>
     <!-- //title -->
 

@@ -16,10 +16,27 @@
 
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container">
-          <div class="title-area">
+          <!-- 12/22 mt-7 추가 -->
+          <div class="title-area mt-7">
             <p class="subTit-01">어떤 뉴스가 보고싶으세요?</p>
           </div>
-          <ul class="accordion-list mt-6">
+          <!-- 12/22 아코디언 수정 -->
+          <v-expansion-panels class="mt-6 accordion-list" v-model="panel">
+            <v-expansion-panel
+              v-for="(item, i) in panelList"
+              :key="i"
+              :title="item.text"
+            >
+              <template v-slot:text>
+                <div class="text" @click="$emit('close')">
+                  <span v-for="(child, index) in item.children" :key="index">
+                    {{ child }}
+                  </span>
+                </div>
+              </template>
+            </v-expansion-panel>
+          </v-expansion-panels>
+          <!-- <ul class="accordion-list mt-6">
             <li
               v-for="(item, i) in panelList"
               :key="i"
@@ -40,7 +57,7 @@
                 </div>
               </v-expand-transition>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </v-card>
@@ -56,7 +73,7 @@
     setup(props, context) {
       const { emit } = context
       const dialog = ref(true)
-      const panel = ref()
+      const panel = ref([0])
       const panelList = ref([
         {
           text: '뇌혈관 건강',
