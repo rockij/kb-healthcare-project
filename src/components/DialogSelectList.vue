@@ -23,14 +23,14 @@
 
       <div class="modal-body">
         <div class="flex-shrink-0 modal-body-container">
-          <v-btn
-            variant="text"
-            block
-            v-for="btn in lists"
-            :key="btn.value"
-            class="btn-list-block"
-            @click="onClicked(btn)"
-          >
+              <v-btn
+              variant="text"
+              block
+              v-for="btn in lists"
+              :key="btn.value"
+              class="btn-list-block"
+              @click="onClicked(btn)"
+            >
             <span v-html="btn.text"></span>
           </v-btn>
         </div>
@@ -39,21 +39,12 @@
   </v-dialog>
 </template>
 
-<script>
+<script setup>
   import { ref } from 'vue'
-  export default {
-    props: ['lists', 'title'],
-    emits: ['close', 'update'],
-    setup(props, context) {
-      const { emit } = context
-      const dialog = ref(false)
-      function onClicked(btn) {
-        emit('update', btn)
-      }
-      return {
-        dialog,
-        onClicked
-      }
-    }
+  const dialog = ref(false)
+  defineProps(['lists', 'title'])
+  const emit = defineEmits(['close', 'update'])
+  function onClicked(btn) {
+    emit('update', btn)
   }
 </script>

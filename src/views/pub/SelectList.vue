@@ -34,92 +34,80 @@
     />
   </div>
 </template>
-<script>
+<script setup>
   import DialogSelectList from '@/components/DialogSelectList.vue'
   import { ref } from 'vue'
-  export default {
-    components: { DialogSelectList },
-    setup() {
-      const modal = ref(false)
-      const modalTitle = ref('이름입력')
-      const modalList = ref([
-        {
-          value: 0,
-          text: '리스트시작'
-        },
-        {
-          value: 1,
-          text: '리스트'
-        },
-        {
-          value: 2,
-          text: '리스트'
-        },
-        {
-          value: 3,
-          text: '리스트'
-        },
-        {
-          value: 4,
-          text: '리스트'
-        },
-        {
-          value: 5,
-          text: '리스트'
-        },
-        {
-          value: 6,
-          text: '리스트'
-        },
-        {
-          value: 7,
-          text: '리스트'
-        },
-        {
-          value: 8,
-          text: '리스트'
-        },
-        {
-          value: 9,
-          text: '리스트'
-        },
-        {
-          value: 10,
-          text: '리스트'
-        },
-        {
-          value: 11,
-          text: '리스트'
-        },
-        {
-          value: 12,
-          text: '리스트'
-        },
-        {
-          value: 13,
-          text: '리스트'
-        },
-        {
-          value: 14,
-          text: '리스트'
-        },
-        {
-          value: 15,
-          text: '리스트끝'
-        }
-      ])
-      const modalListBtn = ref('선택')
-      function changeCategory(val) {
-        modal.value = false
-        return (modalListBtn.value = val.text)
-      }
-      return {
-        modal,
-        modalTitle,
-        modalList,
-        modalListBtn,
-        changeCategory
-      }
+  const modal = ref(false)
+  const modalTitle = ref('이름입력')
+  const modalList = ref([
+    {
+      value: 0,
+      text: '리스트시작'
+    },
+    {
+      value: 1,
+      text: '리스트'
+    },
+    {
+      value: 2,
+      text: '리스트'
+    },
+    {
+      value: 3,
+      text: '리스트'
+    },
+    {
+      value: 4,
+      text: '리스트'
+    },
+    {
+      value: 5,
+      text: '리스트'
+    },
+    {
+      value: 6,
+      text: '리스트'
+    },
+    {
+      value: 7,
+      text: '리스트'
+    },
+    {
+      value: 8,
+      text: '리스트'
+    },
+    {
+      value: 9,
+      text: '리스트'
+    },
+    {
+      value: 10,
+      text: '리스트'
+    },
+    {
+      value: 11,
+      text: '리스트'
+    },
+    {
+      value: 12,
+      text: '리스트'
+    },
+    {
+      value: 13,
+      text: '리스트'
+    },
+    {
+      value: 14,
+      text: '리스트'
+    },
+    {
+      value: 15,
+      text: '리스트끝'
     }
+  ])
+  const modalListBtn = ref('선택')
+  function changeCategory(val) {
+    modal.value = false
+    return (modalListBtn.value = val.text)
   }
 </script>

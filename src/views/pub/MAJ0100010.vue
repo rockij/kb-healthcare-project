@@ -232,6 +232,24 @@
   </div>
 </template>
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Pagination } from 'swiper/modules'
+import { FreeMode } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+export default {
+    components: {
+      Swiper,
+      SwiperSlide
+    },
+    setup() {
+      return {
+        modules: [Autoplay, Pagination, FreeMode]
+      }
+    }
+  }
+</script>
+<script setup> 
   import router from '@/router'
   import ProgressBar from './ProgressBar.vue'
   import InsightBaner from './MAJ0100013.vue' // 인사이트배너
@@ -241,158 +259,130 @@
   import LifelogHealthnews from './LifelogHealthnews.vue' // 건강뉴스
   import LifelogChallenge from './LifelogChallenge.vue' // 챌린지
   import { ref } from 'vue'
-  import { Swiper, SwiperSlide } from 'swiper/vue'
-  import { Autoplay, Pagination } from 'swiper/modules'
-  import { FreeMode } from 'swiper/modules'
-  import 'swiper/css'
-  import 'swiper/css/pagination'
-  export default {
-    components: {
-      ProgressBar,
-      ManageBaner1,
-      InsightBaner,
-      InsightDialog1,
-      InsightDialog2,
-      LifelogHealthnews,
-      LifelogChallenge,
-      Swiper,
-      SwiperSlide
+  const TodayHealthList = ref([
+    {
+      img: 'icon-circle-count3.svg',
+      text1: '감정',
+      text2: `<strong class="fs-20">보통</strong
+      ><small class="fs-13 ml-1">심숭샘숭</small>`,
+      link: '/MAJ0202920'
     },
-    setup() {
-      const TodayHealthList = ref([
-        {
-          img: 'icon-circle-count3.svg',
-          text1: '감정',
-          text2: `<strong class="fs-20">보통</strong
-          ><small class="fs-13 ml-1">심숭샘숭</small>`,
-          link: '/MAJ0202920'
-        },
-        {
-          img: 'icon-cooking.svg',
-          text1: '식사',
-          text2: `<strong class="fs-20">2,000</strong
-          ><small class="fs-14 text-grey2">kcal</small>`,
-          state: '20%',
-          stateClass: 'chip-graph up',
-          link: '/MAJ0203410'
-        },
-        {
-          img: 'icon-moon.svg',
-          text1: '수면',
-          text2: `<strong class="fs-20">6</strong
-          ><small class="fs-14 text-grey2">시간</small><strong class="fs-20">50</strong
-          ><small class="fs-14 text-grey2">분</small>`,
-          link: '/MAJ0202914'
-        },
-        {
-          img: 'icon-shoes.svg',
-          text1: '걸음',
-          text2: `<strong class="fs-20">11,800</strong
-          ><small class="fs-14 text-grey2">걸음</small>`,
-          link: '/MAJ0202850'
-        },
-        {
-          img: 'icon-blood-sugar.svg',
-          text1: '혈당',
-          text2: `<strong class="fs-20">90</strong
-          ><small class="fs-14 text-grey2">mg/dl</small>`,
-          chip: '20%',
-          state: '주의',
-          link: '/MAJ0203020'
-        },
-        {
-          img: 'icon-blood.svg',
-          text1: '혈압',
-          text2: `<strong class="fs-20">128/81</strong
-          ><small class="fs-14 text-grey2">mmHg</small>`,
-          state: '주의',
-          link: '/MAJ0202970'
-        },
-        {
-          img: 'icon-weight.svg',
-          text1: '체성분',
-          text2: `<strong class="fs-20">55.2</strong
-          ><small class="fs-14 text-grey2">kg</small>`,
-          state: '정상',
-          link: '/MAJ0202970'
-        },
-        {
-          img: 'icon-dumbbell.svg',
-          text1: '운동',
-          text2: `<strong class="fs-20">1</strong
-          ><small class="fs-14 text-grey2">시간</small><strong class="fs-20">20</strong
-          ><small class="fs-14 text-grey2">분</small>`,
-          link: '/MAJ0202856'
-        },
-        {
-          img: 'icon-calendar2.svg',
-          text1: '여성건강',
-          text2: `<strong class="fs-20">1</strong
-          ><small class="fs-14 text-grey2">일째</small>`,
-          link: '/MAB3500'
-        },
-        {
-          img: 'icon-water-cup.svg',
-          text1: '수분',
-          text2: `<strong class="fs-20">5,000</strong
-          ><small class="fs-14 text-grey2">ml</small>`,
-          link: '/MAJ0202940'
-        },
-        {
-          img: 'icon-beercup.svg',
-          text1: '금주',
-          text2: `<strong class="fs-20">23</strong
-          ><small class="fs-14 text-grey2">시간째</small>`,
-          link: '/MAJ0202950'
-        },
-        {
-          img: 'icon-cigarette04.svg',
-          text1: '금연',
-          text2: `<strong class="fs-20">56</strong
-          ><small class="fs-14 text-grey2">분째</small>`,
-          link: '/MAJ0202960'
-        },
-        {
-          img: 'icon-heart-03.svg',
-          text1: '심박',
-          text2: `<strong class="fs-20">50</strong
-          ><small class="fs-14 text-grey2">bpm</small>`,
-          link: '/MAJ0203390'
-        },
-        {
-          img: 'icon-medication.svg',
-          text1: '복약',
-          text2: `<strong class="fs-20">9</strong
-          ><small class="fs-14 text-grey2">건 복용완료</small>`,
-          link: '/MAJ0203420'
-        },
-        {
-          img: 'icon-today-plus00.svg',
-          //text1: '한번에<br/>입력해보세요',
-          once: true
-        }
-      ])
-      function goPath(val) {
-        router.push(val)
-      }
-      function getText(props) {
-        switch (props) {
-          case '정상':
-            return 'success'
-          case '주의':
-            return 'orange'
-        }
-      }
-      const modal = ref(false)
-      const modal2 = ref(false)
-      return {
-        TodayHealthList,
-        goPath,
-        getText,
-        modal,
-        modal2,
-        modules: [Autoplay, Pagination, FreeMode]
-      }
+    {
+      img: 'icon-cooking.svg',
+      text1: '식사',
+      text2: `<strong class="fs-20">2,000</strong
+      ><small class="fs-14 text-grey2">kcal</small>`,
+      state: '20%',
+      stateClass: 'chip-graph up',
+      link: '/MAJ0203410'
+    },
+    {
+      img: 'icon-moon.svg',
+      text1: '수면',
+      text2: `<strong class="fs-20">6</strong
+      ><small class="fs-14 text-grey2">시간</small><strong class="fs-20">50</strong
+      ><small class="fs-14 text-grey2">분</small>`,
+      link: '/MAJ0202914'
+    },
+    {
+      img: 'icon-shoes.svg',
+      text1: '걸음',
+      text2: `<strong class="fs-20">11,800</strong
+      ><small class="fs-14 text-grey2">걸음</small>`,
+      link: '/MAJ0202850'
+    },
+    {
+      img: 'icon-blood-sugar.svg',
+      text1: '혈당',
+      text2: `<strong class="fs-20">90</strong
+      ><small class="fs-14 text-grey2">mg/dl</small>`,
+      chip: '20%',
+      state: '주의',
+      link: '/MAJ0203020'
+    },
+    {
+      img: 'icon-blood.svg',
+      text1: '혈압',
+      text2: `<strong class="fs-20">128/81</strong
+      ><small class="fs-14 text-grey2">mmHg</small>`,
+      state: '주의',
+      link: '/MAJ0202970'
+    },
+    {
+      img: 'icon-weight.svg',
+      text1: '체성분',
+      text2: `<strong class="fs-20">55.2</strong
+      ><small class="fs-14 text-grey2">kg</small>`,
+      state: '정상',
+      link: '/MAJ0202970'
+    },
+    {
+      img: 'icon-dumbbell.svg',
+      text1: '운동',
+      text2: `<strong class="fs-20">1</strong
+      ><small class="fs-14 text-grey2">시간</small><strong class="fs-20">20</strong
+      ><small class="fs-14 text-grey2">분</small>`,
+      link: '/MAJ0202856'
+    },
+    {
+      img: 'icon-calendar2.svg',
+      text1: '여성건강',
+      text2: `<strong class="fs-20">1</strong
+      ><small class="fs-14 text-grey2">일째</small>`,
+      link: '/MAB3500'
+    },
+    {
+      img: 'icon-water-cup.svg',
+      text1: '수분',
+      text2: `<strong class="fs-20">5,000</strong
+      ><small class="fs-14 text-grey2">ml</small>`,
+      link: '/MAJ0202940'
+    },
+    {
+      img: 'icon-beercup.svg',
+      text1: '금주',
+      text2: `<strong class="fs-20">23</strong
+      ><small class="fs-14 text-grey2">시간째</small>`,
+      link: '/MAJ0202950'
+    },
+    {
+      img: 'icon-cigarette04.svg',
+      text1: '금연',
+      text2: `<strong class="fs-20">56</strong
+      ><small class="fs-14 text-grey2">분째</small>`,
+      link: '/MAJ0202960'
+    },
+    {
+      img: 'icon-heart-03.svg',
+      text1: '심박',
+      text2: `<strong class="fs-20">50</strong
+      ><small class="fs-14 text-grey2">bpm</small>`,
+      link: '/MAJ0203390'
+    },
+    {
+      img: 'icon-medication.svg',
+      text1: '복약',
+      text2: `<strong class="fs-20">9</strong
+      ><small class="fs-14 text-grey2">건 복용완료</small>`,
+      link: '/MAJ0203420'
+    },
+    {
+      img: 'icon-today-plus00.svg',
+      //text1: '한번에<br/>입력해보세요',
+      once: true
+    }
+  ])
+  function goPath(val) {
+    router.push(val)
+  }
+  function getText(props) {
+    switch (props) {
+      case '정상':
+        return 'success'
+      case '주의':
+        return 'orange'
     }
   }
+  const modal = ref(false)
+  const modal2 = ref(false)
 </script>

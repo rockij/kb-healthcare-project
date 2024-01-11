@@ -30,7 +30,7 @@
               { 'arrow-3': bpms === 3 },
               { 'arrow-4': bpms === 4 },
               { 'arrow-5': bpms === 5 },
-              { 'arrow-6': bpms === 6 }
+              { 'arrow-6': bpms === 6 },
             ]"
           >
             최근 심박수는
@@ -186,192 +186,192 @@
 </template>
 
 <script>
-  import router from '@/router'
-  import Tooltip from '@/components/Tooltip.vue'
-  import CardReport from '@/components/CardReport.vue'
-  import VCalendar from '@/components/VCalendar.vue'
-  import BanerSimple from '@/components/BanerSimple.vue'
-  import LifelogChallenge from '@/views/pub/LifelogChallenge.vue' // 챌린지
-  import LifelogHealthnews from '@/views/pub/LifelogHealthnews.vue' // 건강뉴스
-  import { Carousel, Slide, Pagination } from 'vue3-carousel'
-  import 'vue3-carousel/dist/carousel.css'
-  import { onUnmounted, ref } from 'vue'
+import router from "@/router";
+import Tooltip from "@/components/Tooltip.vue";
+import CardReport from "@/components/CardReport.vue";
+import VCalendar from "@/components/VCalendar.vue";
+import BanerSimple from "@/components/BanerSimple.vue";
+import LifelogChallenge from "@/views/pub/LifelogChallenge.vue"; // 챌린지
+import LifelogHealthnews from "@/views/pub/LifelogHealthnews.vue"; // 건강뉴스
+import { Carousel, Slide, Pagination } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
+import { onUnmounted, ref } from "vue";
 
-  export default {
-    components: {
-      Tooltip,
-      CardReport,
-      VCalendar,
-      BanerSimple,
-      LifelogChallenge,
-      LifelogHealthnews,
-      Carousel,
-      Slide,
-      Pagination
-    },
-    setup() {
-      const masks = ref({
-        title: 'YYYY.MM'
-      })
-      const attributes = ref([
-        {
-          dot: { style: { backgroundColor: '#907776' } },
-          dates: [new Date(2023, 8, 20)]
-        },
-        {
-          dot: { style: { backgroundColor: '#E02A61' } },
-          dates: [new Date(2023, 8, 20)]
-        },
-        {
-          dot: { style: { backgroundColor: '#B171F7' } },
-          dates: [new Date(2023, 8, 20)]
-        }
-      ])
-      const bpms = ref(1)
-      const isVisible = ref(false)
-      const reports = ref([
-        {
-          id: 0,
-          date: '오전 6:00',
-          device: '플랫폼',
-          state: 'primary',
-          record: '82'
-        },
-        {
-          id: 0,
-          date: '오전 6:00',
-          device: '플랫폼',
-          state: 'error',
-          record: '82-105'
-        },
-        {
-          id: 0,
-          date: '오전 6:00',
-          device: '플랫폼',
-          state: 'success',
-          record: '60-82'
-        }
-      ])
-      function getText(props) {
-        switch (props) {
-          case 'primary':
-            return '증가'
-          case 'success':
-            return '안정'
-          case 'error':
-            return '부족'
-        }
-      }
-      function handleClick() {
-        console.log('emit')
-      }
-      const calendarAttr = ref([
-        {
-          key: 'today',
-          dates: [new Date()],
-          content: { class: 'vc-today' }
-        },
-        {
-          content: { class: 'vc-schedule' },
-          dates: [new Date(2023, 10, 1)]
-        },
-        {
-          content: { class: 'vc-schedule' },
-          dates: [new Date(2023, 9, 10)]
-        }
-      ])
-      const banerList = ref([
-        {
-          title: '운동 관리하러 가기',
-          text: '심박과 함께 관리해보세요!',
-          iconName: 'icon-dumbbell.svg',
-          path: '/MAJ0202856'
-        },
-        {
-          title: '혈압 관리하러 가기',
-          text: '심박과 함께 관리해보세요!',
-          iconName: 'icon-blood.svg',
-          path: '/MAJ0202970'
-        }
-      ])
-      const list = ref([
-        {
-          title: '무산소 영역',
-          class: 'step-6',
-          text: '운동선수의 스피드 및 근력 등을 강화시켜 줍니다. 장시간 진행시 부상 및 위험이 있어요.',
-          percent: '90~100',
-          area: '178-198'
-        },
-        {
-          title: '고강도 영역',
-          class: 'step-5',
-          text: '열정시간 동안 진행 시 운동 수행능력을 향상시켜주며, 매우 빠른속도로 탄수화물과 지방을 태워요',
-          percent: '80~90',
-          area: '158-178'
-        },
-        {
-          title: '유산소 영역',
-          class: 'step-4',
-          text: '심폐지구력과 근지구력 등의 유산소능력이 향상되며 체중감량이 목적인 일반인의 경우 전체 운동시간에서 가장많은 부분을 차지해요.',
-          percent: '70~80',
-          area: '138-158'
-        },
-        {
-          title: '지방연소 영역',
-          class: 'step-3',
-          text: '지방이 연소되기 시작하며, 장시간 진행시 효과적인 칼로리소모를 기대할 수 있습니다. 다만, 유산소 능력 등의 운동능력을 향상시키기는 어려워요',
-          percent: '60~70',
-          area: '118-138'
-        },
-        {
-          title: '저강도 영역',
-          class: 'step-2',
-          text: '운동 시작 전 및 운동 후 워밍업과 쿨다운의 영역이며, 이 영역에서만 운동을 할 경우 효과를 보기 어려워요',
-          percent: '50~60',
-          area: '99-118'
-        },
-        {
-          title: '비운동 영역',
-          class: 'step-1',
-          text: '안정 심박수에 해당하는 영역입니다. 운동효과를 보기 위해서는 심박수를 증가시킬수 있는 운동을 수행해 보세요.',
-          percent: '< 50',
-          area: '< 99'
-        }
-      ])
-      const tabInit = ref(0)
-      const tabItems = ref([
-        {
-          id: 2,
-          text: '1주일'
-        },
-        {
-          id: 3,
-          text: '1개월'
-        },
-        {
-          id: 4,
-          text: '6개월'
-        }
-      ])
-      function goPath(val) {
-        router.push(val)
-      }
-      onUnmounted(() => {})
-      return {
-        bpms,
-        isVisible,
-        list,
-        tabInit,
-        tabItems,
-        masks,
-        attributes,
-        reports,
-        getText,
-        handleClick,
-        calendarAttr,
-        banerList,
-        goPath
+export default {
+  components: {
+    Tooltip,
+    CardReport,
+    VCalendar,
+    BanerSimple,
+    LifelogChallenge,
+    LifelogHealthnews,
+    Carousel,
+    Slide,
+    Pagination,
+  },
+  setup() {
+    const masks = ref({
+      title: "YYYY.MM",
+    });
+    const attributes = ref([
+      {
+        dot: { style: { backgroundColor: "#907776" } },
+        dates: [new Date(2023, 8, 20)],
+      },
+      {
+        dot: { style: { backgroundColor: "#E02A61" } },
+        dates: [new Date(2023, 8, 20)],
+      },
+      {
+        dot: { style: { backgroundColor: "#B171F7" } },
+        dates: [new Date(2023, 8, 20)],
+      },
+    ]);
+    const bpms = ref(1);
+    const isVisible = ref(false);
+    const reports = ref([
+      {
+        id: 0,
+        date: "오전 6:00",
+        device: "플랫폼",
+        state: "primary",
+        record: "82",
+      },
+      {
+        id: 0,
+        date: "오전 6:00",
+        device: "플랫폼",
+        state: "error",
+        record: "82-105",
+      },
+      {
+        id: 0,
+        date: "오전 6:00",
+        device: "플랫폼",
+        state: "success",
+        record: "60-82",
+      },
+    ]);
+    function getText(props) {
+      switch (props) {
+        case "primary":
+          return "증가";
+        case "success":
+          return "안정";
+        case "error":
+          return "부족";
       }
     }
-  }
+    function handleClick() {
+      console.log("emit");
+    }
+    const calendarAttr = ref([
+      {
+        key: "today",
+        dates: [new Date()],
+        content: { class: "vc-today" },
+      },
+      {
+        content: { class: "vc-schedule" },
+        dates: [new Date(2023, 10, 1)],
+      },
+      {
+        content: { class: "vc-schedule" },
+        dates: [new Date(2023, 9, 10)],
+      },
+    ]);
+    const banerList = ref([
+      {
+        title: "운동 관리하러 가기",
+        text: "심박과 함께 관리해보세요!",
+        iconName: "icon-dumbbell.svg",
+        path: "/MAJ0202856",
+      },
+      {
+        title: "혈압 관리하러 가기",
+        text: "심박과 함께 관리해보세요!",
+        iconName: "icon-blood.svg",
+        path: "/MAJ0202970",
+      },
+    ]);
+    const list = ref([
+      {
+        title: "무산소 영역",
+        class: "step-6",
+        text: "운동선수의 스피드 및 근력 등을 강화시켜 줍니다. 장시간 진행시 부상 및 위험이 있어요.",
+        percent: "90~100",
+        area: "178-198",
+      },
+      {
+        title: "고강도 영역",
+        class: "step-5",
+        text: "열정시간 동안 진행 시 운동 수행능력을 향상시켜주며, 매우 빠른속도로 탄수화물과 지방을 태워요",
+        percent: "80~90",
+        area: "158-178",
+      },
+      {
+        title: "유산소 영역",
+        class: "step-4",
+        text: "심폐지구력과 근지구력 등의 유산소능력이 향상되며 체중감량이 목적인 일반인의 경우 전체 운동시간에서 가장많은 부분을 차지해요.",
+        percent: "70~80",
+        area: "138-158",
+      },
+      {
+        title: "지방연소 영역",
+        class: "step-3",
+        text: "지방이 연소되기 시작하며, 장시간 진행시 효과적인 칼로리소모를 기대할 수 있습니다. 다만, 유산소 능력 등의 운동능력을 향상시키기는 어려워요",
+        percent: "60~70",
+        area: "118-138",
+      },
+      {
+        title: "저강도 영역",
+        class: "step-2",
+        text: "운동 시작 전 및 운동 후 워밍업과 쿨다운의 영역이며, 이 영역에서만 운동을 할 경우 효과를 보기 어려워요",
+        percent: "50~60",
+        area: "99-118",
+      },
+      {
+        title: "비운동 영역",
+        class: "step-1",
+        text: "안정 심박수에 해당하는 영역입니다. 운동효과를 보기 위해서는 심박수를 증가시킬수 있는 운동을 수행해 보세요.",
+        percent: "< 50",
+        area: "< 99",
+      },
+    ]);
+    const tabInit = ref(0);
+    const tabItems = ref([
+      {
+        id: 2,
+        text: "1주일",
+      },
+      {
+        id: 3,
+        text: "1개월",
+      },
+      {
+        id: 4,
+        text: "6개월",
+      },
+    ]);
+    function goPath(val) {
+      router.push(val);
+    }
+    onUnmounted(() => {});
+    return {
+      bpms,
+      isVisible,
+      list,
+      tabInit,
+      tabItems,
+      masks,
+      attributes,
+      reports,
+      getText,
+      handleClick,
+      calendarAttr,
+      banerList,
+      goPath,
+    };
+  },
+};
 </script>
